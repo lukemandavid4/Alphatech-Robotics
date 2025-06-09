@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .font-quanta {
+    font-family: "QuantaGroteskPro", sans-serif;
+  }
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --background: #ffffff;
+  --foreground: #0a0a0d;
+  --card: #ffffff;
+  --card-foreground: #0a0a0d;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0d;
+  --primary: #1d4ed8;
+  --primary-foreground: #fafafa;
+  --secondary: #f1f1f5;
+  --secondary-foreground: #19191d;
+  --muted: #f1f1f5;
+  --muted-foreground: #6f6f7c;
+  --accent: #f1f1f5;
+  --accent-foreground: #19191d;
+  --destructive: #f04438;
+  --destructive-foreground: #f8fafc;
+  --border: #e3e3ea;
+  --input: #e3e3ea;
+  --ring: #1d4ed8;
+
+  --tech-blue: #1d4ed8;
+  --tech-gray: #f1f1f5;
+  --tech-dark: #0a0a0d;
+  --success: #15803d;
+  --warning: #facc15;
+
+  --card-one-background: #d0e4fe;
+  --card-two-background: #efe1ff;
+  --card-three-background: #cdfadc;
+  --card-four-background: #ffe4c4;
+
+  --card-one-foreground: #accaf6;
+  --card-two-foreground: #e0c3fd;
+  --card-three-foreground: #a9eec2;
+  --card-four-foreground: #fecc9d;
+
+  --font-inter: "Montserrat", sans-serif;
+
+  /* .dark {
+    --background: #0a0a0d;
+    --foreground: #fafafa;
+    --card: #0a0a0d;
+    --card-foreground: #fafafa;
+    --popover: #0a0a0d;
+    --popover-foreground: #fafafa;
+    --primary: #1d4ed8;
+    --primary-foreground: #19191d;
+    --secondary: #2a2a30;
+    --secondary-foreground: #fafafa;
+    --muted: #2a2a30;
+    --muted-foreground: #a3a3b3;
+    --accent: #2a2a30;
+    --accent-foreground: #fafafa;
+    --destructive: #992a2a;
+    --destructive-foreground: #fafafa;
+    --border: #2a2a30;
+    --input: #2a2a30;
+    --ring: #1d4ed8;
+  } */
+}
+
+@font-face {
+  font-family: "QuantaGroteskPro";
+  src: url("/fonts/QuantaGroteskPro-Regular-BF6459a54cc331c.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "QuantaGroteskPro", sans-serif;
+  font-family: var(--font-montserrat);
+}
