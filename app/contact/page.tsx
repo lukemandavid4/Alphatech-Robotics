@@ -15,8 +15,11 @@ const page = () => {
             about our products or services.
           </p>
         </div>
-        <div>
-          <div className="flex flex-col gap-6">
+        <div className="flex flex-wrap justify-between">
+          <div
+            className="flex flex-col gap-6"
+            style={{ flexBasis: "calc(50% - 16px)" }}
+          >
             <h1 className="text-[1.5rem] font-semibold">Get In Touch</h1>
             <p className="text-[var(--muted-foreground)]">
               We'd love to hear from you. Send us a message and we'll respond as
@@ -72,7 +75,78 @@ const page = () => {
               </div>
             </div>
           </div>
-          <div></div>
+          <div
+            className="flex flex-col gap-6 border border-[var(--input)] p-8 rounded-[0.5rem]"
+            style={{ flexBasis: "calc(50% - 16px)" }}
+          >
+            <div>
+              <h1 className="text-[1.5rem] font-semibold">Send us a message</h1>
+            </div>
+            <div className="flex flex-wrap justify-between">
+              <div
+                className="flex flex-col"
+                style={{ flexBasis: "calc(50% - 8px)" }}
+              >
+                <label htmlFor="name" className="text-[0.9rem] font-semibold">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  placeholder="Your full name"
+                  className="border border-[var(--input)] rounded-[0.5rem] p-2 text-[0.9rem] outline-[var(--primary)]"
+                />
+              </div>
+              <div
+                className="flex flex-col"
+                style={{ flexBasis: "calc(50% - 8px)" }}
+              >
+                <label htmlFor="email" className="text-[0.9rem] font-semibold">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="your.email@example.com"
+                  className="border border-[var(--input)] rounded-[0.5rem] p-2 text-[0.9rem] outline-[var(--primary)]"
+                />
+              </div>
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="subject" className="text-[0.9rem] font-semibold">
+                Subject
+              </label>
+              <input
+                type="text"
+                name="subject"
+                id="subject"
+                placeholder="What is this regarding?"
+                className="border border-[var(--input)] rounded-[0.5rem] p-2 text-[0.9rem] outline-[var(--primary)]"
+              />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="message" className="text-[0.9rem] font-semibold">
+                Message
+              </label>
+              <textarea
+                name="message"
+                id="message"
+                placeholder="Tell us how we can help you..."
+                rows={10}
+                className="border border-[var(--input)] rounded-[0.5rem] p-2 text-[0.9rem] outline-[var(--primary)] resize-none"
+              ></textarea>
+            </div>
+            <div>
+              <button
+                type="submit"
+                className="bg-[var(--primary)] text-white w-full py-3 rounded-[0.5rem] cursor-pointer font-semibold hover:bg-blue-600 transition duration-300"
+              >
+                Send Message
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </>
