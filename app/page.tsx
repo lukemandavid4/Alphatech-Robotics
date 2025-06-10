@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -234,7 +235,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="flex h-screen px-[10rem]">
+      <div className="flex flex-col gap-8 h-screen px-[10rem]">
         <div className="flex flex-col items-center w-full">
           <h1 className="text-[2rem] font-bold">Trending Products</h1>
           <p className="text-[var(--muted-foreground)]">
@@ -242,7 +243,236 @@ export default function Home() {
             Oraimo, Samsung, and Punex
           </p>
         </div>
-        <div></div>
+        <div className="flex flex-col gap-8">
+          <div className="flex w-full gap-4">
+            <Link
+              href="/shop"
+              className="flex flex-col w-1/3 h-[35rem] shadow-xl rounded-[0.5rem] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <div>
+                <Image src="/images/Necklace.webp" width={500} height={500} />
+              </div>
+              <div className="px-6 pb-6">
+                <div className="flex justify-between">
+                  <span className="text-[var(--muted-foreground)] text-[0.9rem]">
+                    AUDIO
+                  </span>
+                  <span className="p-1 bg-[var(--card-one-background)] text-[0.8rem] text-[var(--primary)] font-semibold rounded-[0.3rem]">
+                    Oraimo
+                  </span>
+                </div>
+                <p className="font-semibold text-[0.9rem]">
+                  Oraimo FreePods 3C Wireless Earbuds
+                </p>
+                <div className="flex items-center gap-2">
+                  <span className="font-bold">KSh 3,299</span>
+                  <span className="text-[0.9rem] line-through text-[var(--muted-foreground)]">
+                    KSh 4,999
+                  </span>
+                  <span className="text-[0.9rem] font-semibold text-[var(--audio)]">
+                    Save KSh 1,700
+                  </span>
+                </div>
+                <Link
+                  href="/shop"
+                  className="flex justify-center text-white text-[0.9rem] py-2 rounded-[0.5rem] font-semibold bg-[var(--primary)] hover:bg-blue-600 transition duration-300"
+                >
+                  Add to Cart
+                </Link>
+              </div>
+            </Link>
+            <Link
+              href="/shop"
+              className="flex flex-col w-1/3 h-[35rem] shadow-xl rounded-[0.5rem] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <div>
+                <Image src="/images/Necklace.webp" width={500} height={500} />
+              </div>
+              <div className="px-6 pb-6">
+                <div className="flex justify-between">
+                  <span className="text-[var(--muted-foreground)] text-[0.9rem]">
+                    AUDIO
+                  </span>
+                  <span className="p-1 bg-[var(--card-one-background)] text-[0.8rem] text-[var(--primary)] font-semibold rounded-[0.3rem]">
+                    Oraimo
+                  </span>
+                </div>
+                <p className="font-semibold text-[0.9rem]">
+                  Oraimo FreePods 3C Wireless Earbuds
+                </p>
+                <div className="flex items-center gap-2">
+                  <span className="font-bold">KSh 3,299</span>
+                  <span className="text-[0.9rem] line-through text-[var(--muted-foreground)]">
+                    KSh 4,999
+                  </span>
+                  <span className="text-[0.9rem] font-semibold text-[var(--audio)]">
+                    Save KSh 1,700
+                  </span>
+                </div>
+                <Link
+                  href="/shop"
+                  className="flex justify-center text-white text-[0.9rem] py-2 rounded-[0.5rem] font-semibold bg-[var(--primary)] hover:bg-blue-600 transition duration-300"
+                >
+                  Add to Cart
+                </Link>
+              </div>
+            </Link>
+            <Link
+              href="/shop"
+              className="flex flex-col w-1/3 h-[35rem] shadow-xl rounded-[0.5rem] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <div>
+                <Image src="/images/Necklace.webp" width={500} height={500} />
+              </div>
+              <div className="px-6 pb-6">
+                <div className="flex justify-between">
+                  <span className="text-[var(--muted-foreground)] text-[0.9rem]">
+                    AUDIO
+                  </span>
+                  <span className="p-1 bg-[var(--card-one-background)] text-[0.8rem] text-[var(--primary)] font-semibold rounded-[0.3rem]">
+                    Oraimo
+                  </span>
+                </div>
+                <p className="font-semibold text-[0.9rem]">
+                  Oraimo FreePods 3C Wireless Earbuds
+                </p>
+                <div className="flex items-center gap-2">
+                  <span className="font-bold">KSh 3,299</span>
+                  <span className="text-[0.9rem] line-through text-[var(--muted-foreground)]">
+                    KSh 4,999
+                  </span>
+                  <span className="text-[0.9rem] font-semibold text-[var(--audio)]">
+                    Save KSh 1,700
+                  </span>
+                </div>
+                <Link
+                  href="/shop"
+                  className="flex justify-center text-white text-[0.9rem] py-2 rounded-[0.5rem] font-semibold bg-[var(--primary)] hover:bg-blue-600 transition duration-300"
+                >
+                  Add to Cart
+                </Link>
+              </div>
+            </Link>
+          </div>
+          <div className="flex w-full gap-4">
+            <Link
+              href="/shop"
+              className="flex flex-col w-1/3 h-[35rem] shadow-xl rounded-[0.5rem] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <div>
+                <Image src="/images/Necklace.webp" width={500} height={500} />
+              </div>
+              <div className="px-6 pb-6">
+                <div className="flex justify-between">
+                  <span className="text-[var(--muted-foreground)] text-[0.9rem]">
+                    AUDIO
+                  </span>
+                  <span className="p-1 bg-[var(--card-one-background)] text-[0.8rem] text-[var(--primary)] font-semibold rounded-[0.3rem]">
+                    Oraimo
+                  </span>
+                </div>
+                <p className="font-semibold text-[0.9rem]">
+                  Oraimo FreePods 3C Wireless Earbuds
+                </p>
+                <div className="flex items-center gap-2">
+                  <span className="font-bold">KSh 3,299</span>
+                  <span className="text-[0.9rem] line-through text-[var(--muted-foreground)]">
+                    KSh 4,999
+                  </span>
+                  <span className="text-[0.9rem] font-semibold text-[var(--audio)]">
+                    Save KSh 1,700
+                  </span>
+                </div>
+                <Link
+                  href="/shop"
+                  className="flex justify-center text-white text-[0.9rem] py-2 rounded-[0.5rem] font-semibold bg-[var(--primary)] hover:bg-blue-600 transition duration-300"
+                >
+                  Add to Cart
+                </Link>
+              </div>
+            </Link>
+            <Link
+              href="/shop"
+              className="flex flex-col w-1/3 h-[35rem] shadow-xl rounded-[0.5rem] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <div>
+                <Image src="/images/Necklace.webp" width={500} height={500} />
+              </div>
+              <div className="px-6 pb-6">
+                <div className="flex justify-between">
+                  <span className="text-[var(--muted-foreground)] text-[0.9rem]">
+                    AUDIO
+                  </span>
+                  <span className="p-1 bg-[var(--card-one-background)] text-[0.8rem] text-[var(--primary)] font-semibold rounded-[0.3rem]">
+                    Oraimo
+                  </span>
+                </div>
+                <p className="font-semibold text-[0.9rem]">
+                  Oraimo FreePods 3C Wireless Earbuds
+                </p>
+                <div className="flex items-center gap-2">
+                  <span className="font-bold">KSh 3,299</span>
+                  <span className="text-[0.9rem] line-through text-[var(--muted-foreground)]">
+                    KSh 4,999
+                  </span>
+                  <span className="text-[0.9rem] font-semibold text-[var(--audio)]">
+                    Save KSh 1,700
+                  </span>
+                </div>
+                <Link
+                  href="/shop"
+                  className="flex justify-center text-white text-[0.9rem] py-2 rounded-[0.5rem] font-semibold bg-[var(--primary)] hover:bg-blue-600 transition duration-300"
+                >
+                  Add to Cart
+                </Link>
+              </div>
+            </Link>
+            <Link
+              href="/shop"
+              className="flex flex-col w-1/3 h-[35rem] shadow-xl rounded-[0.5rem] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <div>
+                <Image src="/images/Necklace.webp" width={500} height={500} />
+              </div>
+              <div className="px-6 pb-6">
+                <div className="flex justify-between">
+                  <span className="text-[var(--muted-foreground)] text-[0.9rem]">
+                    AUDIO
+                  </span>
+                  <span className="p-1 bg-[var(--card-one-background)] text-[0.8rem] text-[var(--primary)] font-semibold rounded-[0.3rem]">
+                    Oraimo
+                  </span>
+                </div>
+                <p className="font-semibold text-[0.9rem]">
+                  Oraimo FreePods 3C Wireless Earbuds
+                </p>
+                <div className="flex items-center gap-2">
+                  <span className="font-bold">KSh 3,299</span>
+                  <span className="text-[0.9rem] line-through text-[var(--muted-foreground)]">
+                    KSh 4,999
+                  </span>
+                  <span className="text-[0.9rem] font-semibold text-[var(--audio)]">
+                    Save KSh 1,700
+                  </span>
+                </div>
+                <Link
+                  href="/shop"
+                  className="flex justify-center text-white text-[0.9rem] py-2 rounded-[0.5rem] font-semibold bg-[var(--primary)] hover:bg-blue-600 transition duration-300"
+                >
+                  Add to Cart
+                </Link>
+              </div>
+            </Link>
+          </div>
+          <div className="flex items-center justify-center">
+            <Link
+              href="/shop"
+              className="px-8 py-2 font-semibold border rounded-[0.5rem] border-[var(--border)] hover:bg-[var(--border)] transition duration-300"
+            >
+              View All Products
+            </Link>
+          </div>
+        </div>
       </div>
     </>
   );
