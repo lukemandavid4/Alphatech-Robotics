@@ -101,7 +101,40 @@ const page = () => {
             </span>
           </div>
         </div>
-        <div></div>
+        <div className="flex justify-between px-16 text-center">
+          <div>
+            <h1 className="text-[1.8rem] text-[var(--primary)] font-semibold">
+              500K+
+            </h1>
+            <p className="text-[var(--muted-foreground)] text-[0.9rem]">
+              Happy Customers
+            </p>
+          </div>
+          <div>
+            <h1 className="text-[1.8rem] text-[var(--primary)] font-semibold">
+              500+
+            </h1>
+            <p className="text-[var(--muted-foreground)] text-[0.9rem]">
+              Products
+            </p>
+          </div>
+          <div>
+            <h1 className="text-[1.8rem] text-[var(--primary)] font-semibold">
+              99%
+            </h1>
+            <p className="text-[var(--muted-foreground)] text-[0.9rem]">
+              Satisfaction Rate
+            </p>
+          </div>
+          <div>
+            <h1 className="text-[1.8rem] text-[var(--primary)] font-semibold">
+              24/7
+            </h1>
+            <p className="text-[var(--muted-foreground)] text-[0.9rem]">
+              Support
+            </p>
+          </div>
+        </div>
       </div>
     </>
   );
