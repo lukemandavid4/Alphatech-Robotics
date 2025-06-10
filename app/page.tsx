@@ -237,7 +237,7 @@ export default function Home() {
       <div className="flex h-screen px-[10rem]">
         <div className="flex flex-col items-center w-full">
           <h1 className="text-[2rem] font-bold">Trending Products</h1>
-          <p>
+          <p className="text-[var(--muted-foreground)]">
             Discover our most popular electronics from trusted brands like
             Oraimo, Samsung, and Punex
           </p>
