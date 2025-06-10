@@ -34,7 +34,7 @@ export default function Home() {
           <div className="w-full flex gap-4">
             <div
               className="flex flex-col gap-4 h-[14.25rem] w-1/2 shadow-xl rounded-[0.5rem]
-            p-6"
+            p-6 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
             >
               <div className="flex items-center justify-center bg-[var(--card-one-background)] h-2/3 rounded-[0.5rem]">
                 <div className="flex items-center justify-center w-[3.5rem] h-[3.5rem] bg-[var(--card-one-foreground)] rounded-[50vw]">
@@ -42,7 +42,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="flex flex-col h-1/3">
-                <span className="text-[0.9rem]">Smartphones</span>
+                <span className="text-[0.9rem] font-semibold">Smartphones</span>
                 <span className="text-[var(--muted-foreground)] text-[0.8rem]">
                   Latest Models
                 </span>
@@ -50,7 +50,7 @@ export default function Home() {
             </div>
             <div
               className="flex flex-col gap-4 h-[14.25rem] w-1/2 shadow-xl mt-4 rounded-[0.5rem]
-            p-6"
+            p-6 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
             >
               <div className="flex items-center justify-center bg-[var(--card-two-background)] h-2/3 rounded-[0.5rem]">
                 <div className="flex items-center justify-center w-[3.5rem] h-[3.5rem] bg-[var(--card-two-foreground)] rounded-[50vw]">
@@ -58,7 +58,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="flex flex-col h-1/3">
-                <span className="text-[0.9rem]">Audio</span>
+                <span className="text-[0.9rem] font-semibold">Audio</span>
                 <span className="text-[var(--muted-foreground)] text-[0.8rem]">
                   Premium Sound
                 </span>
@@ -68,7 +68,7 @@ export default function Home() {
           <div className="w-full flex gap-4">
             <div
               className="flex flex-col gap-4 h-[14.25rem] w-1/2 shadow-xl rounded-[0.5rem]
-            p-6 "
+            p-6 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
             >
               <div className="flex items-center justify-center bg-[var(--card-three-background)] h-2/3 rounded-[0.5rem]">
                 <div className="flex items-center justify-center w-[3.5rem] h-[3.5rem] bg-[var(--card-three-foreground)] rounded-[50vw]">
@@ -76,7 +76,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="flex flex-col h-1/3">
-                <span className="text-[0.9rem]">Laptops</span>
+                <span className="text-[0.9rem] font-semibold">Laptops</span>
                 <span className="text-[var(--muted-foreground)] text-[0.8rem]">
                   High Perfomance
                 </span>
@@ -84,7 +84,7 @@ export default function Home() {
             </div>
             <div
               className="flex flex-col gap-4 h-[14.25rem] w-1/2 shadow-xl mt-4 rounded-[0.5rem]
-            p-6"
+            p-6 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
             >
               <div className="flex items-center justify-center bg-[var(--card-four-background)] h-2/3 rounded-[0.5rem]">
                 <div className="flex items-center justify-center w-[3.5rem] h-[3.5rem] bg-[var(--card-four-foreground)] rounded-[50vw]">
@@ -92,7 +92,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="flex flex-col h-1/3">
-                <span className="text-[0.9rem]">Accessories</span>
+                <span className="text-[0.9rem] font-semibold">Accessories</span>
                 <span className="text-[var(--muted-foreground)] text-[0.8rem]">
                   Essential gear
                 </span>
@@ -100,6 +100,149 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </div>
+      <div className="flex items-center justify-center bg-[var(--primary)] h-[2.75rem] text-white">
+        <p className="text-[0.9rem]">
+          🎉 Free shipping on orders over KSh 5,000 | 30-day return policy |
+          2-year warranty
+        </p>
+      </div>
+      <div className="flex flex-col gap-8 bg-white px-[10rem] h-screen">
+        <div className="flex flex-col items-center w-full mt-[4rem]">
+          <h1 className="text-[2rem] font-bold">Shop by Category</h1>
+          <p className="text-[var(--muted-foreground)]">
+            Find exactly what you're looking for in our organized product
+            categories
+          </p>
+        </div>
+        <div className="flex flex-col w-full">
+          <div className="flex gap-4">
+            <Link
+              href=""
+              className="flex flex-col px-6 pt-8 pb-6 items-center justify-between shadow-xl h-[14.25rem] w-1/4 rounded-[0.5rem] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <div className="flex items-center justify-center w-[3.5rem] h-[3.5rem] bg-[var(--smartphones)] rounded-[50vw]">
+                📱
+              </div>
+              <div className="flex flex-col gap-2 items-center">
+                <span className="text-0.9rem font-semibold">Smartphones</span>
+                <span className="text-[var(--muted-foreground)] text-[0.8rem]">
+                  50+ Products
+                </span>
+              </div>
+            </Link>
+            <Link
+              href=""
+              className="flex flex-col px-6 pt-8 pb-6 items-center justify-between shadow-xl h-[14.25rem] w-1/4 rounded-[0.5rem] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <div className="flex items-center justify-center w-[3.5rem] h-[3.5rem] bg-[var(--laptops)] rounded-[50vw]">
+                💻
+              </div>
+              <div className="flex flex-col gap-2 items-center">
+                <span className="text-0.9rem font-semibold">Laptops</span>
+                <span className="text-[var(--muted-foreground)] text-[0.8rem]">
+                  30+ Products
+                </span>
+              </div>
+            </Link>
+            <Link
+              href=""
+              className="flex flex-col px-6 pt-8 pb-6 items-center justify-between shadow-xl h-[14.25rem] w-1/4 rounded-[0.5rem] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <div className="flex items-center justify-center w-[3.5rem] h-[3.5rem] bg-[var(--audio)] rounded-[50vw]">
+                🎧
+              </div>
+              <div className="flex flex-col gap-2 items-center">
+                <span className="text-0.9rem font-semibold">Audio</span>
+                <span className="text-[var(--muted-foreground)] text-[0.8rem]">
+                  40+ Products
+                </span>
+              </div>
+            </Link>
+            <Link
+              href=""
+              className="flex flex-col px-6 pt-8 pb-6 items-center justify-between shadow-xl h-[14.25rem] w-1/4 rounded-[0.5rem] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <div className="flex items-center justify-center w-[3.5rem] h-[3.5rem] bg-[var(--accessories)] rounded-[50vw]">
+                🔌
+              </div>
+              <div className="flex flex-col gap-2 items-center">
+                <span className="text-0.9rem font-semibold">Accessories</span>
+                <span className="text-[var(--muted-foreground)] text-[0.8rem]">
+                  80+ Products
+                </span>
+              </div>
+            </Link>
+          </div>
+          <div className="flex gap-4">
+            <Link
+              href=""
+              className="flex flex-col px-6 pt-8 pb-6 items-center justify-between shadow-xl h-[14.25rem] w-1/4 rounded-[0.5rem] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <div className="flex items-center justify-center w-[3.5rem] h-[3.5rem] bg-[var(--storage)] rounded-[50vw]">
+                💾
+              </div>
+              <div className="flex flex-col gap-2 items-center">
+                <span className="text-0.9rem font-semibold">Storage</span>
+                <span className="text-[var(--muted-foreground)] text-[0.8rem]">
+                  25+ Products
+                </span>
+              </div>
+            </Link>
+            <Link
+              href=""
+              className="flex flex-col px-6 pt-8 pb-6 items-center justify-between shadow-xl h-[14.25rem] w-1/4 rounded-[0.5rem] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <div className="flex items-center justify-center w-[3.5rem] h-[3.5rem] bg-[var(--gaming)] rounded-[50vw]">
+                🎮
+              </div>
+              <div className="flex flex-col gap-2 items-center">
+                <span className="text-0.9rem font-semibold">Gaming</span>
+                <span className="text-[var(--muted-foreground)] text-[0.8rem]">
+                  35+ Products
+                </span>
+              </div>
+            </Link>
+            <Link
+              href=""
+              className="flex flex-col px-6 pt-8 pb-6 items-center justify-between shadow-xl h-[14.25rem] w-1/4 rounded-[0.5rem] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <div className="flex items-center justify-center w-[3.5rem] h-[3.5rem] bg-[var(--smarthome)] rounded-[50vw]">
+                🏠
+              </div>
+              <div className="flex flex-col gap-2 items-center">
+                <span className="text-0.9rem font-semibold">Smart Home</span>
+                <span className="text-[var(--muted-foreground)] text-[0.8rem]">
+                  20+ Products
+                </span>
+              </div>
+            </Link>
+            <Link
+              href=""
+              className="flex flex-col px-6 pt-8 pb-6 items-center justify-between shadow-xl h-[14.25rem] w-1/4 rounded-[0.5rem] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <div className="flex items-center justify-center w-[3.5rem] h-[3.5rem] bg-[var(--wearables)] rounded-[50vw]">
+                ⌚
+              </div>
+              <div className="flex flex-col gap-2 items-center">
+                <span className="text-0.9rem font-semibold">Wearables</span>
+                <span className="text-[var(--muted-foreground)] text-[0.8rem]">
+                  15+ Products
+                </span>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </div>
+      <div className="flex h-screen px-[10rem]">
+        <div className="flex flex-col items-center w-full">
+          <h1 className="text-[2rem] font-bold">Trending Products</h1>
+          <p>
+            Discover our most popular electronics from trusted brands like
+            Oraimo, Samsung, and Punex
+          </p>
+        </div>
+        <div></div>
       </div>
     </>
   );

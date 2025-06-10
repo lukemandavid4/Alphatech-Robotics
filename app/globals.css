@@ -45,6 +45,15 @@
   --card-three-foreground: #a9eec2;
   --card-four-foreground: #fecc9d;
 
+  --smartphones: #377df4;
+  --laptops: #9739ec;
+  --audio: #1bb152;
+  --accessories: #f66e14;
+  --storage: #ec4040;
+  --gaming: #6163f0;
+  --smarthome: #12ac9c;
+  --wearables: #e94192;
+
   --font-inter: "Montserrat", sans-serif;
 
   /* .dark {
