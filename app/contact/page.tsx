@@ -70,7 +70,7 @@ const page = () => {
               <div className="flex flex-col">
                 <span className="font-semibold text-[0.9rem]">Location</span>
                 <span className="text-[var(--muted-foreground)] text-[0.9rem]">
-                  Nairobi, Kenya
+                  Thika, Kenya
                 </span>
               </div>
             </div>
