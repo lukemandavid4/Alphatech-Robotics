@@ -43,7 +43,7 @@ const Footer = () => {
                 <Link
                   key={href}
                   href={href}
-                  className="hover:text-white transition duration-200"
+                  className="hover:text-white w-fit transition duration-200"
                 >
                   {label}
                 </Link>
@@ -57,13 +57,13 @@ const Footer = () => {
             <h1 className="text-white">Account</h1>
             <Link
               href=""
-              className="text-[var(--muted-foreground)] hover:text-white transition-colors duration-200"
+              className="text-[var(--muted-foreground)] w-fit hover:text-white transition-colors duration-200"
             >
               My Account
             </Link>
             <Link
               href=""
-              className="text-[var(--muted-foreground)] hover:text-white transition-colors duration-200"
+              className="text-[var(--muted-foreground)] w-fit hover:text-white transition-colors duration-200"
             >
               Shopping Cart
             </Link>
