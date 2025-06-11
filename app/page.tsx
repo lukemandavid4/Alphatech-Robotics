@@ -235,7 +235,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-8 h-screen px-[10rem]">
+      <div className="flex flex-col gap-8 px-[10rem]">
         <div className="flex flex-col items-center w-full">
           <h1 className="text-[2rem] font-bold">Trending Products</h1>
           <p className="text-[var(--muted-foreground)]">
