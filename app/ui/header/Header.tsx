@@ -46,7 +46,7 @@ const Header = () => {
       </div>
       <div className="flex items-center gap-8">
         <Link
-          href="/"
+          href="/account"
           className="flex items-center gap-2 px-2 py-1 hover:bg-[var(--muted)] rounded-[0.5rem]"
         >
           <User className="w-[1.2rem] h-[1.2rem]" />
