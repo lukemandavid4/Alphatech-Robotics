@@ -30,7 +30,10 @@ const page = () => {
             <p>Forgot Password?</p>
             <button type="submit">Sign In</button>
           </div>
-          <div></div>
+          <div>
+            <p>OR CONTINUE WITH</p>
+            <button type="button">Continue with Google</button>
+          </div>
         </div>
       </div>
     </>
