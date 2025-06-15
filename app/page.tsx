@@ -139,10 +139,10 @@ export default function Home() {
       reviews: 1243,
     },
     {
-      imageUrl: "/images/Necklace.webp", // Replace with actual image for product 2
+      imageUrl: "/images/Necklace.webp",
       category: "AUDIO",
       brand: "Oraimo",
-      name: "Oraimo FreePods 3C Wireless Earbuds", // Replace with actual product name
+      name: "Oraimo FreePods 3C Wireless Earbuds",
       currentPrice: 3299,
       oldPrice: 4999,
       savings: 1700,
@@ -150,10 +150,10 @@ export default function Home() {
       reviews: 1243,
     },
     {
-      imageUrl: "/images/Necklace.webp", // Replace with actual image for product 3
+      imageUrl: "/images/Necklace.webp",
       category: "AUDIO",
       brand: "Oraimo",
-      name: "Oraimo FreePods 3C Wireless Earbuds", // Replace with actual product name
+      name: "Oraimo FreePods 3C Wireless Earbuds",
       currentPrice: 3299,
       oldPrice: 4999,
       savings: 1700,
@@ -161,10 +161,10 @@ export default function Home() {
       reviews: 1243,
     },
     {
-      imageUrl: "/images/Necklace.webp", // Replace with actual image for product 4
+      imageUrl: "/images/Necklace.webp",
       category: "AUDIO",
       brand: "Oraimo",
-      name: "Oraimo FreePods 3C Wireless Earbuds", // Replace with actual product name
+      name: "Oraimo FreePods 3C Wireless Earbuds",
       currentPrice: 3299,
       oldPrice: 4999,
       savings: 1700,
@@ -172,10 +172,10 @@ export default function Home() {
       reviews: 1243,
     },
     {
-      imageUrl: "/images/Necklace.webp", // Replace with actual image for product 5
+      imageUrl: "/images/Necklace.webp",
       category: "AUDIO",
       brand: "Oraimo",
-      name: "Oraimo FreePods 3C Wireless Earbuds", // Replace with actual product name
+      name: "Oraimo FreePods 3C Wireless Earbuds",
       currentPrice: 3299,
       oldPrice: 4999,
       savings: 1700,
@@ -183,10 +183,10 @@ export default function Home() {
       reviews: 1243,
     },
     {
-      imageUrl: "/images/Necklace.webp", // Replace with actual image for product 6
+      imageUrl: "/images/Necklace.webp",
       category: "AUDIO",
       brand: "Oraimo",
-      name: "Oraimo FreePods 3C Wireless Earbuds", // Replace with actual product name
+      name: "Oraimo FreePods 3C Wireless Earbuds",
       currentPrice: 3299,
       oldPrice: 4999,
       savings: 1700,
@@ -256,7 +256,6 @@ export default function Home() {
 
   return (
     <>
-      {/* Hero Section */}
       <div className="flex flex-col lg:flex-row w-full bg-white px-4 md:px-8 lg:px-[10rem] h-auto lg:min-h-screen items-center py-10 lg:py-0">
         <div className="flex flex-col gap-4 md:gap-6 w-full lg:w-1/2 text-center lg:text-left mb-10 lg:mb-0">
           <p className="flex flex-col text-3xl md:text-5xl lg:text-[3.75rem] text-[var(--primary)] font-bold leading-tight">
@@ -354,16 +353,12 @@ export default function Home() {
           </div>
         </div>
       </div>
-
-      {/* Info Bar */}
       <div className="flex items-center justify-center bg-[var(--primary)] h-12 md:h-[2.75rem] text-white px-4 text-center">
         <p className="text-sm md:text-[0.9rem]">
           🎉 Free shipping on orders over KSh 5,000 | 30-day return policy |
           2-year warranty
         </p>
       </div>
-
-      {/* Shop by Category Section */}
       <div className="flex flex-col gap-6 md:gap-8 bg-white max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="flex flex-col items-center w-full mt-8 md:mt-[4rem] text-center">
           <h1 className="text-2xl md:text-[2rem] font-bold">
@@ -387,8 +382,6 @@ export default function Home() {
           ))}
         </div>
       </div>
-
-      {/* Trending Products Section */}
       <div className="flex flex-col gap-6 md:gap-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="flex flex-col items-center w-full text-center">
           <h1 className="text-2xl md:text-[2rem] font-bold">
