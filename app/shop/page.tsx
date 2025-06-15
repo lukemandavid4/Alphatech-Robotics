@@ -12,14 +12,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Slider } from "@/components/ui/slider";
 import { Star, Filter, Grid, List, ShoppingCart } from "lucide-react";
 import { useCart } from "@/app/ui/cartContext/CartContext";
 import { toast } from "sonner";
 
-const page = () => {
+const page = ({ currentPage = 1 }) => {
   const [viewMode, setViewMode] = useState("grid");
-  const [priceRange, setPriceRange] = useState([0, 50000]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const { addToCart } = useCart();
 
@@ -128,7 +126,6 @@ const page = () => {
 
   const handleClearFilters = () => {
     setSelectedCategories([]);
-    setPriceRange([0, 50000]);
   };
 
   return (
@@ -232,7 +229,7 @@ const page = () => {
                       variant={viewMode === "grid" ? "default" : "ghost"}
                       size="sm"
                       onClick={() => setViewMode("grid")}
-                      className="rounded-r-none cursor-pointer focus:bg-[var(--primary)] focus:text-white transition-all duration-300"
+                      className="rounded-r-none cursor-pointer hover:bg-[var(--input)] focus:bg-[var(--primary)] focus:text-white transition-all duration-300"
                     >
                       <Grid className="w-4 h-4" />
                     </Button>
@@ -240,7 +237,7 @@ const page = () => {
                       variant={viewMode === "list" ? "default" : "ghost"}
                       size="sm"
                       onClick={() => setViewMode("list")}
-                      className="rounded-l-none cursor-pointer focus:bg-[var(--primary)] focus:text-white transition-all duration-300"
+                      className="rounded-l-none cursor-pointer hover:bg-[var(--input)] focus:bg-[var(--primary)] focus:text-white transition-all duration-300"
                     >
                       <List className="w-4 h-4" />
                     </Button>
@@ -286,7 +283,7 @@ const page = () => {
                           {/* Badge */}
                           <Badge
                             variant={getBadgeVariant(product.badge)}
-                            className="absolute top-3 left-3"
+                            className="absolute top-3 left-3 bg-amber-600 text-white border-0"
                           >
                             {product.badge}
                           </Badge>
@@ -295,7 +292,7 @@ const page = () => {
                           {product.inStock && (
                             <Button
                               size="sm"
-                              className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                              className="absolute top-3 right-3 opacity-0 bg-[var(--primary)] text-white cursor-pointer group-hover:opacity-100 transition-opacity duration-200"
                               onClick={(e) => {
                                 e.preventDefault();
                                 handleAddToCart(product);
@@ -307,7 +304,12 @@ const page = () => {
 
                           {!product.inStock && (
                             <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-t-lg">
-                              <Badge variant="destructive">Out of Stock</Badge>
+                              <Badge
+                                variant="destructive"
+                                className="bg-amber-600"
+                              >
+                                Out of Stock
+                              </Badge>
                             </div>
                           )}
                         </div>
@@ -318,12 +320,12 @@ const page = () => {
                           }`}
                         >
                           {/* Category */}
-                          <p className="text-xs text-muted-foreground mb-2 uppercase tracking-wide">
+                          <p className="text-xs text-[var(--muted-foreground)] mb-2 uppercase tracking-wide">
                             {product.category}
                           </p>
 
                           {/* Product Name */}
-                          <h3 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+                          <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors">
                             {product.name}
                           </h3>
 
@@ -341,17 +343,17 @@ const page = () => {
                                 />
                               ))}
                             </div>
-                            <span className="text-sm text-muted-foreground">
+                            <span className="text-sm text-[var(--muted-foreground)]">
                               {product.rating} ({product.reviews})
                             </span>
                           </div>
 
                           {/* Price */}
                           <div className="flex items-center gap-2 mb-4">
-                            <span className="text-lg font-bold text-foreground">
+                            <span className="text-lg font-bold">
                               KSh {product.price.toLocaleString()}
                             </span>
-                            <span className="text-sm text-muted-foreground line-through">
+                            <span className="text-sm text-[var(--muted-foreground)] line-through">
                               KSh {product.originalPrice.toLocaleString()}
                             </span>
                           </div>
@@ -360,7 +362,7 @@ const page = () => {
                           <Button
                             className={`btn-hover ${
                               viewMode === "list" ? "w-auto" : "w-full"
-                            }`}
+                            } bg-[var(--primary)] text-white cursor-pointer hover:bg-blue-600 transition-colors duration-300`}
                             disabled={!product.inStock}
                             onClick={() =>
                               product.inStock && handleAddToCart(product)
@@ -378,13 +380,33 @@ const page = () => {
               {/* Pagination */}
               <div className="flex justify-center mt-12">
                 <div className="flex space-x-2">
-                  <Button variant="outline" disabled>
+                  <Button
+                    variant="outline"
+                    disabled={currentPage === 1}
+                    className="border-[var(--input)] cursor-pointer"
+                  >
                     Previous
                   </Button>
-                  <Button variant="default">1</Button>
-                  <Button variant="outline">2</Button>
-                  <Button variant="outline">3</Button>
-                  <Button variant="outline">Next</Button>
+                  {[1, 2, 3].map((page) => (
+                    <Button
+                      key={page}
+                      variant={currentPage === page ? "default" : "outline"}
+                      className={`border ${
+                        currentPage === page
+                          ? "bg-[var(--primary)] text-white cursor-pointer"
+                          : "border-[var(--input)] cursor-pointer"
+                      } focus:bg-[var(--primary)] focus:text-white`}
+                    >
+                      {page}
+                    </Button>
+                  ))}
+                  <Button
+                    variant="outline"
+                    disabled={currentPage === 3}
+                    className="border-[var(--input)] cursor-pointer focus:bg-[var(--primary)] focus:text-white"
+                  >
+                    Next
+                  </Button>
                 </div>
               </div>
             </div>
