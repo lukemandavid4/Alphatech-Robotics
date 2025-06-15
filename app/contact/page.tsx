@@ -7,8 +7,8 @@ import { MapPin } from "lucide-react";
 const page = () => {
   return (
     <>
-      <div className="flex flex-col gap-16 w-full bg-white max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center pt-16">
+      <div className="flex flex-col gap-8 md:gap-16 w-full bg-white max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center pt-8 md:pt-16">
           <h1 className="text-[2.5rem] font-bold">Contact Us</h1>
           <p className="text-[var(--muted-foreground)]">
             Get in touch with our team. We're here to help with any questions
@@ -17,12 +17,14 @@ const page = () => {
         </div>
         <div className="flex flex-col md:flex-row justify-between w-full gap-4 lg:gap-8">
           <div className="flex flex-col gap-6 w-full md:w-1/2">
-            <h1 className="text-[1.5rem] font-semibold">Get In Touch</h1>
+            <h1 className="text-[1.5rem] font-semibold text-center md:text-start">
+              Get In Touch
+            </h1>
             <p className="text-[var(--muted-foreground)]">
               We'd love to hear from you. Send us a message and we'll respond as
               soon as possible.
             </p>
-            <div className="flex items-center gap-4 border border-[var(--input)] p-8 rounded-[0.5rem]">
+            <div className="flex items-center gap-4 border border-[var(--input)] p-6 md:p-8 rounded-[0.5rem]">
               <div className="bg-[var(--card-one-background)] p-3 text-[var(--primary)] rounded-[0.3rem]">
                 <Phone />
               </div>
@@ -33,7 +35,7 @@ const page = () => {
                 </span>
               </div>
             </div>
-            <div className="flex items-center gap-4 border border-[var(--input)] p-8 rounded-[0.5rem]">
+            <div className="flex items-center gap-4 border border-[var(--input)] p-6 md:p-8 rounded-[0.5rem]">
               <div className="bg-[var(--card-one-background)] p-3 text-[var(--primary)] rounded-[0.3rem]">
                 <Mail />
               </div>
@@ -44,7 +46,7 @@ const page = () => {
                 </span>
               </div>
             </div>
-            <div className="flex items-center gap-4 border border-[var(--input)] p-8 rounded-[0.5rem]">
+            <div className="flex items-center gap-4 border border-[var(--input)] p-6 md:p-8 rounded-[0.5rem]">
               <div className="bg-[var(--card-one-background)] p-3 text-[var(--primary)] rounded-[0.3rem]">
                 <Clock />
               </div>
@@ -60,7 +62,7 @@ const page = () => {
                 </span>
               </div>
             </div>
-            <div className="flex items-center gap-4 border border-[var(--input)] p-8 rounded-[0.5rem]">
+            <div className="flex items-center gap-4 border border-[var(--input)] p-6 md:p-8 rounded-[0.5rem]">
               <div className="bg-[var(--card-one-background)] p-3 text-[var(--primary)] rounded-[0.3rem]">
                 <MapPin />
               </div>

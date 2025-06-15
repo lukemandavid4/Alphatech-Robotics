@@ -37,15 +37,12 @@ const Header = () => {
     <header className="bg-white font-quanta shadow-sm border-b-[var(--border)] sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <span className="text-[var(--primary)]">
               <Cpu />
             </span>
             <span className="text-xl font-bold text-foreground">AlphaTech</span>
           </Link>
-
-          {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
             {navigation.map((item) => (
               <Link
@@ -57,8 +54,6 @@ const Header = () => {
               </Link>
             ))}
           </nav>
-
-          {/* Search Bar */}
           <form
             className="hidden lg:flex flex-1 max-w-md mx-8"
             onSubmit={handleSearch}
@@ -74,8 +69,6 @@ const Header = () => {
               />
             </div>
           </form>
-
-          {/* Right Icons */}
           <div className="flex items-center space-x-4">
             <Button
               variant="ghost"
@@ -98,8 +91,6 @@ const Header = () => {
                 )}
               </Link>
             </Button>
-
-            {/* Mobile menu button */}
             <Button
               variant="ghost"
               size="sm"
@@ -114,8 +105,6 @@ const Header = () => {
             </Button>
           </div>
         </div>
-
-        {/* Mobile Search */}
         <div className="lg:hidden py-3 border-t">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
@@ -124,12 +113,10 @@ const Header = () => {
               placeholder="Search for electronics..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 pr-4 w-full"
+              className="pl-10 pr-4 w-full border-2 border-[var(--border)] focus:border-[var(--primary)] focus:outline-none focus:ring-0 focus-visible:ring-0"
             />
           </div>
         </div>
-
-        {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden border-t py-3">
             <nav className="flex flex-col space-y-3">

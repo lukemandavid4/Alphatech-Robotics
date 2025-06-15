@@ -22,8 +22,7 @@ function ProductCard({
   return (
     <Link
       href="/shop"
-      className="flex flex-col w-full md:w-1/2 shadow-lg rounded-[0.5rem] hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-      style={{ flexBasis: "calc(33.333% - 16px)" }}
+      className="flex flex-col w-full shadow-lg rounded-[0.5rem] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 sm:w-[calc(50%-0.5rem)] md:w-[calc(33.333%-0.5rem)] lg:w-[calc(33.333%-1rem)]"
     >
       <div>
         <Image
@@ -84,9 +83,8 @@ function CategoryCard({
 }) {
   return (
     <Link
-      href="/"
-      className="flex flex-col p-4 md:px-6 md:pt-8 md:pb-6 items-center justify-between shadow-lg h-[12rem] md:h-[14.25rem] w-full sm:w-1/2 rounded-[0.5rem] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center"
-      style={{ flexBasis: "calc(25% - 16px)" }}
+      href="/shop"
+      className="flex flex-col p-4 md:px-6 md:pt-8 md:pb-6 items-center justify-between shadow-lg h-[12rem] md:h-[14.25rem] w-full md:w-[calc(50%-0.5rem)] lg:w-[calc(25%-0.5rem)] xl:w-[calc(25%-1rem)] rounded-[0.5rem] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center"
     >
       <div
         className={`flex items-center justify-center w-12 h-12 md:w-[3.5rem] md:h-[3.5rem] ${bgColor} rounded-[50vw] text-2xl md:text-3xl`}
@@ -225,7 +223,7 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <div className="flex flex-col lg:flex-row w-full bg-white px-4 md:px-8 lg:px-[10rem] h-auto lg:h-screen items-center py-10 lg:py-0">
+      <div className="flex flex-col lg:flex-row w-full bg-white px-4 md:px-8 lg:px-[10rem] h-auto lg:min-h-screen items-center py-10 lg:py-0">
         <div className="flex flex-col gap-4 md:gap-6 w-full lg:w-1/2 text-center lg:text-left mb-10 lg:mb-0">
           <p className="flex flex-col text-3xl md:text-5xl lg:text-[3.75rem] text-[var(--primary)] font-bold leading-tight">
             Latest Tech, <span className="text-black">Delivered Fast</span>
@@ -332,7 +330,7 @@ export default function Home() {
       </div>
 
       {/* Shop by Category Section */}
-      <div className="flex flex-col gap-6 md:gap-8 bg-white px-4 md:px-8 lg:px-[10rem] py-10">
+      <div className="flex flex-col gap-6 md:gap-8 bg-white max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="flex flex-col items-center w-full mt-8 md:mt-[4rem] text-center">
           <h1 className="text-2xl md:text-[2rem] font-bold">
             Shop by Category
@@ -342,7 +340,7 @@ export default function Home() {
             categories
           </p>
         </div>
-        <div className="flex flex-wrap justify-between">
+        <div className="flex flex-wrap justify-between w-full">
           {shopByCategoryData.map((category, index) => (
             <CategoryCard
               key={index}
@@ -357,7 +355,7 @@ export default function Home() {
       </div>
 
       {/* Trending Products Section */}
-      <div className="flex flex-col gap-6 md:gap-8 px-4 md:px-8 lg:px-[10rem] py-10">
+      <div className="flex flex-col gap-6 md:gap-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="flex flex-col items-center w-full text-center">
           <h1 className="text-2xl md:text-[2rem] font-bold">
             Trending Products
@@ -367,7 +365,7 @@ export default function Home() {
             Oraimo, Samsung, and Punex
           </p>
         </div>
-        <div className="flex flex-wrap justify-center gap-4">
+        <div className="flex flex-wrap justify-between">
           {trendingProducts.map((product, index) => (
             <ProductCard
               key={index}
