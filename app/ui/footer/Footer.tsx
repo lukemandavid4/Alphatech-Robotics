@@ -13,11 +13,8 @@ const Footer = () => {
   return (
     <footer className="bg-[var(--tech-dark)]">
       <div className="flex flex-col gap-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-12 pb-2">
-        <div className="flex justify-between flex-wrap">
-          <div
-            className="flex flex-col"
-            style={{ flexBasis: "calc(25% - 16px)" }}
-          >
+        <div className="flex justify-between flex-wrap gap-8 md:gap-0">
+          <div className="flex flex-col w-full md:w-[calc(50%-1rem)] lg:w-[calc(25%-1rem)]">
             <Link
               href="/"
               className="flex items-center gap-2 text-[1.5rem] font-bold"
@@ -33,11 +30,8 @@ const Footer = () => {
               customer service.
             </p>
           </div>
-          <div
-            className="flex flex-col"
-            style={{ flexBasis: "calc(25% - 16px)" }}
-          >
-            <h1 className="text-white">Navigation</h1>
+          <div className="flex flex-col w-full md:w-[calc(50%-1rem)] lg:w-[calc(25%-1rem)]">
+            <h1 className="text-white font-semibold">Navigation</h1>
             <div className="text-[var(--muted-foreground)] flex flex-col gap-4">
               {navLinks.map(({ href, label }) => (
                 <Link
@@ -50,11 +44,8 @@ const Footer = () => {
               ))}
             </div>
           </div>
-          <div
-            className="flex flex-col"
-            style={{ flexBasis: "calc(25% - 16px)" }}
-          >
-            <h1 className="text-white">Account</h1>
+          <div className="flex flex-col w-full md:w-[calc(50%-1rem)] lg:w-[calc(25%-1rem)]">
+            <h1 className="text-white font-semibold">Account</h1>
             <Link
               href=""
               className="text-[var(--muted-foreground)] w-fit hover:text-white transition-colors duration-200"
@@ -68,11 +59,8 @@ const Footer = () => {
               Shopping Cart
             </Link>
           </div>
-          <div
-            style={{ flexBasis: "calc(25% - 16px)" }}
-            className="flex flex-col gap-4"
-          >
-            <h1 className="text-white">Stay Updated</h1>
+          <div className="flex flex-col gap-2 lg:gap-4 w-full md:w-[calc(50%-1rem)] lg:w-[calc(25%-1rem)]">
+            <h1 className="text-white font-semibold">Stay Updated</h1>
             <p className="text-[var(--muted-foreground)]">
               Get the latest deals and tech news delivered to your inbox.
             </p>
@@ -93,7 +81,7 @@ const Footer = () => {
         </div>
         <hr className="text-[var(--muted-foreground)]" />
         <div>
-          <p className="text-[var(--muted-foreground)]">
+          <p className="text-[var(--muted-foreground)] text-center md:text-start">
             &copy; {currentYear} Alphatech. All rights reserved.
           </p>
         </div>
