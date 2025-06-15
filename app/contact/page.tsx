@@ -7,7 +7,7 @@ import { MapPin } from "lucide-react";
 const page = () => {
   return (
     <>
-      <div className="flex flex-col gap-16 w-full bg-white px-[10rem]">
+      <div className="flex flex-col gap-16 w-full bg-white max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center pt-16">
           <h1 className="text-[2.5rem] font-bold">Contact Us</h1>
           <p className="text-[var(--muted-foreground)]">
@@ -15,11 +15,8 @@ const page = () => {
             about our products or services.
           </p>
         </div>
-        <div className="flex flex-wrap justify-between">
-          <div
-            className="flex flex-col gap-6"
-            style={{ flexBasis: "calc(50% - 16px)" }}
-          >
+        <div className="flex flex-col md:flex-row justify-between w-full gap-4 lg:gap-8">
+          <div className="flex flex-col gap-6 w-full md:w-1/2">
             <h1 className="text-[1.5rem] font-semibold">Get In Touch</h1>
             <p className="text-[var(--muted-foreground)]">
               We'd love to hear from you. Send us a message and we'll respond as
@@ -75,18 +72,12 @@ const page = () => {
               </div>
             </div>
           </div>
-          <div
-            className="flex flex-col gap-6 border border-[var(--input)] p-8 rounded-[0.5rem]"
-            style={{ flexBasis: "calc(50% - 16px)" }}
-          >
+          <div className="flex flex-col gap-6 border border-[var(--input)] p-4 lf:p-8 rounded-[0.5rem] w-full md:w-1/2">
             <div>
               <h1 className="text-[1.5rem] font-semibold">Send us a message</h1>
             </div>
-            <div className="flex flex-wrap justify-between">
-              <div
-                className="flex flex-col"
-                style={{ flexBasis: "calc(50% - 8px)" }}
-              >
+            <div className="flex flex-col lg:flex-row lg:justify-between justify-between w-full gap-6 lg:gap-2">
+              <div className="flex flex-col w-full lg:w-1/2">
                 <label htmlFor="name" className="text-[0.9rem] font-semibold">
                   Name
                 </label>
@@ -98,10 +89,7 @@ const page = () => {
                   className="border border-[var(--input)] rounded-[0.5rem] p-2 text-[0.9rem] outline-[var(--primary)]"
                 />
               </div>
-              <div
-                className="flex flex-col"
-                style={{ flexBasis: "calc(50% - 8px)" }}
-              >
+              <div className="flex flex-col w-full lg:w-1/2">
                 <label htmlFor="email" className="text-[0.9rem] font-semibold">
                   Email
                 </label>

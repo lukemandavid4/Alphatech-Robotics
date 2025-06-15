@@ -11,8 +11,8 @@ const Footer = () => {
     { href: "/contact", label: "Contact" },
   ];
   return (
-    <>
-      <div className="flex flex-col gap-10 bg-[var(--tech-dark)] px-[10rem] mt-20 pt-12 pb-2">
+    <footer className="bg-[var(--tech-dark)]">
+      <div className="flex flex-col gap-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-12 pb-2">
         <div className="flex justify-between flex-wrap">
           <div
             className="flex flex-col"
@@ -98,7 +98,7 @@ const Footer = () => {
           </p>
         </div>
       </div>
-    </>
+    </footer>
   );
 };
 
