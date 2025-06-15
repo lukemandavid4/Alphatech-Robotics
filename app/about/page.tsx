@@ -2,9 +2,9 @@ import React from "react";
 
 const page = () => {
   return (
-    <>
-      <div className="flex flex-col w-full bg-white px-[10rem] h-screen items-center">
-        <div className="flex flex-col items-center mt-16 mb-32">
+    <div className="flex flex-col gap-10 lg:gap-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="flex flex-col bg-white lg:min-h-screen items-center">
+        <div className="flex flex-col items-center py-10 lg:mt-16 lg:mb-32">
           <h1 className="text-[2.5rem] font-bold">About Alphatech</h1>
           <p className="text-[var(--muted-foreground)] text-center">
             Your trusted partner in technology since 2020. We're passionate
@@ -12,9 +12,11 @@ const page = () => {
             exceptional service.
           </p>
         </div>
-        <div className="flex gap-4">
-          <div className="flex flex-col gap-6 w-1/2">
-            <h1 className="text-[1.7rem] font-bold">Our Mission</h1>
+        <div className="flex flex-col-reverse md:flex-row gap-4 w-full">
+          <div className="flex flex-col gap-6 w-full md:w-1/2">
+            <h1 className="text-[1.7rem] text-center md:text-start font-bold">
+              Our Mission
+            </h1>
             <p className="text-[var(--muted-foreground)]">
               At Alphatech, we believe technology should enhance your life, not
               complicate it. That's why we carefully curate our product
@@ -27,12 +29,12 @@ const page = () => {
               products that deliver real value.
             </p>
           </div>
-          <div className="flex items-center justify-center w-1/2 text-[3rem] bg-[var(--card-one-background)] rounded-[1rem]">
+          <div className="flex py-8 items-center justify-center w-full md:w-1/2 text-[3rem] bg-[var(--card-one-background)] rounded-[1rem]">
             🎯
           </div>
         </div>
       </div>
-      <div className="flex flex-col px-[10rem] py-12 gap-8 bg-white h-screen w-full">
+      <div className="flex flex-col py:8 lg:py-10 gap-8 bg-white md:min-h-screen">
         <div className="flex flex-col items-center">
           <h1 className="text-[1.7rem] font-bold">Why Choose Alphatech?</h1>
           <p className="text-[var(--muted-foreground)]">
@@ -136,7 +138,7 @@ const page = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
