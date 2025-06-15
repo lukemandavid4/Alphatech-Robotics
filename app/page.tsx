@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import { Star } from "lucide-react";
 
 function ProductCard({
   imageUrl,
@@ -10,6 +11,8 @@ function ProductCard({
   currentPrice,
   oldPrice,
   savings,
+  rating,
+  reviews,
 }: {
   imageUrl: any;
   category: any;
@@ -18,6 +21,8 @@ function ProductCard({
   currentPrice: any;
   oldPrice: any;
   savings: any;
+  rating: any;
+  reviews: any;
 }) {
   return (
     <Link
@@ -45,6 +50,23 @@ function ProductCard({
         <p className="font-semibold text-base md:text-[0.9rem] flex-grow">
           {name}
         </p>
+        <div className="flex items-center gap-2">
+          <div className="flex items-center">
+            {[...Array(5)].map((_, i) => (
+              <Star
+                key={i}
+                className={`w-4 h-4 ${
+                  i < Math.floor(rating)
+                    ? "text-yellow-400 fill-current"
+                    : "text-gray-300"
+                }`}
+              />
+            ))}
+          </div>
+          <span className="text-sm text-[var(--muted-foreground)]">
+            {rating} ({reviews})
+          </span>
+        </div>
         <div className="flex items-center gap-2 mt-auto">
           <span className="font-bold text-lg md:text-base">
             KSh {currentPrice.toLocaleString()}
@@ -113,6 +135,8 @@ export default function Home() {
       currentPrice: 3299,
       oldPrice: 4999,
       savings: 1700,
+      rating: 4.8,
+      reviews: 1243,
     },
     {
       imageUrl: "/images/Necklace.webp", // Replace with actual image for product 2
@@ -122,6 +146,8 @@ export default function Home() {
       currentPrice: 3299,
       oldPrice: 4999,
       savings: 1700,
+      rating: 4.8,
+      reviews: 1243,
     },
     {
       imageUrl: "/images/Necklace.webp", // Replace with actual image for product 3
@@ -131,6 +157,8 @@ export default function Home() {
       currentPrice: 3299,
       oldPrice: 4999,
       savings: 1700,
+      rating: 4.8,
+      reviews: 1243,
     },
     {
       imageUrl: "/images/Necklace.webp", // Replace with actual image for product 4
@@ -140,6 +168,8 @@ export default function Home() {
       currentPrice: 3299,
       oldPrice: 4999,
       savings: 1700,
+      rating: 4.8,
+      reviews: 1243,
     },
     {
       imageUrl: "/images/Necklace.webp", // Replace with actual image for product 5
@@ -149,6 +179,8 @@ export default function Home() {
       currentPrice: 3299,
       oldPrice: 4999,
       savings: 1700,
+      rating: 4.8,
+      reviews: 1243,
     },
     {
       imageUrl: "/images/Necklace.webp", // Replace with actual image for product 6
@@ -158,6 +190,8 @@ export default function Home() {
       currentPrice: 3299,
       oldPrice: 4999,
       savings: 1700,
+      rating: 4.8,
+      reviews: 1243,
     },
   ];
 
@@ -376,6 +410,8 @@ export default function Home() {
               currentPrice={product.currentPrice}
               oldPrice={product.oldPrice}
               savings={product.savings}
+              rating={product.rating}
+              reviews={product.reviews}
             />
           ))}
         </div>

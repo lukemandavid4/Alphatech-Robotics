@@ -132,7 +132,6 @@ const page = ({ currentPage = 1 }) => {
     <div className="min-h-screen flex flex-col">
       <main className="flex-1 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {/* Page Header */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-foreground mb-2">
               Shop Electronics
@@ -141,9 +140,7 @@ const page = ({ currentPage = 1 }) => {
               Discover premium electronics and tech accessories
             </p>
           </div>
-
           <div className="flex flex-col lg:flex-row gap-8">
-            {/* Filters Sidebar */}
             <div className="lg:w-64 space-y-6">
               <Card className="border-[var(--input)]">
                 <CardContent className="p-6">
@@ -151,8 +148,6 @@ const page = ({ currentPage = 1 }) => {
                     <Filter className="w-4 h-4 mr-2" />
                     Filters
                   </h3>
-
-                  {/* Categories */}
                   <div className="mb-6">
                     <h4 className="font-medium mb-3">Categories</h4>
                     <div className="space-y-2">
@@ -179,8 +174,6 @@ const page = ({ currentPage = 1 }) => {
                       ))}
                     </div>
                   </div>
-
-                  {/* Clear Filters */}
                   <Button
                     variant="outline"
                     className="w-full border-[var(--input)] cursor-pointer hover:bg-[var(--input)] transition duration-300"
@@ -191,15 +184,11 @@ const page = ({ currentPage = 1 }) => {
                 </CardContent>
               </Card>
             </div>
-
-            {/* Products Section */}
             <div className="flex-1">
-              {/* Sort and View Controls */}
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
                 <p className="text-[var(--muted-foreground)] ">
                   Showing {products.length} of {products.length} products
                 </p>
-
                 <div className="flex items-center gap-4">
                   <Select defaultValue="featured">
                     <SelectTrigger className="w-48 border-[var(--input)] cursor-pointer focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none focus:border-[var(--primary)] focus:border-2">
@@ -223,7 +212,6 @@ const page = ({ currentPage = 1 }) => {
                       </SelectItem>
                     </SelectContent>
                   </Select>
-
                   <div className="flex border rounded-lg border-[var(--input)]">
                     <Button
                       variant={viewMode === "grid" ? "default" : "ghost"}
@@ -244,8 +232,6 @@ const page = ({ currentPage = 1 }) => {
                   </div>
                 </div>
               </div>
-
-              {/* Products Grid */}
               <div
                 className={`grid gap-6 ${
                   viewMode === "grid"
@@ -279,16 +265,12 @@ const page = ({ currentPage = 1 }) => {
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                             />
                           </div>
-
-                          {/* Badge */}
                           <Badge
                             variant={getBadgeVariant(product.badge)}
                             className="absolute top-3 left-3 bg-amber-600 text-white border-0"
                           >
                             {product.badge}
                           </Badge>
-
-                          {/* Quick Add Button */}
                           {product.inStock && (
                             <Button
                               size="sm"
@@ -301,7 +283,6 @@ const page = ({ currentPage = 1 }) => {
                               <ShoppingCart className="w-4 h-4" />
                             </Button>
                           )}
-
                           {!product.inStock && (
                             <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-t-lg">
                               <Badge
@@ -313,7 +294,6 @@ const page = ({ currentPage = 1 }) => {
                             </div>
                           )}
                         </div>
-
                         <div
                           className={`p-6 ${
                             viewMode === "list" ? "flex-1" : ""
