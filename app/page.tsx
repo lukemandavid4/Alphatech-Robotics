@@ -2,7 +2,6 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 
-// Reusable Product Card Component
 function ProductCard({
   imageUrl,
   category,
@@ -23,7 +22,7 @@ function ProductCard({
   return (
     <Link
       href="/shop"
-      className="flex flex-col w-full md:w-1/2 shadow-xl rounded-[0.5rem] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+      className="flex flex-col w-full md:w-1/2 shadow-lg rounded-[0.5rem] hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
       style={{ flexBasis: "calc(33.333% - 16px)" }}
     >
       <div>
@@ -70,7 +69,6 @@ function ProductCard({
   );
 }
 
-// Reusable Category Card Component for the second section
 function CategoryCard({
   href,
   bgColor,
@@ -87,7 +85,7 @@ function CategoryCard({
   return (
     <Link
       href="/"
-      className="flex flex-col p-4 md:px-6 md:pt-8 md:pb-6 items-center justify-between shadow-xl h-[12rem] md:h-[14.25rem] w-full sm:w-1/2 rounded-[0.5rem] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 text-center"
+      className="flex flex-col p-4 md:px-6 md:pt-8 md:pb-6 items-center justify-between shadow-lg h-[12rem] md:h-[14.25rem] w-full sm:w-1/2 rounded-[0.5rem] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center"
       style={{ flexBasis: "calc(25% - 16px)" }}
     >
       <div
@@ -255,10 +253,9 @@ export default function Home() {
         </div>
         <div className="w-full lg:w-1/2 flex flex-col gap-4">
           <div className="flex flex-wrap justify-center lg:justify-start gap-4">
-            {/* Hardcoded Category Cards for Hero Section as they have different styling logic slightly */}
             <div
-              className="flex flex-col gap-4 h-[14.25rem] w-[calc(50%-0.5rem)] sm:w-[calc(50%-0.5rem)] shadow-xl rounded-[0.5rem]
-            p-6 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+              className="flex flex-col gap-4 h-[14.25rem] w-[calc(50%-0.5rem)] sm:w-[calc(50%-0.5rem)] shadow-lg rounded-[0.5rem]
+            p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
               <div className="flex items-center justify-center bg-[var(--card-one-background)] h-2/3 rounded-[0.5rem]">
                 <div className="flex items-center justify-center w-[3.5rem] h-[3.5rem] bg-[var(--card-one-foreground)] rounded-[50vw] text-2xl">
@@ -273,8 +270,8 @@ export default function Home() {
               </div>
             </div>
             <div
-              className="flex flex-col gap-4 h-[14.25rem] w-[calc(50%-0.5rem)] sm:w-[calc(50%-0.5rem)] shadow-xl mt-4 rounded-[0.5rem]
-            p-6 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+              className="flex flex-col gap-4 h-[14.25rem] w-[calc(50%-0.5rem)] sm:w-[calc(50%-0.5rem)] shadow-lg mt-4 rounded-[0.5rem]
+            p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
               <div className="flex items-center justify-center bg-[var(--card-two-background)] h-2/3 rounded-[0.5rem]">
                 <div className="flex items-center justify-center w-[3.5rem] h-[3.5rem] bg-[var(--card-two-foreground)] rounded-[50vw] text-2xl">
@@ -291,8 +288,8 @@ export default function Home() {
           </div>
           <div className="flex flex-wrap justify-center lg:justify-start gap-4">
             <div
-              className="flex flex-col gap-4 h-[14.25rem] w-[calc(50%-0.5rem)] sm:w-[calc(50%-0.5rem)] shadow-xl rounded-[0.5rem]
-            p-6 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+              className="flex flex-col gap-4 h-[14.25rem] w-[calc(50%-0.5rem)] sm:w-[calc(50%-0.5rem)] shadow-lg rounded-[0.5rem]
+            p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
               <div className="flex items-center justify-center bg-[var(--card-three-background)] h-2/3 rounded-[0.5rem]">
                 <div className="flex items-center justify-center w-[3.5rem] h-[3.5rem] bg-[var(--card-three-foreground)] rounded-[50vw] text-2xl">
@@ -307,8 +304,8 @@ export default function Home() {
               </div>
             </div>
             <div
-              className="flex flex-col gap-4 h-[14.25rem] w-[calc(50%-0.5rem)] sm:w-[calc(50%-0.5rem)] shadow-xl mt-4 rounded-[0.5rem]
-            p-6 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+              className="flex flex-col gap-4 h-[14.25rem] w-[calc(50%-0.5rem)] sm:w-[calc(50%-0.5rem)] shadow-lg mt-4 rounded-[0.5rem]
+            p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
               <div className="flex items-center justify-center bg-[var(--card-four-background)] h-2/3 rounded-[0.5rem]">
                 <div className="flex items-center justify-center w-[3.5rem] h-[3.5rem] bg-[var(--card-four-foreground)] rounded-[50vw] text-2xl">
