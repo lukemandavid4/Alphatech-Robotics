@@ -52,7 +52,7 @@ const Header = () => {
           <User className="w-[1.2rem] h-[1.2rem]" />
           <span className="mt-1.5">Account</span>
         </Link>
-        <Link href="">
+        <Link href="/cart">
           <ShoppingCart className="w-[1.2rem] h-[1.2rem]" />
         </Link>
       </div>
