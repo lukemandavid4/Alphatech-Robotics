@@ -34,7 +34,7 @@ const page = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className=" flex flex-col">
       <main className="flex-1 bg-background">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <h1 className="text-3xl font-bold text-foreground mb-8">
@@ -65,7 +65,7 @@ const page = () => {
                             KSh {item.price.toLocaleString()}
                           </span>
                           {item.originalPrice > item.price && (
-                            <span className="text-sm text-muted-foreground line-through">
+                            <span className="text-sm text-[var(--muted-foreground)] line-through">
                               KSh {item.originalPrice.toLocaleString()}
                             </span>
                           )}
@@ -95,7 +95,7 @@ const page = () => {
                           variant="ghost"
                           size="sm"
                           onClick={() => removeFromCart(item.id)}
-                          className="text-destructive hover:text-destructive"
+                          className="text-[var(--destructive)] hover:text-[var(--destructive)]"
                         >
                           <Trash2 className="w-4 h-4" />
                         </Button>
@@ -137,7 +137,7 @@ const page = () => {
                     </Button>
                     <Button
                       variant="ghost"
-                      className="w-full text-destructive hover:text-destructive"
+                      className="w-full text-[var(--destructive)] hover:text-[var(--destructive)] "
                       onClick={clearCart}
                     >
                       Clear Cart
