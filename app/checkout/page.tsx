@@ -21,7 +21,7 @@ const Checkout = () => {
               <p className="text-[var(--muted-foreground)] mb-8">
                 Add some items to your cart before checking out.
               </p>
-              <Button asChild>
+              <Button asChild className="bg-[var(--primary)] text-white">
                 <Link href="/shop">Start Shopping</Link>
               </Button>
             </div>

@@ -37,7 +37,7 @@ const page = () => {
     <div className=" flex flex-col">
       <main className="flex-1 bg-background">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-3xl font-bold text-foreground mb-8">
+          <h1 className="text-center text-2xl md:text-start md:text-3xl font-bold text-foreground mb-8">
             Shopping Cart
           </h1>
 
@@ -71,7 +71,7 @@ const page = () => {
                           )}
                         </div>
                       </div>
-                      <div className="flex items-center space-x-2">
+                      <div className="flex flex-col md:flex-row items-center space-x-2">
                         <Button
                           variant="outline"
                           size="sm"
@@ -110,7 +110,7 @@ const page = () => {
 
             {/* Order Summary */}
             <div className="lg:col-span-1">
-              <Card className="sticky top-24">
+              <Card className="sticky top-24 border border-[var(--border)]">
                 <CardContent className="p-6">
                   <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
 
