@@ -45,7 +45,7 @@ const page = () => {
             {/* Cart Items */}
             <div className="lg:col-span-2 space-y-4">
               {items.map((item) => (
-                <Card key={item.id}>
+                <Card key={item.id} className="border border-[var(--border)]">
                   <CardContent className="p-6">
                     <div className="flex items-center space-x-4">
                       <img
@@ -78,6 +78,7 @@ const page = () => {
                           onClick={() =>
                             updateQuantity(item.id, item.quantity - 1)
                           }
+                          className="border border-[var(--border)] cursor-pointer"
                         >
                           <Minus className="w-4 h-4" />
                         </Button>
@@ -88,6 +89,7 @@ const page = () => {
                           onClick={() =>
                             updateQuantity(item.id, item.quantity + 1)
                           }
+                          className="border border-[var(--border)] cursor-pointer"
                         >
                           <Plus className="w-4 h-4" />
                         </Button>
@@ -95,7 +97,7 @@ const page = () => {
                           variant="ghost"
                           size="sm"
                           onClick={() => removeFromCart(item.id)}
-                          className="text-[var(--destructive)] hover:text-[var(--destructive)]"
+                          className="text-[var(--destructive)] hover:text-[var(--destructive)] cursor-pointer"
                         >
                           <Trash2 className="w-4 h-4" />
                         </Button>
@@ -129,15 +131,22 @@ const page = () => {
                   </div>
 
                   <div className="space-y-3">
-                    <Button className="w-full" size="lg">
-                      Proceed to Checkout
+                    <Button
+                      className="w-full bg-[var(--primary)] text-white cursor-pointer hover:bg-blue-600 transition duration-300"
+                      size="lg"
+                    >
+                      <Link href="/checkout">Proceed to Checkout</Link>
                     </Button>
-                    <Button variant="outline" className="w-full" asChild>
+                    <Button
+                      variant="outline"
+                      className="w-full border-[var(--border)] hover:bg-[var(--input)] transition duration-300"
+                      asChild
+                    >
                       <Link href="/shop">Continue Shopping</Link>
                     </Button>
                     <Button
                       variant="ghost"
-                      className="w-full text-[var(--destructive)] hover:text-[var(--destructive)] "
+                      className="w-full text-[var(--destructive)] hover:text-[var(--destructive)] hover:bg-[var(--input)] transition duration-300 cursor-pointer"
                       onClick={clearCart}
                     >
                       Clear Cart
