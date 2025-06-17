@@ -85,7 +85,7 @@ const Header = () => {
               <Link href="/cart">
                 <ShoppingCart className="w-4 h-4" />
                 {getTotalItems() > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 bg-[var(--primary)] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                     {getTotalItems()}
                   </span>
                 )}
