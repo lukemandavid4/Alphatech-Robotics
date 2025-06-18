@@ -7,30 +7,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useCart } from "@/app/ui/cartContext/CartContext";
 import { ArrowLeft, Truck } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const Checkout = () => {
-  const { items, getTotalPrice } = useCart();
-
-  if (items.length === 0) {
-    return (
-      <div className="min-h-screen flex flex-col">
-        <main className="flex-1 bg-background">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <div className="text-center">
-              <h1 className="text-3xl font-bold mb-4">Your cart is empty</h1>
-              <p className="text-[var(--muted-foreground)] mb-8">
-                Add some items to your cart before checking out.
-              </p>
-              <Button asChild className="bg-[var(--primary)] text-white">
-                <Link href="/shop">Start Shopping</Link>
-              </Button>
-            </div>
-          </div>
-        </main>
-      </div>
-    );
-  }
-
+  const { items, getTotalPrice, clearCart } = useCart();
+  const router = useRouter();
+  const handlePlaceOrder = () => {
+    clearCart();
+    router.push("/order-success");
+  };
   return (
     <div className="min-h-screen flex flex-col">
       <main className="flex-1 bg-background">
@@ -180,6 +165,7 @@ const Checkout = () => {
                   <Button
                     className="w-full bg-[var(--primary)] text-white cursor-pointer hover:bg-blue-600 transition duration-300"
                     size="lg"
+                    onClick={handlePlaceOrder}
                   >
                     Place Order
                   </Button>
