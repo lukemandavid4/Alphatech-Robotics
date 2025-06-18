@@ -13,12 +13,12 @@ const OrderSuccess = () => {
               <div className="flex justify-center mb-4">
                 <CheckCircle className="w-16 h-16 text-green-500" />
               </div>
-              <CardTitle className="text-3xl font-bold">
+              <CardTitle className="text-2xl md:text-3xl font-bold">
                 Order Placed Successfully!
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              <p className="text-lg text-[var(--muted-foreground)] ">
+              <p className="md:text-lg text-[var(--muted-foreground)] ">
                 Thank you for your order. We'll send you a confirmation email
                 shortly.
               </p>

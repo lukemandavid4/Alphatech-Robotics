@@ -21,6 +21,10 @@ const page = ({ currentPage = 1 }) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const { addToCart } = useCart();
 
+  interface ShopPageProps {
+    currentPage: number;
+  }
+
   const categories = [
     "Smartphones",
     "Laptops",

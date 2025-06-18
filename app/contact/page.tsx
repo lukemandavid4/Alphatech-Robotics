@@ -9,7 +9,7 @@ const page = () => {
     <>
       <div className="flex flex-col gap-8 md:gap-16 w-full bg-white max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center pt-8 md:pt-16">
-          <h1 className="text-[2.5rem] font-bold">Contact Us</h1>
+          <h1 className="text-[2rem] md:text-[2.5rem] font-bold">Contact Us</h1>
           <p className="text-[var(--muted-foreground)]">
             Get in touch with our team. We're here to help with any questions
             about our products or services.
