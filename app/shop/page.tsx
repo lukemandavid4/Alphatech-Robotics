@@ -16,14 +16,10 @@ import { Star, Filter, Grid, List, ShoppingCart } from "lucide-react";
 import { useCart } from "@/app/ui/cartContext/CartContext";
 import { toast } from "sonner";
 
-const page = ({ currentPage = 1 }) => {
+const Shop = () => {
   const [viewMode, setViewMode] = useState("grid");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const { addToCart } = useCart();
-
-  interface ShopPageProps {
-    currentPage: number;
-  }
 
   const categories = [
     "Smartphones",
@@ -364,31 +360,23 @@ const page = ({ currentPage = 1 }) => {
               {/* Pagination */}
               <div className="flex justify-center mt-12">
                 <div className="flex space-x-2">
-                  <Button
-                    variant="outline"
-                    disabled={currentPage === 1}
-                    className="border-[var(--input)] cursor-pointer"
-                  >
+                  <Button variant="outline" disabled>
                     Previous
                   </Button>
                   {[1, 2, 3].map((page) => (
                     <Button
                       key={page}
-                      variant={currentPage === page ? "default" : "outline"}
-                      className={`border ${
-                        currentPage === page
-                          ? "bg-[var(--primary)] text-white cursor-pointer"
-                          : "border-[var(--input)] cursor-pointer"
-                      } focus:bg-[var(--primary)] focus:text-white`}
+                      variant={page === 1 ? "default" : "outline"}
+                      className={`border cursor-pointer ${
+                        page === 1
+                          ? "bg-[var(--primary)] text-white"
+                          : "border-[var(--input)]"
+                      }`}
                     >
                       {page}
                     </Button>
                   ))}
-                  <Button
-                    variant="outline"
-                    disabled={currentPage === 3}
-                    className="border-[var(--input)] cursor-pointer focus:bg-[var(--primary)] focus:text-white"
-                  >
+                  <Button variant="outline" disabled>
                     Next
                   </Button>
                 </div>
@@ -401,4 +389,4 @@ const page = ({ currentPage = 1 }) => {
   );
 };
 
-export default page;
+export default Shop;
