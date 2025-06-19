@@ -45,7 +45,7 @@ const page = () => {
     <div className="flex flex-col gap-10 lg:gap-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex flex-col bg-white lg:min-h-screen items-center">
         <div className="flex flex-col items-center py-10 lg:mt-16 lg:mb-32">
-          <h1 className="text-[2.5rem] font-bold text-center">
+          <h1 className="text-[2rem] md:text-[2.5rem] font-bold text-center">
             About Alphatech
           </h1>
           <p className="text-[var(--muted-foreground)] text-center">
