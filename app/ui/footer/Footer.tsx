@@ -48,7 +48,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="flex flex-col gap-2 w-full md:w-[calc(50%-1rem)] lg:w-[calc(25%-1rem)]">
-            <h1 className="text-white font-semibold">Reach Us through</h1>
+            <h1 className="text-white font-semibold">Reach Us through:</h1>
             <Link
               href="https://www.instagram.com/al.phatech/"
               className="text-[var(--muted-foreground)] flex gap-2 w-fit hover:text-white transition-colors duration-200"
