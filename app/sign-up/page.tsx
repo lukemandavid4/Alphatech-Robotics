@@ -1,11 +1,14 @@
 "use client";
 import { useState } from "react";
+import { useSignUp } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Eye, EyeOff, Mail, Lock, User, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import {
   Card,
@@ -14,25 +17,133 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
 
 const page = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [loginData, setLoginData] = useState({ email: "", password: "" });
-  const [signupData, setSignupData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    password: "",
-    confirmPassword: "",
-  });
-  const [isLoading, setIsLoading] = useState(false);
+  const { isLoaded, signUp, setActive } = useSignUp();
+  const [emailAddress, setEmailAddress] = useState("");
+  const [password, setPassword] = useState("");
+  const [verifying, setVerifying] = useState(false);
+  const [code, setCode] = useState("");
+  const [error, setError] = useState("");
+  const router = useRouter();
 
-  const handleSignup = (e: React.FormEvent) => {
+  // Handle submission of the sign-up form
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Signup:", signupData);
+    setError("");
+
+    if (!isLoaded) return;
+
+    // Start the sign-up process using the email and password provided
+    try {
+      await signUp.create({
+        emailAddress,
+        password,
+      });
+
+      // Send the user an email with the verification code
+      await signUp.prepareEmailAddressVerification({
+        strategy: "email_code",
+      });
+
+      // Set 'verifying' true to display second form
+      // and capture the OTP code
+      setVerifying(true);
+    } catch (err: any) {
+      if (err?.errors?.[0]?.code === "session_exists") {
+        setError("An account with this email already exists.");
+      } else {
+        setError(err?.errors?.[0]?.message || "Something went wrong.");
+      }
+    }
   };
+
+  // Handle the submission of the verification form
+  const handleVerify = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!isLoaded) return;
+
+    try {
+      // Use the code the user provided to attempt verification
+      const signUpAttempt = await signUp.attemptEmailAddressVerification({
+        code,
+      });
+
+      // If verification was completed, set the session to active
+      // and redirect the user
+      if (signUpAttempt.status === "complete") {
+        await setActive({ session: signUpAttempt.createdSessionId });
+        router.push("/");
+      } else {
+        // If the status is not complete, check why. User may need to
+        // complete further steps.
+        console.error(JSON.stringify(signUpAttempt, null, 2));
+      }
+    } catch (err: any) {
+      // See https://clerk.com/docs/custom-flows/error-handling
+      // for more info on error handling
+      console.error("Error:", JSON.stringify(err, null, 2));
+    }
+  };
+
+  // Display the verification form to capture the OTP code
+  if (verifying) {
+    return (
+      <div className="min-h-[50vh] bg-gray-50">
+        <div className="container mx-auto px-4 py-16">
+          <div className="max-w-md mx-auto">
+            <Card className="border border-[var(--border)]">
+              <CardHeader>
+                <div className="flex items-center mb-2">
+                  <CardTitle>Verify Your Email</CardTitle>
+                </div>
+                <CardDescription className="text-[var(--muted-foreground)]">
+                  We've sent a 6-digit verification code to your email.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleVerify} className="space-y-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="verification-code">Verification Code</Label>
+                    <div className="flex justify-center">
+                      <InputOTP maxLength={6} value={code} onChange={setCode}>
+                        <InputOTPGroup>
+                          {[0, 1, 2, 3, 4, 5].map((index) => (
+                            <InputOTPSlot
+                              key={index}
+                              index={index}
+                              className="border-[var(--border)] focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none focus:border-[var(--primary)] focus:border-2"
+                            />
+                          ))}
+                        </InputOTPGroup>
+                      </InputOTP>
+                    </div>
+                  </div>
+
+                  <Button
+                    type="submit"
+                    className="w-full bg-[var(--primary)] text-white cursor-pointer hover:bg-blue-600 transition duration-300"
+                    disabled={!verifying || code.length !== 6}
+                  >
+                    {!verifying ? "Verifying..." : "Verify Email"}
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const handleGoogleAuth = () => {
     console.log("Google authentication");
   };
@@ -59,15 +170,16 @@ const page = () => {
                     Sign Up
                   </TabsTrigger>
                   <Link
-                    href="/signin"
+                    href="/sign-in"
                     className="cursor-pointer flex items-center justify-center rounded-md px-3 py-1.5 text-sm font-medium hover:bg-accent hover:text-accent-foreground border border-transparent w-1/2"
                   >
                     Sign In
                   </Link>
                 </TabsList>
                 <TabsContent value="signup">
-                  <form onSubmit={handleSignup} className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    {/* <div id="clerk-captcha" /> */}
+                    {/* <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="first-name">First Name</Label>
                         <div className="relative">
@@ -103,7 +215,7 @@ const page = () => {
                           required
                         />
                       </div>
-                    </div>
+                    </div> */}
 
                     <div className="space-y-2">
                       <Label htmlFor="signup-email">Email</Label>
@@ -114,19 +226,19 @@ const page = () => {
                           type="email"
                           placeholder="Enter your email"
                           className="pl-10 border-[var(--border)] focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none focus:border-[var(--primary)] focus:border-2"
-                          value={signupData.email}
-                          onChange={(e) =>
-                            setSignupData({
-                              ...signupData,
-                              email: e.target.value,
-                            })
-                          }
+                          value={emailAddress}
+                          onChange={(e) => setEmailAddress(e.target.value)}
                           required
                         />
                       </div>
+                      {error && (
+                        <p className="text-red-500 text-sm mb-2 font-semibold">
+                          {error}
+                        </p>
+                      )}
                     </div>
 
-                    <div className="space-y-2">
+                    {/* <div className="space-y-2">
                       <Label htmlFor="phone">Phone Number</Label>
                       <div className="relative">
                         <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[var(--muted-foreground)] w-4 h-4" />
@@ -145,7 +257,7 @@ const page = () => {
                           required
                         />
                       </div>
-                    </div>
+                    </div> */}
 
                     <div className="space-y-2">
                       <Label htmlFor="signup-password">Password</Label>
@@ -156,13 +268,8 @@ const page = () => {
                           type={showPassword ? "text" : "password"}
                           placeholder="Create a password"
                           className="pl-10 pr-10 border-[var(--border)] focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none focus:border-[var(--primary)] focus:border-2"
-                          value={signupData.password}
-                          onChange={(e) =>
-                            setSignupData({
-                              ...signupData,
-                              password: e.target.value,
-                            })
-                          }
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
                           required
                         />
                         <Button
@@ -181,7 +288,7 @@ const page = () => {
                       </div>
                     </div>
 
-                    <div className="space-y-2">
+                    {/* <div className="space-y-2">
                       <Label htmlFor="confirm-password">Confirm Password</Label>
                       <div className="relative">
                         <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[var(--muted-foreground)] w-4 h-4" />
@@ -215,11 +322,12 @@ const page = () => {
                           )}
                         </Button>
                       </div>
-                    </div>
+                    </div> */}
 
                     <Button
                       type="submit"
                       className="w-full bg-[var(--primary)] text-white cursor-pointer hover:bg-blue-600 transition duration-300"
+                      disabled={verifying}
                     >
                       Create Account
                     </Button>

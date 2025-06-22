@@ -7,13 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const page = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -59,7 +53,7 @@ const page = () => {
                     Sign In
                   </TabsTrigger>
                   <Link
-                    href="/signup"
+                    href="/sign-up"
                     className="cursor-pointer flex items-center justify-center rounded-md px-3 py-1.5 text-sm font-medium hover:bg-accent hover:text-accent-foreground border border-transparent w-1/2"
                   >
                     Sign Up

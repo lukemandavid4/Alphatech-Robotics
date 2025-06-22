@@ -76,8 +76,8 @@ const Header = () => {
               className="hidden md:flex px-8 bg-black text-white hover:bg-[var(--primary)] transition-colors duration-300"
               asChild
             >
-              <Link href="/signin">
-                {/* <User className="w-4 h-4" /> */}
+              <Link href="/sign-in">
+                <User className="w-4 h-4" />
                 <span className="hidden lg:inline">Login</span>
               </Link>
             </Button>
