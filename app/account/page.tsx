@@ -28,23 +28,25 @@ const ProfilePage = () => {
     return <p className="text-center text-[var(--primary)]">Loading...</p>;
 
   return (
-    <div className="max-w-2xl mx-auto flex flex-col gap-8 py-16">
+    <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-8 py-16">
       <div className="flex justify-between">
-        <div>
+        <div className="w-[65%] sm:w-fit">
           <h1 className="text-2xl font-semibold">My Account</h1>
           <p className="text-[var(--muted-foreground)]">
             Manage your profile and account settings
           </p>
         </div>
-        <button
-          className="flex gap-4 bg-[var(--primary)] text-white h-fit px-4 py-2 rounded-[0.5rem] cursor-pointer hover:bg-blue-600 transition duration-300"
-          onClick={handleSignOut}
-        >
-          <LogOut className="w-[1.3rem] h-[1.3rem]" />
-          <span className="font-semibold text-[0.9rem]">Sign Out</span>
-        </button>
+        <div className="w-[35%] sm:w-fit flex justify-end">
+          <button
+            className="flex gap-2 md:gap-4 bg-[var(--primary)] text-white h-fit sm:px-4 py-2 rounded-[0.5rem] cursor-pointer hover:bg-blue-600 transition duration-300 w-full justify-center"
+            onClick={handleSignOut}
+          >
+            <LogOut className="w-[1.3rem] h-[1.3rem]" />
+            <span className="font-semibold text-[0.9rem]">Sign Out</span>
+          </button>
+        </div>
       </div>
-      <div className="flex flex-col gap-5 border border-[var(--border)] rounded-lg p-8 w-full">
+      <div className="flex flex-col gap-5 border border-[var(--border)] rounded-lg p-4 sm:p-8 w-full">
         <div>
           <div className="flex">
             <User className="w-[1.3rem] h-[1.3rem]" />
@@ -59,13 +61,13 @@ const ProfilePage = () => {
             <h1 className="text-[var(--muted-foreground)] font-semibold text-[0.9rem]">
               First Name
             </h1>
-            <p>{user.firstName || "N/A"}</p>
+            <p className="text-[0.9rem]">{user.firstName || "N/A"}</p>
           </div>
           <div>
             <h1 className="text-[var(--muted-foreground)] font-semibold text-[0.9rem]">
               Last Name
             </h1>
-            <p>{user.lastName || "N/A"}</p>
+            <p className="text-[0.9rem]">{user.lastName || "N/A"}</p>
           </div>
         </div>
         <div>
@@ -75,7 +77,9 @@ const ProfilePage = () => {
               Email
             </h1>
           </div>
-          <p>{user.emailAddresses[0]?.emailAddress || "N/A"}</p>
+          <p className="text-[0.9rem]">
+            {user.emailAddresses[0]?.emailAddress || "N/A"}
+          </p>
         </div>
         <div>
           <div className="flex gap-2">
@@ -84,7 +88,9 @@ const ProfilePage = () => {
               Phone
             </h1>
           </div>
-          <p>{user.phoneNumbers[0]?.phoneNumber || "N/A"}</p>
+          <p className="text-[0.9rem]">
+            {user.phoneNumbers[0]?.phoneNumber || "N/A"}
+          </p>
         </div>
       </div>
     </div>

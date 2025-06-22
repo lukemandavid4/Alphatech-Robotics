@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import {
   Card,
@@ -25,8 +24,10 @@ import {
 
 const page = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { isLoaded, signUp, setActive } = useSignUp();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   const [verifying, setVerifying] = useState(false);
@@ -34,27 +35,24 @@ const page = () => {
   const [error, setError] = useState("");
   const router = useRouter();
 
-  // Handle submission of the sign-up form
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
     if (!isLoaded) return;
-
-    // Start the sign-up process using the email and password provided
     try {
       await signUp.create({
+        firstName,
+        lastName,
+        phoneNumber: "+254712345678",
         emailAddress,
         password,
       });
 
-      // Send the user an email with the verification code
       await signUp.prepareEmailAddressVerification({
         strategy: "email_code",
       });
 
-      // Set 'verifying' true to display second form
-      // and capture the OTP code
       setVerifying(true);
     } catch (err: any) {
       if (err?.errors?.[0]?.code === "session_exists") {
@@ -65,36 +63,27 @@ const page = () => {
     }
   };
 
-  // Handle the submission of the verification form
   const handleVerify = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!isLoaded) return;
 
     try {
-      // Use the code the user provided to attempt verification
       const signUpAttempt = await signUp.attemptEmailAddressVerification({
         code,
       });
 
-      // If verification was completed, set the session to active
-      // and redirect the user
       if (signUpAttempt.status === "complete") {
         await setActive({ session: signUpAttempt.createdSessionId });
         router.push("/");
       } else {
-        // If the status is not complete, check why. User may need to
-        // complete further steps.
         console.error(JSON.stringify(signUpAttempt, null, 2));
       }
     } catch (err: any) {
-      // See https://clerk.com/docs/custom-flows/error-handling
-      // for more info on error handling
       console.error("Error:", JSON.stringify(err, null, 2));
     }
   };
 
-  // Display the verification form to capture the OTP code
   if (verifying) {
     return (
       <div className="min-h-[50vh] bg-gray-50">
@@ -127,7 +116,6 @@ const page = () => {
                       </InputOTP>
                     </div>
                   </div>
-
                   <Button
                     type="submit"
                     className="w-full bg-[var(--primary)] text-white cursor-pointer hover:bg-blue-600 transition duration-300"
@@ -179,7 +167,7 @@ const page = () => {
                 <TabsContent value="signup">
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div id="clerk-captcha" />
-                    {/* <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="first-name">First Name</Label>
                         <div className="relative">
@@ -188,13 +176,8 @@ const page = () => {
                             id="first-name"
                             placeholder="First name"
                             className="pl-10 border-[var(--border)] focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none focus:border-[var(--primary)] focus:border-2"
-                            value={signupData.firstName}
-                            onChange={(e) =>
-                              setSignupData({
-                                ...signupData,
-                                firstName: e.target.value,
-                              })
-                            }
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
                             required
                           />
                         </div>
@@ -205,18 +188,12 @@ const page = () => {
                           id="last-name"
                           placeholder="Last name"
                           className="border-[var(--border)] focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none focus:border-[var(--primary)] focus:border-2"
-                          value={signupData.lastName}
-                          onChange={(e) =>
-                            setSignupData({
-                              ...signupData,
-                              lastName: e.target.value,
-                            })
-                          }
+                          value={lastName}
+                          onChange={(e) => setLastName(e.target.value)}
                           required
                         />
                       </div>
-                    </div> */}
-
+                    </div>
                     <div className="space-y-2">
                       <Label htmlFor="signup-email">Email</Label>
                       <div className="relative">
@@ -237,7 +214,6 @@ const page = () => {
                         </p>
                       )}
                     </div>
-
                     {/* <div className="space-y-2">
                       <Label htmlFor="phone">Phone Number</Label>
                       <div className="relative">
@@ -247,18 +223,12 @@ const page = () => {
                           type="tel"
                           placeholder="+254 7XX XXX XXX"
                           className="pl-10 border-[var(--border)] focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none focus:border-[var(--primary)] focus:border-2"
-                          value={signupData.phone}
-                          onChange={(e) =>
-                            setSignupData({
-                              ...signupData,
-                              phone: e.target.value,
-                            })
-                          }
+                          value={phoneNumber}
+                          onChange={(e) => setPhoneNumber(e.target.value)}
                           required
                         />
                       </div>
                     </div> */}
-
                     <div className="space-y-2">
                       <Label htmlFor="signup-password">Password</Label>
                       <div className="relative">
@@ -287,43 +257,6 @@ const page = () => {
                         </Button>
                       </div>
                     </div>
-
-                    {/* <div className="space-y-2">
-                      <Label htmlFor="confirm-password">Confirm Password</Label>
-                      <div className="relative">
-                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[var(--muted-foreground)] w-4 h-4" />
-                        <Input
-                          id="confirm-password"
-                          type={showConfirmPassword ? "text" : "password"}
-                          placeholder="Confirm your password"
-                          className="pl-10 pr-10 border-[var(--border)] focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none focus:border-[var(--primary)] focus:border-2"
-                          value={signupData.confirmPassword}
-                          onChange={(e) =>
-                            setSignupData({
-                              ...signupData,
-                              confirmPassword: e.target.value,
-                            })
-                          }
-                          required
-                        />
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="sm"
-                          className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent cursor-pointer"
-                          onClick={() =>
-                            setShowConfirmPassword(!showConfirmPassword)
-                          }
-                        >
-                          {showConfirmPassword ? (
-                            <EyeOff className="w-4 h-4" />
-                          ) : (
-                            <Eye className="w-4 h-4" />
-                          )}
-                        </Button>
-                      </div>
-                    </div> */}
-
                     <Button
                       type="submit"
                       className="w-full bg-[var(--primary)] text-white cursor-pointer hover:bg-blue-600 transition duration-300"
@@ -345,7 +278,6 @@ const page = () => {
                     </span>
                   </div>
                 </div>
-
                 <Button
                   variant="outline"
                   className="w-full mt-4 border-[var(--border)] cursor-pointer"

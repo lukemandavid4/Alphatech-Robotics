@@ -138,14 +138,6 @@ const Header = () => {
                   {item.name}
                 </Link>
               ))}
-              <Link
-                href="/account"
-                className="text-muted-foreground hover:text-primary transition-colors duration-200 font-medium py-2 flex items-center space-x-2"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <User className="w-4 h-4" />
-                <span>Account</span>
-              </Link>
             </nav>
           </div>
         )}
