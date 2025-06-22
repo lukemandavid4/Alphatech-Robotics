@@ -73,12 +73,12 @@ const Header = () => {
             <Button
               variant="ghost"
               size="sm"
-              className="hidden md:flex hover:bg-[var(--input)] transition-colors duration-300"
+              className="hidden md:flex px-8 bg-black text-white hover:bg-[var(--primary)] transition-colors duration-300"
               asChild
             >
-              <Link href="/account">
-                <User className="w-4 h-4" />
-                <span className="ml-2 hidden lg:inline">Account</span>
+              <Link href="/signin">
+                {/* <User className="w-4 h-4" /> */}
+                <span className="hidden lg:inline">Login</span>
               </Link>
             </Button>
             <Button variant="ghost" size="sm" className="relative" asChild>

@@ -2,6 +2,14 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import Layout from "./ui/layout";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -19,10 +27,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${montserrat.variable} antialiased`}>
-        <Layout>{children}</Layout>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={`${montserrat.variable} antialiased`}>
+          <Layout>{children}</Layout>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
