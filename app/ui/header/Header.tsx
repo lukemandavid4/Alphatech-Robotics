@@ -5,12 +5,14 @@ import { Cpu, Search, ShoppingCart, Menu, X, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCart } from "@/app/ui/cartContext/CartContext";
+import { useUser, UserButton } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const { getTotalItems } = useCart();
+  const { isSignedIn } = useUser();
   const router = useRouter();
 
   const navigation = [
@@ -70,17 +72,23 @@ const Header = () => {
             </div>
           </form>
           <div className="flex items-center space-x-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="hidden md:flex px-8 bg-black text-white hover:bg-[var(--primary)] transition-colors duration-300"
-              asChild
-            >
-              <Link href="/sign-in">
-                <User className="w-4 h-4" />
-                <span className="hidden lg:inline">Login</span>
+            {isSignedIn ? (
+              <Link
+                href="/account"
+                className="text-muted-foreground hover:text-primary transition-colors duration-200 font-medium py-2 flex items-center space-x-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <User className="w-5 h-5" />
               </Link>
-            </Button>
+            ) : (
+              <Link
+                href="/sign-in"
+                className="text-white bg-[var(--primary)] hover:bg-black transition-colors duration-200 font-medium px-8 py-1 flex items-center space-x-2 rounded-[0.4rem]"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <span>Login</span>
+              </Link>
+            )}
             <Button variant="ghost" size="sm" className="relative" asChild>
               <Link href="/cart">
                 <ShoppingCart className="w-4 h-4" />
