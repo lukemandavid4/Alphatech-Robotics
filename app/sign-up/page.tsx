@@ -44,7 +44,6 @@ const page = () => {
       await signUp.create({
         firstName,
         lastName,
-        phoneNumber: "+254712345678",
         emailAddress,
         password,
       });
@@ -55,13 +54,13 @@ const page = () => {
 
       setVerifying(true);
     } catch (err: any) {
-      if (err?.errors?.[0]?.code === "session_exists") {
-        setError("An account with this email already exists.");
+      console.error("Signup error:", err);
+      if (err?.errors?.length) {
+        setError(err.errors.map((e: any) => e.message).join(" "));
+      } else if (err?.message) {
+        setError(err.message);
       } else {
-        setError(
-          err?.errors?.map((e: any) => e.message).join(" ") ||
-            "Something went wrong."
-        );
+        setError("An unknown error occurred.");
       }
     }
   };

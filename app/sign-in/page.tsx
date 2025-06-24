@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { useSignIn } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Eye, EyeOff, Mail, Lock, User, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -11,22 +13,50 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const page = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [loginData, setLoginData] = useState({ email: "", password: "" });
-  const [signupData, setSignupData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    password: "",
-    confirmPassword: "",
-  });
-  const [isLoading, setIsLoading] = useState(false);
+  const { isLoaded, signIn, setActive } = useSignIn();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const router = useRouter();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Login:", loginData);
+
+    if (!isLoaded) return;
+
+    try {
+      const signInAttempt = await signIn.create({
+        identifier: email,
+        password,
+      });
+
+      if (signInAttempt.status === "complete") {
+        await setActive({ session: signInAttempt.createdSessionId });
+        router.push("/");
+      } else {
+        console.error(
+          "Unexpected sign-in state:",
+          JSON.stringify(signInAttempt, null, 2)
+        );
+        setError("Unexpected sign-in result. Please try again.");
+      }
+    } catch (err: any) {
+      console.error("Sign-in error:", JSON.stringify(err, null, 2));
+
+      const code = err?.errors?.[0]?.code;
+
+      if (code === "form_identifier_not_found") {
+        setError("No account found with this email.");
+      } else if (code === "form_password_incorrect") {
+        setError("The password you entered is incorrect.");
+      } else {
+        setError(
+          err?.errors?.[0]?.message || "Something went wrong. Please try again."
+        );
+      }
+    }
   };
+
   const handleGoogleAuth = () => {
     console.log("Google authentication");
   };
@@ -60,7 +90,7 @@ const page = () => {
                   </Link>
                 </TabsList>
                 <TabsContent value="login">
-                  <form onSubmit={handleLogin} className="space-y-4">
+                  <form onSubmit={(e) => handleSubmit(e)} className="space-y-4">
                     <div className="space-y-2">
                       <Label htmlFor="login-email">Email</Label>
                       <div className="relative">
@@ -70,18 +100,17 @@ const page = () => {
                           type="email"
                           placeholder="Enter your email"
                           className="pl-10 border-[var(--border)] focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none focus:border-[var(--primary)] focus:border-2"
-                          value={loginData.email}
-                          onChange={(e) =>
-                            setLoginData({
-                              ...loginData,
-                              email: e.target.value,
-                            })
-                          }
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
                           required
                         />
                       </div>
                     </div>
-
+                    {error && (
+                      <p className="text-red-500 text-sm font-semibold">
+                        {error}
+                      </p>
+                    )}
                     <div className="space-y-2">
                       <Label htmlFor="login-password">Password</Label>
                       <div className="relative">
@@ -91,13 +120,8 @@ const page = () => {
                           type={showPassword ? "text" : "password"}
                           placeholder="Enter your password"
                           className="pl-10 pr-10 border-[var(--border)] focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none focus:border-[var(--primary)] focus:border-2"
-                          value={loginData.password}
-                          onChange={(e) =>
-                            setLoginData({
-                              ...loginData,
-                              password: e.target.value,
-                            })
-                          }
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
                           required
                         />
                         <Button
@@ -115,7 +139,6 @@ const page = () => {
                         </Button>
                       </div>
                     </div>
-
                     <div className="flex items-center justify-between">
                       <Link
                         href="/forgot-password"
@@ -124,7 +147,6 @@ const page = () => {
                         Forgot password?
                       </Link>
                     </div>
-
                     <Button
                       type="submit"
                       className="w-full bg-[var(--primary)] text-white cursor-pointer hover:bg-blue-600 transition duration-300"
@@ -145,7 +167,6 @@ const page = () => {
                     </span>
                   </div>
                 </div>
-
                 <Button
                   variant="outline"
                   className="w-full mt-4 border-[var(--border)] cursor-pointer"
