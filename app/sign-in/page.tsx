@@ -57,8 +57,19 @@ const page = () => {
     }
   };
 
-  const handleGoogleAuth = () => {
-    console.log("Google authentication");
+  const handleGoogleAuth = async () => {
+    if (!isLoaded) return;
+
+    try {
+      await signIn.authenticateWithRedirect({
+        strategy: "oauth_google",
+        redirectUrl: "/sso-callback",
+        redirectUrlComplete: "/",
+      });
+    } catch (err: any) {
+      console.error("Google OAuth error:", err);
+      setError("Google authentication failed. Please try again.");
+    }
   };
   return (
     <div className="min-h-screen bg-gray-50">
