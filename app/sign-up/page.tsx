@@ -58,7 +58,10 @@ const page = () => {
       if (err?.errors?.[0]?.code === "session_exists") {
         setError("An account with this email already exists.");
       } else {
-        setError(err?.errors?.[0]?.message || "Something went wrong.");
+        setError(
+          err?.errors?.map((e: any) => e.message).join(" ") ||
+            "Something went wrong."
+        );
       }
     }
   };
