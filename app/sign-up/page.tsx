@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useSignUp } from "@clerk/nextjs";
+import { useSignIn } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Eye, EyeOff, Mail, Lock, User, Phone } from "lucide-react";
@@ -25,6 +26,7 @@ import {
 const page = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { isLoaded, signUp, setActive } = useSignUp();
+  const { signIn } = useSignIn();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -134,9 +136,21 @@ const page = () => {
     );
   }
 
-  const handleGoogleAuth = () => {
-    console.log("Google authentication");
+  const handleGoogleAuth = async () => {
+    if (!isLoaded || !signIn) return;
+
+    try {
+      await signIn.authenticateWithRedirect({
+        strategy: "oauth_google",
+        redirectUrl: "/sso-callback",
+        redirectUrlComplete: "/",
+      });
+    } catch (err: any) {
+      console.error("Google OAuth error:", err);
+      setError("Google sign-in failed. Please try again.");
+    }
   };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-16">

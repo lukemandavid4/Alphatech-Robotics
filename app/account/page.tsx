@@ -25,7 +25,11 @@ const ProfilePage = () => {
   }, [isLoaded, isSignedIn]);
 
   if (!isLoaded || !isSignedIn)
-    return <p className="text-center text-[var(--primary)]">Loading...</p>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-b-4 border-[var(--primary)]" />
+      </div>
+    );
 
   return (
     <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-8 py-16">
