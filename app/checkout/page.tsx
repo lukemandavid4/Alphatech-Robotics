@@ -14,6 +14,15 @@ const Checkout = () => {
   const { items, getTotalPrice, clearCart } = useCart();
   const [phoneNumber, setPhoneNumber] = useState("");
   const [loading, setLoading] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [county, setCounty] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
+
   const router = useRouter();
   const handlePlaceOrder = async () => {
     if (!phoneNumber) {
@@ -57,6 +66,54 @@ const Checkout = () => {
     }
   };
 
+  const isFormValid = () => {
+    return (
+      firstName &&
+      lastName &&
+      email &&
+      phoneNumber &&
+      address &&
+      city &&
+      county &&
+      zipCode
+    );
+  };
+
+  const handleSaveAddress = async () => {
+    if (!isFormValid()) return;
+
+    try {
+      setIsSaving(true);
+      const response = await fetch("/api/save-address", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          phoneNumber,
+          address,
+          city,
+          county,
+          zipCode,
+        }),
+      });
+
+      if (response.ok) {
+        alert("Address saved successfully.");
+      } else {
+        alert("Failed to save address.");
+      }
+    } catch (error) {
+      console.error("Error saving address:", error);
+      alert("An error occurred while saving the address.");
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <main className="flex-1 bg-background">
@@ -90,6 +147,8 @@ const Checkout = () => {
                         id="firstName"
                         placeholder="John"
                         className="border border-[var(--border)]"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
                       />
                     </div>
                     <div>
@@ -98,6 +157,8 @@ const Checkout = () => {
                         id="lastName"
                         placeholder="Doe"
                         className="border border-[var(--border)]"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
                       />
                     </div>
                   </div>
@@ -108,6 +169,8 @@ const Checkout = () => {
                       type="email"
                       placeholder="john@example.com"
                       className="border border-[var(--border)]"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                   </div>
                   <div>
@@ -130,6 +193,8 @@ const Checkout = () => {
                       id="address"
                       placeholder="123 Main St"
                       className="border border-[var(--border)]"
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
                     />
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -139,6 +204,8 @@ const Checkout = () => {
                         id="city"
                         placeholder="Nairobi"
                         className="border border-[var(--border)]"
+                        value={city}
+                        onChange={(e) => setCity(e.target.value)}
                       />
                     </div>
                     <div>
@@ -147,6 +214,8 @@ const Checkout = () => {
                         id="state"
                         placeholder="Nairobi"
                         className="border border-[var(--border)]"
+                        value={county}
+                        onChange={(e) => setCounty(e.target.value)}
                       />
                     </div>
                     <div>
@@ -155,12 +224,22 @@ const Checkout = () => {
                         id="zipCode"
                         placeholder="00100"
                         className="border border-[var(--border)]"
+                        value={zipCode}
+                        onChange={(e) => setZipCode(e.target.value)}
                       />
                     </div>
                   </div>
                   <div className="w-full">
-                    <button className="bg-[var(--primary)] rounded-[0.5rem] text-[0.8rem] font-semibold text-white w-full py-[0.5rem] cursor-pointer hover:bg-blue-600 transition duration-300">
-                      Save Address
+                    <button
+                      onClick={handleSaveAddress}
+                      disabled={!isFormValid() || isSaving}
+                      className={`bg-[var(--primary)] rounded-[0.5rem] text-[0.8rem] font-semibold text-white w-full py-[0.5rem] cursor-pointer transition duration-300 ${
+                        !isFormValid() || isSaving
+                          ? "opacity-50 cursor-not-allowed"
+                          : "hover:bg-blue-600"
+                      }`}
+                    >
+                      {isSaving ? "Saving..." : "Save Address"}
                     </button>
                   </div>
                 </CardContent>
@@ -223,10 +302,10 @@ const Checkout = () => {
                   </div>
 
                   <Button
-                    className="w-full bg-[var(--primary)] text-white cursor-pointer hover:bg-blue-600 transition duration-300"
+                    className="w-full bg-[var(--primary)] text-white cursor-pointer transition duration-300"
                     size="lg"
                     onClick={handlePlaceOrder}
-                    disabled={loading}
+                    disabled={!isFormValid() || loading}
                   >
                     {loading ? "Processing..." : "Place Order"}
                   </Button>
