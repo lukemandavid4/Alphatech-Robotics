@@ -256,7 +256,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="flex flex-col lg:flex-row w-full bg-white px-4 md:px-8 lg:px-[10rem] h-auto lg:min-h-screen items-center py-10 lg:py-0">
+      <div className="flex flex-col lg:flex-row w-full bg-white max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-auto lg:min-h-screen items-center py-10 lg:py-0">
         <div className="flex flex-col gap-4 md:gap-6 w-full lg:w-1/2 text-center lg:text-left mb-10 lg:mb-0">
           <p className="flex flex-col text-3xl md:text-5xl lg:text-[3.75rem] text-[var(--primary)] font-bold leading-tight">
             Latest Tech, <span className="text-black">Delivered Fast</span>

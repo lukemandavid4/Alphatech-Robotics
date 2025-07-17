@@ -33,29 +33,59 @@ const Checkout = () => {
     setLoading(true);
 
     try {
-      const response = await fetch("/api/mpesa/stk-push", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          phoneNumber,
-          amount: getTotalPrice(),
-          accountReference: "OnlineStore",
-          transactionDesc: "Purchase from e-commerce site",
-        }),
-      });
+      const response = await fetch(
+        "https://80b231079c6a.ngrok-free.app/api/mpesa/stk-push",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            phoneNumber,
+            amount: getTotalPrice(),
+            accountReference: "AlphaTech & Robotics",
+            transactionDesc: "Purchase from e-commerce site",
+          }),
+        }
+      );
 
       const result = await response.json();
 
-      if (result.success) {
+      if (result.success && result.data.CheckoutRequestID) {
         alert(
           "STK Push sent! Please check your phone to complete the payment."
         );
-        clearCart();
-        router.push("/order-success");
+
+        const checkoutRequestID = result.data.CheckoutRequestID;
+
+        // Poll every 3 seconds for max 30 seconds
+        let attempts = 0;
+        const interval = setInterval(async () => {
+          try {
+            const pollRes = await fetch(
+              `https://80b231079c6a.ngrok-free.app/api/mpesa/payment-status?checkoutRequestID=${checkoutRequestID}`
+            );
+            const pollData = await pollRes.json();
+
+            if (pollData.success && pollData.status === "Paid") {
+              clearInterval(interval);
+              alert("Payment successful!");
+              clearCart();
+              router.push("/order-success");
+            } else if (pollData.success && pollData.status === "Failed") {
+              clearInterval(interval);
+              alert("Payment failed or was cancelled.");
+            }
+          } catch (pollErr) {
+            console.error("Polling error:", pollErr);
+          }
+
+          if (++attempts > 10) {
+            clearInterval(interval);
+            alert("Payment timeout. Please try again.");
+          }
+        }, 3000);
       } else {
-        console.error(result.error);
         alert("Failed to initiate payment. Please try again.");
       }
     } catch (err) {
@@ -84,22 +114,25 @@ const Checkout = () => {
 
     try {
       setIsSaving(true);
-      const response = await fetch("/api/save-address", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          firstName,
-          lastName,
-          email,
-          phoneNumber,
-          address,
-          city,
-          county,
-          zipCode,
-        }),
-      });
+      const response = await fetch(
+        "https://80b231079c6a.ngrok-free.app/api/save-address",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            firstName,
+            lastName,
+            email,
+            phoneNumber,
+            address,
+            city,
+            county,
+            zipCode,
+          }),
+        }
+      );
 
       if (response.ok) {
         alert("Address saved successfully.");

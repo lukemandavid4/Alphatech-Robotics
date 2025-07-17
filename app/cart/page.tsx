@@ -5,10 +5,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useCart } from "@/app/ui/cartContext/CartContext";
 import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
+import { useAuth } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 const page = () => {
   const { items, updateQuantity, removeFromCart, getTotalPrice, clearCart } =
     useCart();
+  const { isSignedIn } = useAuth();
+  const router = useRouter();
 
   if (items.length === 0) {
     return (
@@ -134,8 +138,15 @@ const page = () => {
                     <Button
                       className="w-full bg-[var(--primary)] text-white cursor-pointer hover:bg-blue-600 transition duration-300"
                       size="lg"
+                      onClick={() => {
+                        if (isSignedIn) {
+                          router.push("/checkout");
+                        } else {
+                          router.push("/sign-up");
+                        }
+                      }}
                     >
-                      <Link href="/checkout">Proceed to Checkout</Link>
+                      Proceed to Checkout
                     </Button>
                     <Button
                       variant="outline"

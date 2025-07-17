@@ -1,7 +1,7 @@
 const express = require("express");
 const axios = require("axios");
 const dotenv = require("dotenv");
-const Transaction = require("../models/transaction"); // ✅ Fix typo here
+const Transaction = require("../models/transaction");
 
 dotenv.config();
 const router = express.Router();
@@ -10,7 +10,9 @@ const router = express.Router();
 const getTimestamp = () => {
   const date = new Date();
   const pad = (n) => String(n).padStart(2, "0");
-  return `${date.getFullYear()}${pad(date.getMonth() + 1)}${pad(date.getDate())}${pad(date.getHours())}${pad(date.getMinutes())}${pad(date.getSeconds())}`;
+  return `${date.getFullYear()}${pad(date.getMonth() + 1)}${pad(
+    date.getDate()
+  )}${pad(date.getHours())}${pad(date.getMinutes())}${pad(date.getSeconds())}`;
 };
 
 // Helper: Generate base64 password
@@ -23,8 +25,11 @@ const getPassword = (timestamp) => {
 // Get OAuth token
 const getAccessToken = async () => {
   try {
-    const url = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
-    const auth = Buffer.from(`${process.env.CONSUMER_KEY}:${process.env.CONSUMER_SECRET}`).toString("base64");
+    const url =
+      "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
+    const auth = Buffer.from(
+      `${process.env.CONSUMER_KEY}:${process.env.CONSUMER_SECRET}`
+    ).toString("base64");
 
     const response = await axios.get(url, {
       headers: { Authorization: `Basic ${auth}` },
@@ -32,7 +37,10 @@ const getAccessToken = async () => {
 
     return response.data.access_token;
   } catch (error) {
-    console.error("🔴 Access token error:", error.response?.data || error.message);
+    console.error(
+      "🔴 Access token error:",
+      error.response?.data || error.message
+    );
     throw error;
   }
 };
@@ -43,7 +51,10 @@ router.post("/stk-push", async (req, res) => {
     const { phoneNumber, amount, accountReference, transactionDesc } = req.body;
 
     if (!phoneNumber || !amount || isNaN(amount) || amount <= 0) {
-      return res.status(400).json({ success: false, error: "Valid phone number and amount required." });
+      return res.status(400).json({
+        success: false,
+        error: "Valid phone number and amount required.",
+      });
     }
 
     // Format phone
@@ -51,7 +62,10 @@ router.post("/stk-push", async (req, res) => {
     if (phoneNumber.startsWith("0")) formattedPhone = `254${phoneNumber.slice(1)}`;
     else if (phoneNumber.startsWith("+254")) formattedPhone = phoneNumber.slice(1);
     else if (!phoneNumber.startsWith("254")) {
-      return res.status(400).json({ success: false, error: "Phone must start with 07, +254 or 254." });
+      return res.status(400).json({
+        success: false,
+        error: "Phone must start with 07, +254 or 254.",
+      });
     }
 
     const accessToken = await getAccessToken();
@@ -68,7 +82,7 @@ router.post("/stk-push", async (req, res) => {
       PartyB: process.env.BUSINESS_SHORT_CODE,
       PhoneNumber: formattedPhone,
       CallBackURL: process.env.CALLBACK_URL,
-      AccountReference: accountReference || "Online Purchase",
+      AccountReference: accountReference || "AlphaTech & Robotics",
       TransactionDesc: transactionDesc || "E-Commerce Payment",
     };
 
@@ -83,7 +97,7 @@ router.post("/stk-push", async (req, res) => {
       }
     );
 
-    // Save to DB
+    // Save initial transaction
     await Transaction.create({
       phoneNumber: formattedPhone,
       amount,
@@ -91,6 +105,8 @@ router.post("/stk-push", async (req, res) => {
       transactionDesc,
       merchantRequestID: response.data.MerchantRequestID,
       checkoutRequestID: response.data.CheckoutRequestID,
+      resultCode: null, // not paid yet
+      resultDesc: "Waiting for user input",
     });
 
     return res.json({
@@ -108,9 +124,9 @@ router.post("/stk-push", async (req, res) => {
   }
 });
 
-// Callback Handler from Safaricom
+// Callback Handler
 router.post("/callback", async (req, res) => {
-  res.json({ ResultCode: 0, ResultDesc: "Accepted" }); // Always respond immediately
+  res.json({ ResultCode: 0, ResultDesc: "Accepted" });
 
   const callbackData = req.body?.Body?.stkCallback;
   if (!callbackData) {
@@ -119,7 +135,8 @@ router.post("/callback", async (req, res) => {
   }
 
   try {
-    const { ResultCode, ResultDesc, CheckoutRequestID, CallbackMetadata } = callbackData;
+    const { ResultCode, ResultDesc, CheckoutRequestID, CallbackMetadata } =
+      callbackData;
 
     const metadata = CallbackMetadata?.Item || [];
     const transaction = {};
@@ -127,36 +144,60 @@ router.post("/callback", async (req, res) => {
       transaction[item.Name] = item.Value;
     });
 
+    // Update transaction in DB based on result
+    const update = {
+      resultCode: ResultCode,
+      resultDesc: ResultDesc,
+      ...(ResultCode === 0
+        ? {
+            receiptNumber: transaction.MpesaReceiptNumber,
+            transactionDate: transaction.TransactionDate,
+            mpesaPhoneNumber: transaction.PhoneNumber,
+          }
+        : {}),
+    };
+
+    await Transaction.findOneAndUpdate(
+      { checkoutRequestID: CheckoutRequestID },
+      update,
+      { new: true }
+    );
+
     if (ResultCode === 0) {
       console.log("✅ Payment successful:", transaction);
-
-      await Transaction.findOneAndUpdate(
-        { checkoutRequestID: CheckoutRequestID },
-        {
-          resultCode: ResultCode,
-          resultDesc: ResultDesc,
-          receiptNumber: transaction.MpesaReceiptNumber,
-          transactionDate: transaction.TransactionDate,
-          mpesaPhoneNumber: transaction.PhoneNumber,
-        },
-        { new: true }
-      );
     } else {
-      console.warn("❌ Payment failed:", ResultDesc);
-
-      await Transaction.findOneAndUpdate(
-        { checkoutRequestID: CheckoutRequestID },
-        {
-          resultCode: ResultCode,
-          resultDesc: ResultDesc,
-        },
-        { new: true }
-      );
+      console.warn("❌ Payment failed or cancelled:", ResultDesc);
     }
   } catch (err) {
     console.error("🔴 Error handling callback:", err);
   }
 });
 
-module.exports = router;
+// ✅ Add this endpoint to let frontend poll for status
+router.get("/payment-status", async (req, res) => {
+  const { checkoutRequestID } = req.query;
+  if (!checkoutRequestID)
+    return res.status(400).json({ success: false, error: "Missing ID" });
 
+  try {
+    const txn = await Transaction.findOne({ checkoutRequestID });
+    if (!txn) return res.status(404).json({ success: false, error: "Not found" });
+
+    return res.json({
+      success: true,
+      status:
+        txn.resultCode === 0
+          ? "Paid"
+          : txn.resultCode === null
+          ? "Pending"
+          : "Failed",
+      resultCode: txn.resultCode,
+      resultDesc: txn.resultDesc,
+    });
+  } catch (err) {
+    console.error("🔴 Error fetching payment status:", err);
+    return res.status(500).json({ success: false, error: "Server error" });
+  }
+});
+
+module.exports = router;
