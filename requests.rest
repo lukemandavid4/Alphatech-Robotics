@@ -1,0 +1,9 @@
+POST http://localhost:4000/api/mpesa/stk-push
+Content-Type: application/json
+
+{
+  "phoneNumber": "0700577740",
+  "amount": 1,
+  "accountReference": "Order123",
+  "transactionDesc": "Testing STK Push"
+}

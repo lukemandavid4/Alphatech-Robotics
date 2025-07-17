@@ -8,14 +8,55 @@ import { Label } from "@/components/ui/label";
 import { useCart } from "@/app/ui/cartContext/CartContext";
 import { ArrowLeft, Truck } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const Checkout = () => {
   const { items, getTotalPrice, clearCart } = useCart();
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const handlePlaceOrder = () => {
-    clearCart();
-    router.push("/order-success");
+  const handlePlaceOrder = async () => {
+    if (!phoneNumber) {
+      alert("Please enter your phone number.");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const response = await fetch("/api/mpesa/stk-push", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          phoneNumber,
+          amount: getTotalPrice(),
+          accountReference: "OnlineStore",
+          transactionDesc: "Purchase from e-commerce site",
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        alert(
+          "STK Push sent! Please check your phone to complete the payment."
+        );
+        clearCart();
+        router.push("/order-success");
+      } else {
+        console.error(result.error);
+        alert("Failed to initiate payment. Please try again.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong. Try again later.");
+    } finally {
+      setLoading(false);
+    }
   };
+
   return (
     <div className="min-h-screen flex flex-col">
       <main className="flex-1 bg-background">
@@ -70,6 +111,20 @@ const Checkout = () => {
                     />
                   </div>
                   <div>
+                    <Label htmlFor="phoneNumber">
+                      Phone Number (Safaricom)
+                    </Label>
+                    <Input
+                      id="phoneNumber"
+                      type="tel"
+                      placeholder="0712345678"
+                      className="border border-[var(--border)]"
+                      value={phoneNumber}
+                      onChange={(e) => setPhoneNumber(e.target.value)}
+                    />
+                  </div>
+
+                  <div>
                     <Label htmlFor="address">Address</Label>
                     <Input
                       id="address"
@@ -87,7 +142,7 @@ const Checkout = () => {
                       />
                     </div>
                     <div>
-                      <Label htmlFor="state">State/County</Label>
+                      <Label htmlFor="state">County</Label>
                       <Input
                         id="state"
                         placeholder="Nairobi"
@@ -171,8 +226,9 @@ const Checkout = () => {
                     className="w-full bg-[var(--primary)] text-white cursor-pointer hover:bg-blue-600 transition duration-300"
                     size="lg"
                     onClick={handlePlaceOrder}
+                    disabled={loading}
                   >
-                    Place Order
+                    {loading ? "Processing..." : "Place Order"}
                   </Button>
                 </CardContent>
               </Card>
