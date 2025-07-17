@@ -41,7 +41,7 @@ const Checkout = () => {
                     Shipping Information
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="flex flex-col w-full space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="firstName">First Name</Label>
@@ -102,6 +102,11 @@ const Checkout = () => {
                         className="border border-[var(--border)]"
                       />
                     </div>
+                  </div>
+                  <div className="w-full">
+                    <button className="bg-[var(--primary)] rounded-[0.5rem] text-[0.8rem] font-semibold text-white w-full py-[0.5rem] cursor-pointer hover:bg-blue-600 transition duration-300">
+                      Save Address
+                    </button>
                   </div>
                 </CardContent>
               </Card>
