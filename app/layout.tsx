@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import Layout from "./ui/layout";
+import { Toaster } from "react-hot-toast";
 import {
   ClerkProvider,
   SignInButton,
@@ -30,7 +31,10 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={`${montserrat.variable} antialiased`}>
-          <Layout>{children}</Layout>
+          <Layout>
+            <Toaster position="top-right" />
+            {children}
+          </Layout>
         </body>
       </html>
     </ClerkProvider>

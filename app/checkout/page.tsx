@@ -9,6 +9,7 @@ import { useCart } from "@/app/ui/cartContext/CartContext";
 import { ArrowLeft, Truck } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const Checkout = () => {
   const { items, getTotalPrice, clearCart } = useCart();
@@ -26,7 +27,7 @@ const Checkout = () => {
   const router = useRouter();
   const handlePlaceOrder = async () => {
     if (!phoneNumber) {
-      alert("Please enter your phone number.");
+      toast.error("Please enter your phone number.");
       return;
     }
 
@@ -34,7 +35,7 @@ const Checkout = () => {
 
     try {
       const response = await fetch(
-        "https://80b231079c6a.ngrok-free.app/api/mpesa/stk-push",
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/mpesa/stk-push`,
         {
           method: "POST",
           headers: {
@@ -43,8 +44,8 @@ const Checkout = () => {
           body: JSON.stringify({
             phoneNumber,
             amount: getTotalPrice(),
-            accountReference: "AlphaTech & Robotics",
-            transactionDesc: "Purchase from e-commerce site",
+            accountReference: "AlphaTech and Robotics",
+            transactionDesc: "E-commerce purchase",
           }),
         }
       );
@@ -52,7 +53,7 @@ const Checkout = () => {
       const result = await response.json();
 
       if (result.success && result.data.CheckoutRequestID) {
-        alert(
+        toast.success(
           "STK Push sent! Please check your phone to complete the payment."
         );
 
@@ -63,18 +64,18 @@ const Checkout = () => {
         const interval = setInterval(async () => {
           try {
             const pollRes = await fetch(
-              `https://80b231079c6a.ngrok-free.app/api/mpesa/payment-status?checkoutRequestID=${checkoutRequestID}`
+              `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/mpesa/payment-status?checkoutRequestID=${checkoutRequestID}`
             );
             const pollData = await pollRes.json();
 
             if (pollData.success && pollData.status === "Paid") {
               clearInterval(interval);
-              alert("Payment successful!");
+              toast.success("Payment successful!");
               clearCart();
               router.push("/order-success");
             } else if (pollData.success && pollData.status === "Failed") {
               clearInterval(interval);
-              alert("Payment failed or was cancelled.");
+              toast.error("Payment failed or was cancelled.");
             }
           } catch (pollErr) {
             console.error("Polling error:", pollErr);
@@ -82,15 +83,15 @@ const Checkout = () => {
 
           if (++attempts > 10) {
             clearInterval(interval);
-            alert("Payment timeout. Please try again.");
+            toast.error("Payment timeout. Please try again.");
           }
         }, 3000);
       } else {
-        alert("Failed to initiate payment. Please try again.");
+        toast.error("Failed to initiate payment. Please try again.");
       }
     } catch (err) {
       console.error(err);
-      alert("Something went wrong. Try again later.");
+      toast.error("Something went wrong. Try again later.");
     } finally {
       setLoading(false);
     }
@@ -115,7 +116,7 @@ const Checkout = () => {
     try {
       setIsSaving(true);
       const response = await fetch(
-        "https://80b231079c6a.ngrok-free.app/api/save-address",
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/save-address`,
         {
           method: "POST",
           headers: {
@@ -135,13 +136,13 @@ const Checkout = () => {
       );
 
       if (response.ok) {
-        alert("Address saved successfully.");
+        toast.success("Address saved successfully.");
       } else {
-        alert("Failed to save address.");
+        toast.error("Failed to save address.");
       }
     } catch (error) {
       console.error("Error saving address:", error);
-      alert("An error occurred while saving the address.");
+      toast.error("An error occurred while saving the address.");
     } finally {
       setIsSaving(false);
     }
