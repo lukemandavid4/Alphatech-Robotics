@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -14,7 +13,8 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Star, Filter, Grid, List, ShoppingCart } from "lucide-react";
 import { useCart } from "@/app/ui/cartContext/CartContext";
-import { toast } from "sonner";
+import { products } from "@/app/ui/data/productData";
+import { CartItem } from "@/app/ui/cartContext/CartContext";
 
 const Shop = () => {
   const [viewMode, setViewMode] = useState("grid");
@@ -32,65 +32,6 @@ const Shop = () => {
     "Wearables",
   ];
 
-  const products = [
-    {
-      id: 1,
-      name: "Wireless Bluetooth Earphones Pro",
-      price: 7999,
-      originalPrice: 9999,
-      rating: 4.8,
-      reviews: 1243,
-      category: "Audio",
-      brand: "Oraimo",
-      image:
-        "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400&h=400&fit=crop",
-      badge: "Best Seller",
-      inStock: true,
-    },
-    {
-      id: 2,
-      name: "Fast Charging Cable USB-C 6ft",
-      price: 2499,
-      originalPrice: 3499,
-      rating: 4.6,
-      reviews: 856,
-      category: "Accessories",
-      brand: "Punex",
-      image:
-        "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400&h=400&fit=crop",
-      badge: "Sale",
-      inStock: true,
-    },
-    {
-      id: 3,
-      name: 'Gaming Laptop 15.6" RTX 4060',
-      price: 129999,
-      originalPrice: 149999,
-      rating: 4.9,
-      reviews: 423,
-      category: "Laptops",
-      brand: "Samsung",
-      image:
-        "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=400&fit=crop",
-      badge: "New",
-      inStock: false,
-    },
-    {
-      id: 4,
-      name: "64GB USB 3.0 Flash Drive",
-      price: 1999,
-      originalPrice: 2999,
-      rating: 4.7,
-      reviews: 1567,
-      category: "Storage",
-      brand: "Samsung",
-      image:
-        "https://images.unsplash.com/photo-1624823183493-ed5832f48f18?w=400&h=400&fit=crop",
-      badge: "Popular",
-      inStock: true,
-    },
-  ];
-
   const handleCategoryChange = (category: string, checked: boolean) => {
     if (checked) {
       setSelectedCategories([...selectedCategories, category]);
@@ -99,17 +40,9 @@ const Shop = () => {
     }
   };
 
-  const handleAddToCart = (product: (typeof products)[0]) => {
-    addToCart({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      originalPrice: product.originalPrice,
-      image: product.image,
-      brand: product.brand,
-    });
-    toast.success(`${product.name} added to cart!`);
-  };
+const handleAddToCart = (product: Omit<CartItem, "quantity">) => {
+  addToCart(product);
+};
 
   const getBadgeVariant = (badge: string) => {
     switch (badge) {
@@ -127,6 +60,13 @@ const Shop = () => {
   const handleClearFilters = () => {
     setSelectedCategories([]);
   };
+
+  const filteredProducts =
+    selectedCategories.length > 0
+      ? products.filter((product) =>
+          selectedCategories.includes(product.category)
+        )
+      : products;
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -245,19 +185,19 @@ const Shop = () => {
                     className="product-card group cursor-pointer border-0 shadow-md hover:shadow-xl transition-all duration-300"
                   >
                     <CardContent className="p-0">
-                      <div className={`${viewMode === "list" ? "flex" : ""}`}>
+                      <div className={viewMode === "list" ? "flex" : ""}>
+                        {/* Image Section */}
                         <div
                           className={`relative ${
                             viewMode === "list" ? "w-48" : ""
                           }`}
                         >
-                          {/* Product Image */}
                           <div
-                            className={`bg-gradient-to-br from-gray-100 to-gray-200 ${
+                            className={`bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden ${
                               viewMode === "list"
                                 ? "h-48 rounded-l-lg"
                                 : "aspect-square rounded-t-lg"
-                            } overflow-hidden`}
+                            }`}
                           >
                             <img
                               src={product.image}
@@ -265,16 +205,22 @@ const Shop = () => {
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                             />
                           </div>
-                          <Badge
-                            variant={getBadgeVariant(product.badge)}
-                            className="absolute top-3 left-3 bg-amber-600 text-white border-0"
-                          >
-                            {product.badge}
-                          </Badge>
-                          {product.inStock && (
+
+                          {/* Badge */}
+                          {product.badge && (
+                            <Badge
+                              variant={getBadgeVariant(product.badge)}
+                              className="absolute top-3 left-3 bg-amber-600 text-white border-0"
+                            >
+                              {product.badge}
+                            </Badge>
+                          )}
+
+                          {/* Add to Cart Floating */}
+                          {product.inStock ? (
                             <Button
                               size="sm"
-                              className="absolute top-3 right-3 opacity-0 bg-[var(--primary)] text-white cursor-pointer group-hover:opacity-100 transition-opacity duration-200"
+                              className="absolute top-3 right-3 opacity-0 bg-[var(--primary)] text-white group-hover:opacity-100 transition-opacity duration-200"
                               onClick={(e) => {
                                 e.preventDefault();
                                 handleAddToCart(product);
@@ -282,8 +228,7 @@ const Shop = () => {
                             >
                               <ShoppingCart className="w-4 h-4" />
                             </Button>
-                          )}
-                          {!product.inStock && (
+                          ) : (
                             <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-t-lg">
                               <Badge
                                 variant="destructive"
@@ -294,6 +239,8 @@ const Shop = () => {
                             </div>
                           )}
                         </div>
+
+                        {/* Details Section */}
                         <div
                           className={`p-6 ${
                             viewMode === "list" ? "flex-1" : ""
@@ -304,7 +251,7 @@ const Shop = () => {
                             {product.category}
                           </p>
 
-                          {/* Product Name */}
+                          {/* Name */}
                           <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors">
                             {product.name}
                           </h3>
@@ -333,12 +280,15 @@ const Shop = () => {
                             <span className="text-lg font-bold">
                               KSh {product.price.toLocaleString()}
                             </span>
-                            <span className="text-sm text-[var(--muted-foreground)] line-through">
-                              KSh {product.originalPrice.toLocaleString()}
-                            </span>
+                            {product.originalPrice &&
+                              product.originalPrice > product.price && (
+                                <span className="text-sm text-[var(--muted-foreground)] line-through">
+                                  KSh {product.originalPrice.toLocaleString()}
+                                </span>
+                              )}
                           </div>
 
-                          {/* Add to Cart Button */}
+                          {/* Add to Cart Button (Bottom) */}
                           <Button
                             className={`btn-hover ${
                               viewMode === "list" ? "w-auto" : "w-full"

@@ -1,5 +1,7 @@
 "use client";
 import React, { createContext, useContext, useState, ReactNode } from "react";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export interface CartItem {
   id: number;
@@ -25,17 +27,24 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [items, setItems] = useState<CartItem[]>([]);
+  const router = useRouter();
 
   const addToCart = (product: Omit<CartItem, "quantity">) => {
     setItems((prevItems) => {
       const existingItem = prevItems.find((item) => item.id === product.id);
       if (existingItem) {
-        return prevItems.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
+        toast.warning(`${product.name} is already in your cart`);
+        return prevItems;
       }
+
+      toast.success(`${product.name} added to cart`, {
+        description: "Go to your cart to check out",
+        action: {
+          label: "View Cart",
+          onClick: () => router.push("/cart"),
+        },
+      });
+
       return [...prevItems, { ...product, quantity: 1 }];
     });
   };

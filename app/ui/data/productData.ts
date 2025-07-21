@@ -1,0 +1,58 @@
+export const products = [
+  {
+    id: 1,
+    name: "Oraimo Necklace Lite",
+    price: 2500,
+    originalPrice: 2800,
+    rating: 4.8,
+    reviews: 1243,
+    category: "Audio",
+    brand: "Oraimo",
+    image:
+      "https://res.cloudinary.com/dp156lkww/image/upload/v1753105734/Oraimo_Necklace_Lite_uteo8y.webp",
+    badge: "Best Seller",
+    inStock: true,
+  },
+  {
+    id: 2,
+    name: "Oraimo AirBuds 4",
+    price: 2800,
+    originalPrice: 3000,
+    rating: 4.6,
+    reviews: 856,
+    category: "Accessories",
+    brand: "Punex",
+    image:
+      "https://res.cloudinary.com/dp156lkww/image/upload/v1753106574/OTW-340-680-1_ziwm1c.webp",
+    badge: "Sale",
+    inStock: true,
+  },
+  {
+    id: 3,
+    name: 'Gaming Laptop 15.6" RTX 4060',
+    price: 129999,
+    originalPrice: 149999,
+    rating: 4.9,
+    reviews: 423,
+    category: "Laptops",
+    brand: "Samsung",
+    image:
+      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=400&fit=crop",
+    badge: "New",
+    inStock: false,
+  },
+  {
+    id: 4,
+    name: "64GB USB 3.0 Flash Drive",
+    price: 1999,
+    originalPrice: 2999,
+    rating: 4.7,
+    reviews: 1567,
+    category: "Storage",
+    brand: "Samsung",
+    image:
+      "https://images.unsplash.com/photo-1624823183493-ed5832f48f18?w=400&h=400&fit=crop",
+    badge: "Popular",
+    inStock: true,
+  },
+];
