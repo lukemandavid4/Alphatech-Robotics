@@ -3,7 +3,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import Layout from "./ui/layout";
 // import { Toaster } from "react-hot-toast";
-import { Toaster } from 'sonner';
+import { Toaster } from "sonner";
 import {
   ClerkProvider,
   SignInButton,

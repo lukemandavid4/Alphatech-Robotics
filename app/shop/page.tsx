@@ -179,7 +179,7 @@ const handleAddToCart = (product: Omit<CartItem, "quantity">) => {
                     : "grid-cols-1"
                 }`}
               >
-                {products.map((product) => (
+                {filteredProducts.map((product) => (
                   <Card
                     key={product.id}
                     className="product-card group cursor-pointer border-0 shadow-md hover:shadow-xl transition-all duration-300"

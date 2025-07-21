@@ -1,6 +1,7 @@
 "use client";
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { toast } from "sonner";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export interface CartItem {
@@ -28,6 +29,18 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [items, setItems] = useState<CartItem[]>([]);
   const router = useRouter();
+
+  useEffect(() => {
+    const stored = localStorage.getItem("cart");
+    if (stored) {
+      setItems(JSON.parse(stored));
+    }
+  }, []);
+
+  // 🟢 Save to localStorage whenever items change
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(items));
+  }, [items]);
 
   const addToCart = (product: Omit<CartItem, "quantity">) => {
     setItems((prevItems) => {
