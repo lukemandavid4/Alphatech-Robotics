@@ -29,15 +29,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className={`${montserrat.variable} antialiased`}>
+    <html lang="en">
+      <body className={`${montserrat.variable} antialiased`}>
+        <ClerkProvider>
           <Layout>
             <Toaster richColors position="top-right" />
             {children}
           </Layout>
-        </body>
-      </html>
-    </ClerkProvider>
+        </ClerkProvider>
+      </body>
+    </html>
   );
 }

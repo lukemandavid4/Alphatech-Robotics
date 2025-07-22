@@ -2,7 +2,6 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { Star } from "lucide-react";
-import { Toaster } from 'react-hot-toast';
 
 function ProductCard({
   imageUrl,
@@ -129,24 +128,24 @@ function CategoryCard({
 export default function Home() {
   const trendingProducts = [
     {
-      imageUrl: "/images/Necklace.webp",
-      category: "AUDIO",
+      imageUrl: "https://res.cloudinary.com/dp156lkww/image/upload/v1753122933/watch-5-lite-osw-804_qdbp7o.webp",
+      category: "WEARABLES",
       brand: "Oraimo",
-      name: "Oraimo FreePods 3C Wireless Earbuds",
-      currentPrice: 3299,
-      oldPrice: 4999,
-      savings: 1700,
+      name: "Oraimo Watch 5 Lite",
+      currentPrice: 2500,
+      oldPrice: 2800,
+      savings: 300,
       rating: 4.8,
       reviews: 1243,
     },
     {
-      imageUrl: "/images/Necklace.webp",
+      imageUrl: "https://res.cloudinary.com/dp156lkww/image/upload/v1753106574/OTW-340-680-1_ziwm1c.webp",
       category: "AUDIO",
       brand: "Oraimo",
-      name: "Oraimo FreePods 3C Wireless Earbuds",
-      currentPrice: 3299,
-      oldPrice: 4999,
-      savings: 1700,
+      name: "Oraimo AirBuds 4",
+      currentPrice: 2800,
+      oldPrice: 3000,
+      savings: 200,
       rating: 4.8,
       reviews: 1243,
     },

@@ -9,7 +9,7 @@ import { useCart } from "@/app/ui/cartContext/CartContext";
 import { ArrowLeft, Truck } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 const Checkout = () => {
   const { items, getTotalPrice, clearCart } = useCart();
@@ -27,7 +27,7 @@ const Checkout = () => {
   const router = useRouter();
   const handlePlaceOrder = async () => {
     if (!phoneNumber) {
-      toast.error("Please enter your phone number.");
+      toast.warning("Please enter your phone number.");
       return;
     }
 
@@ -59,7 +59,6 @@ const Checkout = () => {
 
         const checkoutRequestID = result.data.CheckoutRequestID;
 
-        // Poll every 3 seconds for max 30 seconds
         let attempts = 0;
         const interval = setInterval(async () => {
           try {
@@ -75,7 +74,7 @@ const Checkout = () => {
               router.push("/order-success");
             } else if (pollData.success && pollData.status === "Failed") {
               clearInterval(interval);
-              toast.error("Payment failed or was cancelled.");
+              toast.warning("Payment failed or was cancelled.");
             }
           } catch (pollErr) {
             console.error("Polling error:", pollErr);
@@ -83,15 +82,15 @@ const Checkout = () => {
 
           if (++attempts > 10) {
             clearInterval(interval);
-            toast.error("Payment timeout. Please try again.");
+            toast.warning("Payment timeout. Please try again.");
           }
         }, 3000);
       } else {
-        toast.error("Failed to initiate payment. Please try again.");
+        toast.warning("Failed to initiate payment. Please try again.");
       }
     } catch (err) {
       console.error(err);
-      toast.error("Something went wrong. Try again later.");
+      toast.warning("Something went wrong. Try again later.");
     } finally {
       setLoading(false);
     }
@@ -138,11 +137,11 @@ const Checkout = () => {
       if (response.ok) {
         toast.success("Address saved successfully.");
       } else {
-        toast.error("Failed to save address.");
+        toast.warning("Failed to save address.");
       }
     } catch (error) {
       console.error("Error saving address:", error);
-      toast.error("An error occurred while saving the address.");
+      toast.warning("An error occurred while saving the address.");
     } finally {
       setIsSaving(false);
     }
