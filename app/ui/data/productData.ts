@@ -93,7 +93,7 @@ export const products = [
       category: "Storage",
       brand: "Samsung",
       image:
-        "https://images.unsplash.com/photo-1624823183493-ed5832f48f18?w=400&h=400&fit=crop",
+        "https://res.cloudinary.com/dp156lkww/image/upload/v1753181841/Samsung-Galaxy-S25-removebg-preview_xnfoat.png",
       badge: "Popular",
       inStock: true,
     },

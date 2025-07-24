@@ -2,15 +2,9 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import Layout from "./ui/layout";
-// import { Toaster } from "react-hot-toast";
 import { Toaster } from "sonner";
 import {
-  ClerkProvider,
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
+  ClerkProvider
 } from "@clerk/nextjs";
 
 const montserrat = Montserrat({

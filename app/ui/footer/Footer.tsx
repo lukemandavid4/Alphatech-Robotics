@@ -1,12 +1,21 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import { FiCpu } from "react-icons/fi";
 import { Instagram } from "lucide-react";
 import { FaTiktok } from "react-icons/fa";
 import { FaWhatsapp } from "react-icons/fa";
+import { useState, useEffect } from "react";
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
+  const [year, setYear] = useState<number | null>(null);
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
+
+  if (!year) return null;
+
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/shop", label: "Shop" },
@@ -97,7 +106,7 @@ const Footer = () => {
         <hr className="text-[var(--muted-foreground)]" />
         <div>
           <p className="text-[var(--muted-foreground)] text-center md:text-start">
-            &copy; {currentYear} Alphatech. All rights reserved.
+            &copy; {year} Alphatech. All rights reserved.
           </p>
         </div>
       </div>
