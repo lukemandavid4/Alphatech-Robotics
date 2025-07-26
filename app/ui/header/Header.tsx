@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { Cpu, Search, ShoppingCart, Menu, X, User } from "lucide-react";
+import { Cpu, Search, ShoppingCart, Menu, X, User, Store } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCart } from "@/app/ui/cartContext/CartContext";
@@ -89,6 +89,12 @@ const Header = () => {
                 <span>Login</span>
               </Link>
             )}
+            <Button>
+              <Link href="/seller-dashboard">
+                <Store />
+                <span>Seller</span>
+              </Link>
+            </Button>
             <Button variant="ghost" size="sm" className="relative" asChild>
               <Link href="/cart">
                 <ShoppingCart className="w-4 h-4" />
