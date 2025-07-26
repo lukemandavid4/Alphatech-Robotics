@@ -3,9 +3,8 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import Layout from "./ui/layout";
 import { Toaster } from "sonner";
-import {
-  ClerkProvider
-} from "@clerk/nextjs";
+import { ProductProvider } from "@/app/ui/productContext/ProductContext";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -26,10 +25,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${montserrat.variable} antialiased`}>
         <ClerkProvider>
-          <Layout>
-            <Toaster richColors position="top-right" />
-            {children}
-          </Layout>
+          <ProductProvider>
+            <Layout>
+              <Toaster richColors position="top-right" />
+              {children}
+            </Layout>
+          </ProductProvider>
         </ClerkProvider>
       </body>
     </html>

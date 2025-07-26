@@ -94,7 +94,7 @@ export const ProductsList = () => {
                     </div>
                   </TableCell>
                   <TableCell>
-                    <Badge variant="outline">{product.category}</Badge>
+                    <Badge variant="outline" className="border border-[var(--border)]">{product.category}</Badge>
                   </TableCell>
                   <TableCell>
                     <div>
