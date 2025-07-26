@@ -82,7 +82,7 @@ function ProductCard({
             </span>
           )}
         </div>
-        <button className="flex justify-center text-white text-sm md:text-[0.9rem] py-2 mt-2 rounded-[0.5rem] font-semibold bg-[var(--primary)] hover:bg-blue-600 transition duration-300 w-full">
+        <button className="flex justify-center text-white text-sm md:text-[0.9rem] py-2 mt-2 rounded-[0.5rem] font-semibold bg-[var(--primary)] hover:bg-blue-600 transition duration-300 w-full cursor-pointer">
           Add to Cart
         </button>
       </div>

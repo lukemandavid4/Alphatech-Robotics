@@ -1,10 +1,60 @@
+"use client";
 import React from "react";
 import { Phone } from "lucide-react";
 import { Mail } from "lucide-react";
 import { Clock } from "lucide-react";
 import { MapPin } from "lucide-react";
+import { toast } from "sonner";
+import { useState } from "react";
 
 const page = () => {
+  const [loading, setLoading] = useState(false);
+
+  const sendEmail = async (e) => {
+    e.preventDefault();
+
+    const formData = {
+      name: e.target.name.value.trim(),
+      email: e.target.email.value.trim(),
+      subject: e.target.subject.value.trim(),
+      message: e.target.message.value.trim(),
+    };
+
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.subject ||
+      !formData.message
+    ) {
+      toast.error("Please fill in all fields.");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/send-email`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      if (response.ok) {
+        toast.success("Message sent successfully!");
+        e.target.reset();
+      } else {
+        toast.error("Failed to send message.");
+      }
+    } catch (error) {
+      console.error("Send error:", error);
+      toast.error("Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <div className="flex flex-col gap-8 md:gap-16 w-full bg-white max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -74,14 +124,17 @@ const page = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col gap-6 border border-[var(--input)] p-4 lf:p-8 rounded-[0.5rem] w-full md:w-1/2">
+          <form
+            onSubmit={sendEmail}
+            className="flex flex-col gap-6 border border-[var(--input)] p-4 lf:p-8 rounded-[0.5rem] w-full md:w-1/2"
+          >
             <div>
               <h1 className="text-[1.5rem] font-semibold">Send us a message</h1>
             </div>
             <div className="flex flex-col lg:flex-row lg:justify-between justify-between w-full gap-6 lg:gap-2">
               <div className="flex flex-col w-full lg:w-1/2">
                 <label htmlFor="name" className="text-[0.9rem] font-semibold">
-                  Name
+                  Full Name
                 </label>
                 <input
                   type="text"
@@ -131,12 +184,17 @@ const page = () => {
             <div>
               <button
                 type="submit"
-                className="bg-[var(--primary)] text-white w-full py-3 rounded-[0.5rem] cursor-pointer font-semibold hover:bg-blue-600 transition duration-300"
+                disabled={loading}
+                className={`w-full p-3 rounded font-bold text-white ${
+                  loading
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-blue-600 hover:bg-blue-700 cursor-pointer"
+                }`}
               >
-                Send Message
+                {loading ? "Sending..." : "Send Message"}
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </>

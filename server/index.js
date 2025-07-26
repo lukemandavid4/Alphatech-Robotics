@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/config");
 const mpesaRoutes = require("./routes/mpesaRoutes");
 const addressRoutes = require("./routes/address");
+const emailSend = require("./routes/email");
 const cors = require("cors");
 
 dotenv.config();
@@ -17,6 +18,7 @@ connectDB();
 
 app.use("/api/mpesa", mpesaRoutes);
 app.use("/api", addressRoutes);
+app.use("/send-email", emailSend);
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
