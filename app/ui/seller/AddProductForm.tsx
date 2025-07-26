@@ -149,16 +149,18 @@ export const AddProductForm = () => {
                 value={formData.category}
                 onValueChange={(value) => handleInputChange("category", value)}
               >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select category" className="border border-[var(--border)]"/>
+                <SelectTrigger className="border border-[var(--input)] cursor-pointer">
+                  <SelectValue placeholder="Select category"/>
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="electronics">Electronics</SelectItem>
-                  <SelectItem value="clothing">Clothing</SelectItem>
-                  <SelectItem value="home">Home & Garden</SelectItem>
-                  <SelectItem value="books">Books</SelectItem>
-                  <SelectItem value="sports">Sports & Outdoors</SelectItem>
-                  <SelectItem value="health">Health & Beauty</SelectItem>
+                <SelectContent className="border border-[var(--border)] bg-white">
+                  <SelectItem value="smartphones" className="cursor-pointer">Smartphones</SelectItem>
+                  <SelectItem value="laptops" className="cursor-pointer">Laptops</SelectItem>
+                  <SelectItem value="audio" className="cursor-pointer">Audio</SelectItem>
+                  <SelectItem value="accessories" className="cursor-pointer">Accessories</SelectItem>
+                  <SelectItem value="storage" className="cursor-pointer">Storage</SelectItem>
+                  <SelectItem value="gaming" className="cursor-pointer">Gaming</SelectItem>
+                  <SelectItem value="smart home" className="cursor-pointer">Smart Home</SelectItem>
+                  <SelectItem value="wearables" className="cursor-pointer">Wearables</SelectItem>
                 </SelectContent>
               </Select>
             </div>
