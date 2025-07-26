@@ -29,7 +29,6 @@ const page = () => {
   const { signIn } = useSignIn();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   const [verifying, setVerifying] = useState(false);
@@ -70,7 +69,14 @@ const page = () => {
   const handleVerify = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!isLoaded) return;
+    if (!isLoaded || !signUp) return;
+
+    // Protect against missing signUp state
+    if (!signUp.emailAddress) {
+      setError("Session expired. Please restart the sign-up process.");
+      router.push("/sign-up");
+      return;
+    }
 
     try {
       const signUpAttempt = await signUp.attemptEmailAddressVerification({
@@ -82,9 +88,11 @@ const page = () => {
         router.push("/");
       } else {
         console.error(JSON.stringify(signUpAttempt, null, 2));
+        setError("Verification not complete. Try again.");
       }
     } catch (err: any) {
       console.error("Error:", JSON.stringify(err, null, 2));
+      setError("Invalid or expired code. Please try again.");
     }
   };
 

@@ -34,9 +34,9 @@ const Shop = () => {
     }
   };
 
-const handleAddToCart = (product: Omit<CartItem, "quantity">) => {
-  addToCart(product);
-};
+  const handleAddToCart = (product: Omit<CartItem, "quantity">) => {
+    addToCart(product);
+  };
 
   const getBadgeVariant = (badge: string) => {
     switch (badge) {
@@ -124,7 +124,6 @@ const handleAddToCart = (product: Omit<CartItem, "quantity">) => {
                   Showing {products.length} of {products.length} products
                 </p>
                 <div className="flex items-center gap-4">
-                  
                   <div className="flex border rounded-lg border-[var(--input)]">
                     <Button
                       variant={viewMode === "grid" ? "default" : "ghost"}
@@ -193,7 +192,7 @@ const handleAddToCart = (product: Omit<CartItem, "quantity">) => {
                           {product.inStock ? (
                             <Button
                               size="sm"
-                              className="absolute top-3 right-3 opacity-0 bg-[var(--primary)] text-white group-hover:opacity-100 transition-opacity duration-200"
+                              className="absolute top-3 right-3 opacity-0 bg-[var(--primary)] text-white group-hover:opacity-100 transition-opacity duration-200 cursor-pointer"
                               onClick={(e) => {
                                 e.preventDefault();
                                 handleAddToCart(product);
