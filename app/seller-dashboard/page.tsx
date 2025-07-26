@@ -17,18 +17,18 @@ const SellerDashboard = () => {
 
           <Tabs defaultValue="products" className="w-full">
             <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="products" className="flex items-center gap-2">
+              <TabsTrigger value="products" className="flex items-center gap-2 cursor-pointer">
                 <Package className="h-4 w-4" />
                 My Products
               </TabsTrigger>
               <TabsTrigger
                 value="add-product"
-                className="flex items-center gap-2"
+                className="flex items-center gap-2 cursor-pointer"
               >
                 <Plus className="h-4 w-4" />
                 Add Product
               </TabsTrigger>
-              <TabsTrigger value="orders" className="flex items-center gap-2">
+              <TabsTrigger value="orders" className="flex items-center gap-2 cursor-pointer">
                 <ShoppingCart className="h-4 w-4" />
                 Orders
               </TabsTrigger>

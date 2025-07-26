@@ -84,7 +84,7 @@ export const AddProductForm = () => {
   };
 
   return (
-    <Card>
+    <Card className="border border-[var(--border)]">
       <CardHeader>
         <CardTitle>Add New Product</CardTitle>
       </CardHeader>
@@ -99,6 +99,7 @@ export const AddProductForm = () => {
                 onChange={(e) => handleInputChange("name", e.target.value)}
                 placeholder="Enter product name"
                 required
+                className="border border-[var(--border)]"
               />
             </div>
 
@@ -109,6 +110,7 @@ export const AddProductForm = () => {
                 value={formData.brand}
                 onChange={(e) => handleInputChange("brand", e.target.value)}
                 placeholder="Enter brand name"
+                className="border border-[var(--border)]"
               />
             </div>
 
@@ -122,6 +124,7 @@ export const AddProductForm = () => {
                 onChange={(e) => handleInputChange("price", e.target.value)}
                 placeholder="0.00"
                 required
+                className="border border-[var(--border)]"
               />
             </div>
 
@@ -136,6 +139,7 @@ export const AddProductForm = () => {
                   handleInputChange("originalPrice", e.target.value)
                 }
                 placeholder="0.00"
+                className="border border-[var(--border)]"
               />
             </div>
 
@@ -146,7 +150,7 @@ export const AddProductForm = () => {
                 onValueChange={(value) => handleInputChange("category", value)}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Select category" />
+                  <SelectValue placeholder="Select category" className="border border-[var(--border)]"/>
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="electronics">Electronics</SelectItem>
@@ -167,6 +171,7 @@ export const AddProductForm = () => {
                 value={formData.stock}
                 onChange={(e) => handleInputChange("stock", e.target.value)}
                 placeholder="0"
+                className="border border-[var(--border)]"
               />
             </div>
 
@@ -178,6 +183,7 @@ export const AddProductForm = () => {
                 value={formData.image}
                 onChange={(e) => handleInputChange("image", e.target.value)}
                 placeholder="https://example.com/image.jpg"
+                className="border border-[var(--border)]"
               />
             </div>
 
@@ -191,11 +197,12 @@ export const AddProductForm = () => {
                 }
                 placeholder="Enter product description"
                 rows={4}
+                className="border border-[var(--border)] w-full rounded-[0.5rem] p-2"
               />
             </div>
           </div>
 
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full bg-[var(--primary)] cursor-pointer text-white hover:bg-blue-600 transition duration-300">
             Add Product
           </Button>
         </form>

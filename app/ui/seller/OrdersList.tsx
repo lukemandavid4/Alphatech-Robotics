@@ -103,7 +103,7 @@ export const OrdersList = () => {
 
   if (orders.length === 0) {
     return (
-      <Card>
+      <Card className='border border-[var(--border)]'>
         <CardContent className="py-12 text-center">
           <p className="text-muted-foreground">No orders yet. Orders will appear here when customers make purchases.</p>
         </CardContent>
@@ -112,7 +112,7 @@ export const OrdersList = () => {
   }
 
   return (
-    <Card>
+    <Card className='border border-[var(--border)]'>
       <CardHeader>
         <CardTitle>Orders ({orders.length})</CardTitle>
       </CardHeader>

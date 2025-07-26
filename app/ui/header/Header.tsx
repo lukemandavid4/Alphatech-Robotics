@@ -90,7 +90,7 @@ const Header = () => {
               </Link>
             )}
             <Button>
-              <Link href="/seller-dashboard">
+              <Link href="/seller-dashboard" className="flex gap-4">
                 <Store />
                 <span>Seller</span>
               </Link>

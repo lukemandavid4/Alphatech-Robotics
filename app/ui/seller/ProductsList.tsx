@@ -45,9 +45,9 @@ export const ProductsList = () => {
 
   if (products.length === 0) {
     return (
-      <Card>
+      <Card className="border border-[var(--border)]">
         <CardContent className="py-12 text-center">
-          <p className="text-muted-foreground">
+          <p className="text-[var(--muted-foreground)]">
             No products added yet. Start by adding your first product!
           </p>
         </CardContent>
@@ -56,12 +56,12 @@ export const ProductsList = () => {
   }
 
   return (
-    <Card>
+    <Card className="border border-[var(--border)]">
       <CardHeader>
         <CardTitle>My Products ({products.length})</CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="overflow-x-auto">
+      <CardContent className="border-[var(--muted-foreground)]">
+        <div className="overflow-x-auto border-[var(--muted-foreground)]">
           <Table>
             <TableHeader>
               <TableRow>
@@ -87,7 +87,7 @@ export const ProductsList = () => {
                       )}
                       <div>
                         <p className="font-medium">{product.name}</p>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-">
                           {product.brand}
                         </p>
                       </div>
@@ -100,7 +100,7 @@ export const ProductsList = () => {
                     <div>
                       <p className="font-medium">${product.price}</p>
                       {product.originalPrice > product.price && (
-                        <p className="text-sm text-muted-foreground line-through">
+                        <p className="text-sm text-[var(--muted-foreground)] line-through">
                           ${product.originalPrice}
                         </p>
                       )}
