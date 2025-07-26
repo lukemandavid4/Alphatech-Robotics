@@ -87,14 +87,17 @@ export const ProductsList = () => {
                       )}
                       <div>
                         <p className="font-medium">{product.name}</p>
-                        <p className="text-sm text-">
-                          {product.brand}
-                        </p>
+                        <p className="text-sm text-">{product.brand}</p>
                       </div>
                     </div>
                   </TableCell>
                   <TableCell>
-                    <Badge variant="outline" className="border border-[var(--border)]">{product.category}</Badge>
+                    <Badge
+                      variant="outline"
+                      className="border border-[var(--border)]"
+                    >
+                      {product.category}
+                    </Badge>
                   </TableCell>
                   <TableCell>
                     <div>
@@ -122,16 +125,11 @@ export const ProductsList = () => {
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
-                      <Button variant="outline" size="sm">
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                      <Button variant="outline" size="sm">
-                        <Edit className="h-4 w-4" />
-                      </Button>
                       <Button
                         variant="outline"
                         size="sm"
                         onClick={() => handleDeleteProduct(product.id)}
+                        className="border border-[var(--border)] cursor-pointer"
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>

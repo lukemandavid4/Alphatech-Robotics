@@ -155,7 +155,7 @@ const handleAddToCart = (product: Omit<CartItem, "quantity">) => {
                 {filteredProducts.map((product) => (
                   <Card
                     key={product.id}
-                    className="product-card group cursor-pointer border-0 shadow-md hover:shadow-xl transition-all duration-300"
+                    className="product-card group cursor-pointer border-0 shadow-md hover:shadow-xl transition-all duration-300 py-0"
                   >
                     <CardContent className="p-0">
                       <div className={viewMode === "list" ? "flex" : ""}>
@@ -236,7 +236,7 @@ const handleAddToCart = (product: Omit<CartItem, "quantity">) => {
                                 <Star
                                   key={i}
                                   className={`w-4 h-4 ${
-                                    i < Math.floor(product.rating)
+                                    i < Math.floor(4.5)
                                       ? "text-yellow-400 fill-current"
                                       : "text-gray-300"
                                   }`}

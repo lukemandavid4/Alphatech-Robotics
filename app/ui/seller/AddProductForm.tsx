@@ -50,12 +50,10 @@ export const AddProductForm = () => {
       return;
     }
 
-    // Get existing products from localStorage
     const existingProducts = JSON.parse(
       localStorage.getItem("sellerProducts") || "[]"
     );
 
-    // Create new product
     const newProduct = {
       id: Date.now(),
       ...formData,
@@ -77,7 +75,6 @@ export const AddProductForm = () => {
 
     toast.success("Product added successfully!");
 
-    // Reset form
     setFormData({
       name: "",
       price: "",
