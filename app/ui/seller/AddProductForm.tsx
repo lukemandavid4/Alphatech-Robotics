@@ -10,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useProduct } from "@/app/ui/productContext/ProductContext"
 import { toast } from "sonner";
 
 interface ProductFormData {

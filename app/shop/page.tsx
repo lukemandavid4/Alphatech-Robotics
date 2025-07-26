@@ -3,23 +3,18 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Star, Filter, Grid, List, ShoppingCart } from "lucide-react";
 import { useCart } from "@/app/ui/cartContext/CartContext";
 import { products } from "@/app/ui/data/productData";
+import { useProduct } from "@/app/ui/productContext/ProductContext";
 import { CartItem } from "@/app/ui/cartContext/CartContext";
 
 const Shop = () => {
   const [viewMode, setViewMode] = useState("grid");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const { addToCart } = useCart();
+  const { products } = useProduct();
 
   const categories = [
     "Smartphones",
@@ -64,7 +59,7 @@ const handleAddToCart = (product: Omit<CartItem, "quantity">) => {
   const filteredProducts =
     selectedCategories.length > 0
       ? products.filter((product) =>
-          selectedCategories.includes(product.category)
+          selectedCategories.includes(product.category.toLowerCase())
         )
       : products;
 
@@ -130,28 +125,7 @@ const handleAddToCart = (product: Omit<CartItem, "quantity">) => {
                   Showing {products.length} of {products.length} products
                 </p>
                 <div className="flex items-center gap-4">
-                  <Select defaultValue="featured">
-                    <SelectTrigger className="w-48 border-[var(--input)] cursor-pointer focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none focus:border-[var(--primary)] focus:border-2">
-                      <SelectValue placeholder="Sort by" />
-                    </SelectTrigger>
-                    <SelectContent className="bg-white border-[var(--input)]">
-                      <SelectItem value="featured" className="cursor-pointer">
-                        Featured
-                      </SelectItem>
-                      <SelectItem value="price-low" className="cursor-pointer">
-                        Price: Low to High
-                      </SelectItem>
-                      <SelectItem value="price-high" className="cursor-pointer">
-                        Price: High to Low
-                      </SelectItem>
-                      <SelectItem value="rating" className="cursor-pointer">
-                        Highest Rated
-                      </SelectItem>
-                      <SelectItem value="newest" className="cursor-pointer">
-                        Newest
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
+                  
                   <div className="flex border rounded-lg border-[var(--input)]">
                     <Button
                       variant={viewMode === "grid" ? "default" : "ghost"}
