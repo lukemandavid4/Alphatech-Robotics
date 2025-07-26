@@ -6,20 +6,18 @@ router.post("/", async (req, res) => {
   const { name, email, subject, message } = req.body;
 
   try {
-    // Configure your transporter
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: process.env.EMAIL_USER,       // your email
-        pass: process.env.EMAIL_PASSWORD,   // your app password
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD,
       },
     });
 
-    // Define email options
     const mailOptions = {
       from: email,
       to: process.env.EMAIL_USER,
-      subject: `[Contact Form] ${subject}`,
+      subject: `${subject}`,
       text: `From: ${name} <${email}>\n\n${message}`,
     };
 
