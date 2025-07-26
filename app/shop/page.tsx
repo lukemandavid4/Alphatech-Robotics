@@ -6,7 +6,6 @@ import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Star, Filter, Grid, List, ShoppingCart } from "lucide-react";
 import { useCart } from "@/app/ui/cartContext/CartContext";
-import { products } from "@/app/ui/data/productData";
 import { useProduct } from "@/app/ui/productContext/ProductContext";
 import { CartItem } from "@/app/ui/cartContext/CartContext";
 
@@ -59,7 +58,7 @@ const handleAddToCart = (product: Omit<CartItem, "quantity">) => {
   const filteredProducts =
     selectedCategories.length > 0
       ? products.filter((product) =>
-          selectedCategories.includes(product.category.toLowerCase())
+          selectedCategories.includes(product.category)
         )
       : products;
 

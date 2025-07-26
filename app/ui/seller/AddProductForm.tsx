@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useProduct } from "@/app/ui/productContext/ProductContext"
+import { useProduct } from "@/app/ui/productContext/ProductContext";
 import { toast } from "sonner";
 
 interface ProductFormData {
@@ -25,6 +25,7 @@ interface ProductFormData {
 }
 
 export const AddProductForm = () => {
+  const { addProduct } = useProduct();
   const [formData, setFormData] = useState<ProductFormData>({
     name: "",
     price: "",
@@ -63,8 +64,13 @@ export const AddProductForm = () => {
         parseFloat(formData.originalPrice) || parseFloat(formData.price),
       stock: parseInt(formData.stock) || 0,
       createdAt: new Date().toISOString(),
+      rating: 0,
+      reviews: 0,
+      badge: undefined,
+      inStock: (parseInt(formData.stock) || 0) > 0,
     };
 
+    addProduct(newProduct);
     // Save to localStorage
     const updatedProducts = [...existingProducts, newProduct];
     localStorage.setItem("sellerProducts", JSON.stringify(updatedProducts));
@@ -147,17 +153,33 @@ export const AddProductForm = () => {
                 onValueChange={(value) => handleInputChange("category", value)}
               >
                 <SelectTrigger className="border border-[var(--input)] cursor-pointer">
-                  <SelectValue placeholder="Select category"/>
+                  <SelectValue placeholder="Select category" />
                 </SelectTrigger>
                 <SelectContent className="border border-[var(--border)] bg-white">
-                  <SelectItem value="smartphones" className="cursor-pointer">Smartphones</SelectItem>
-                  <SelectItem value="laptops" className="cursor-pointer">Laptops</SelectItem>
-                  <SelectItem value="audio" className="cursor-pointer">Audio</SelectItem>
-                  <SelectItem value="accessories" className="cursor-pointer">Accessories</SelectItem>
-                  <SelectItem value="storage" className="cursor-pointer">Storage</SelectItem>
-                  <SelectItem value="gaming" className="cursor-pointer">Gaming</SelectItem>
-                  <SelectItem value="smart home" className="cursor-pointer">Smart Home</SelectItem>
-                  <SelectItem value="wearables" className="cursor-pointer">Wearables</SelectItem>
+                  <SelectItem value="smartphones" className="cursor-pointer">
+                    Smartphones
+                  </SelectItem>
+                  <SelectItem value="laptops" className="cursor-pointer">
+                    Laptops
+                  </SelectItem>
+                  <SelectItem value="audio" className="cursor-pointer">
+                    Audio
+                  </SelectItem>
+                  <SelectItem value="accessories" className="cursor-pointer">
+                    Accessories
+                  </SelectItem>
+                  <SelectItem value="storage" className="cursor-pointer">
+                    Storage
+                  </SelectItem>
+                  <SelectItem value="gaming" className="cursor-pointer">
+                    Gaming
+                  </SelectItem>
+                  <SelectItem value="smart home" className="cursor-pointer">
+                    Smart Home
+                  </SelectItem>
+                  <SelectItem value="wearables" className="cursor-pointer">
+                    Wearables
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -197,7 +219,10 @@ export const AddProductForm = () => {
               />
             </div>
           </div>
-          <Button type="submit" className="w-full bg-[var(--primary)] cursor-pointer text-white hover:bg-blue-600 transition duration-300">
+          <Button
+            type="submit"
+            className="w-full bg-[var(--primary)] cursor-pointer text-white hover:bg-blue-600 transition duration-300"
+          >
             Add Product
           </Button>
         </form>
