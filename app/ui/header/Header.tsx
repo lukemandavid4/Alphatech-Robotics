@@ -89,7 +89,7 @@ const Header = () => {
                 <span>Login</span>
               </Link>
             )}
-            <Button>
+            <Button className="cursor-pointer">
               <Link href="/seller-dashboard" className="flex gap-4">
                 <Store />
                 <span>Seller</span>

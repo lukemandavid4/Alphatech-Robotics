@@ -102,7 +102,6 @@ export const AddProductForm = () => {
                 className="border border-[var(--border)]"
               />
             </div>
-
             <div className="space-y-2">
               <Label htmlFor="brand">Brand</Label>
               <Input
@@ -113,7 +112,6 @@ export const AddProductForm = () => {
                 className="border border-[var(--border)]"
               />
             </div>
-
             <div className="space-y-2">
               <Label htmlFor="price">Price *</Label>
               <Input
@@ -127,7 +125,6 @@ export const AddProductForm = () => {
                 className="border border-[var(--border)]"
               />
             </div>
-
             <div className="space-y-2">
               <Label htmlFor="originalPrice">Original Price</Label>
               <Input
@@ -142,7 +139,6 @@ export const AddProductForm = () => {
                 className="border border-[var(--border)]"
               />
             </div>
-
             <div className="space-y-2">
               <Label htmlFor="category">Category *</Label>
               <Select
@@ -164,7 +160,6 @@ export const AddProductForm = () => {
                 </SelectContent>
               </Select>
             </div>
-
             <div className="space-y-2">
               <Label htmlFor="stock">Stock Quantity</Label>
               <Input
@@ -176,7 +171,6 @@ export const AddProductForm = () => {
                 className="border border-[var(--border)]"
               />
             </div>
-
             <div className="space-y-2 md:col-span-2">
               <Label htmlFor="image">Image URL</Label>
               <Input
@@ -188,7 +182,6 @@ export const AddProductForm = () => {
                 className="border border-[var(--border)]"
               />
             </div>
-
             <div className="space-y-2 md:col-span-2">
               <Label htmlFor="description">Description</Label>
               <textarea
@@ -203,7 +196,6 @@ export const AddProductForm = () => {
               />
             </div>
           </div>
-
           <Button type="submit" className="w-full bg-[var(--primary)] cursor-pointer text-white hover:bg-blue-600 transition duration-300">
             Add Product
           </Button>

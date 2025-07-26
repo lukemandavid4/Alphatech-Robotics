@@ -18,7 +18,7 @@ interface Order {
     price: number;
   }>;
   total: number;
-  status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
+  status: 'Pending' | 'Processing' | 'Shipped' | 'Delivered' | 'Cancelled';
   createdAt: string;
   shippingAddress: {
     street: string;
@@ -43,7 +43,7 @@ export const OrdersList = () => {
           { id: 2, name: 'Phone Case', quantity: 2, price: 19.99 }
         ],
         total: 139.97,
-        status: 'pending',
+        status: 'Pending',
         createdAt: '2024-01-15T10:30:00Z',
         shippingAddress: {
           street: '123 Main St',
@@ -60,7 +60,7 @@ export const OrdersList = () => {
           { id: 3, name: 'Bluetooth Speaker', quantity: 1, price: 79.99 }
         ],
         total: 79.99,
-        status: 'shipped',
+        status: 'Shipped',
         createdAt: '2024-01-14T15:45:00Z',
         shippingAddress: {
           street: '456 Oak Ave',
@@ -92,11 +92,11 @@ export const OrdersList = () => {
 
   const getStatusColor = (status: Order['status']) => {
     switch (status) {
-      case 'pending': return 'destructive';
-      case 'processing': return 'secondary';
-      case 'shipped': return 'default';
-      case 'delivered': return 'default';
-      case 'cancelled': return 'destructive';
+      case 'Pending': return 'destructive';
+      case 'Processing': return 'secondary';
+      case 'Shipped': return 'default';
+      case 'Delivered': return 'default';
+      case 'Cancelled': return 'destructive';
       default: return 'secondary';
     }
   };
@@ -158,19 +158,19 @@ export const OrdersList = () => {
                       value={order.status}
                       onValueChange={(value: Order['status']) => handleStatusUpdate(order.id, value)}
                     >
-                      <SelectTrigger className="w-32">
+                      <SelectTrigger className="w-32 border border-[var(--input)] cursor-pointer">
                         <SelectValue>
                           <Badge variant={getStatusColor(order.status)}>
                             {order.status}
                           </Badge>
                         </SelectValue>
                       </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="pending">Pending</SelectItem>
-                        <SelectItem value="processing">Processing</SelectItem>
-                        <SelectItem value="shipped">Shipped</SelectItem>
-                        <SelectItem value="delivered">Delivered</SelectItem>
-                        <SelectItem value="cancelled">Cancelled</SelectItem>
+                      <SelectContent className="border border-[var(--border)] bg-white">
+                        <SelectItem value="Pending" className='cursor-pointer'>Pending</SelectItem>
+                        <SelectItem value="Processing" className='cursor-pointer'>Processing</SelectItem>
+                        <SelectItem value="Shipped" className='cursor-pointer'>Shipped</SelectItem>
+                        <SelectItem value="Delivered" className='cursor-pointer'>Delivered</SelectItem>
+                        <SelectItem value="Cancelled" className='cursor-pointer'>Cancelled</SelectItem>
                       </SelectContent>
                     </Select>
                   </TableCell>
