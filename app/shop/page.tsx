@@ -8,6 +8,7 @@ import { Star, Filter, Grid, List, ShoppingCart } from "lucide-react";
 import { useCart } from "@/app/ui/cartContext/CartContext";
 import { useProduct } from "@/app/ui/productContext/ProductContext";
 import { CartItem } from "@/app/ui/cartContext/CartContext";
+import Link from "next/link";
 
 const Shop = () => {
   const [viewMode, setViewMode] = useState("grid");
@@ -152,130 +153,129 @@ const Shop = () => {
                 }`}
               >
                 {filteredProducts.map((product) => (
-                  <Card
-                    key={product.id}
-                    className="product-card group cursor-pointer border-0 shadow-md hover:shadow-xl transition-all duration-300 py-0"
-                  >
-                    <CardContent className="p-0">
-                      <div className={viewMode === "list" ? "flex" : ""}>
-                        {/* Image Section */}
-                        <div
-                          className={`relative ${
-                            viewMode === "list" ? "w-48" : ""
-                          }`}
-                        >
+                  <Link key={product.id} href={`/product/${product.id}`}>
+                    <Card className="product-card group cursor-pointer border-0 shadow-md hover:shadow-xl transition-all duration-300 py-0">
+                      <CardContent className="p-0">
+                        <div className={viewMode === "list" ? "flex" : ""}>
+                          {/* Image Section */}
                           <div
-                            className={`bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden ${
-                              viewMode === "list"
-                                ? "h-48 rounded-l-lg"
-                                : "aspect-square rounded-t-lg"
+                            className={`relative ${
+                              viewMode === "list" ? "w-48" : ""
                             }`}
                           >
-                            <img
-                              src={product.image}
-                              alt={product.name}
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                            />
-                          </div>
-
-                          {/* Badge */}
-                          {product.badge && (
-                            <Badge
-                              variant={getBadgeVariant(product.badge)}
-                              className="absolute top-3 left-3 bg-amber-600 text-white border-0"
+                            <div
+                              className={`bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden ${
+                                viewMode === "list"
+                                  ? "h-48 rounded-l-lg"
+                                  : "aspect-square rounded-t-lg"
+                              }`}
                             >
-                              {product.badge}
-                            </Badge>
-                          )}
+                              <img
+                                src={product.image}
+                                alt={product.name}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                              />
+                            </div>
 
-                          {/* Add to Cart Floating */}
-                          {product.inStock ? (
-                            <Button
-                              size="sm"
-                              className="absolute top-3 right-3 opacity-0 bg-[var(--primary)] text-white group-hover:opacity-100 transition-opacity duration-200 cursor-pointer"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                handleAddToCart(product);
-                              }}
-                            >
-                              <ShoppingCart className="w-4 h-4" />
-                            </Button>
-                          ) : (
-                            <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-t-lg">
+                            {/* Badge */}
+                            {product.badge && (
                               <Badge
-                                variant="destructive"
-                                className="bg-amber-600"
+                                variant={getBadgeVariant(product.badge)}
+                                className="absolute top-3 left-3 bg-amber-600 text-white border-0"
                               >
-                                Out of Stock
+                                {product.badge}
                               </Badge>
-                            </div>
-                          )}
-                        </div>
+                            )}
 
-                        {/* Details Section */}
-                        <div
-                          className={`p-6 ${
-                            viewMode === "list" ? "flex-1" : ""
-                          }`}
-                        >
-                          {/* Category */}
-                          <p className="text-xs text-[var(--muted-foreground)] mb-2 uppercase tracking-wide">
-                            {product.category}
-                          </p>
-
-                          {/* Name */}
-                          <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors">
-                            {product.name}
-                          </h3>
-
-                          {/* Rating */}
-                          <div className="flex items-center gap-2 mb-3">
-                            <div className="flex items-center">
-                              {[...Array(5)].map((_, i) => (
-                                <Star
-                                  key={i}
-                                  className={`w-4 h-4 ${
-                                    i < Math.floor(4.5)
-                                      ? "text-yellow-400 fill-current"
-                                      : "text-gray-300"
-                                  }`}
-                                />
-                              ))}
-                            </div>
-                            <span className="text-sm text-[var(--muted-foreground)]">
-                              {product.rating} ({product.reviews})
-                            </span>
+                            {/* Add to Cart Floating */}
+                            {product.inStock ? (
+                              <Button
+                                size="sm"
+                                className="absolute top-3 right-3 opacity-0 bg-[var(--primary)] text-white group-hover:opacity-100 transition-opacity duration-200 cursor-pointer"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  handleAddToCart(product);
+                                }}
+                              >
+                                <ShoppingCart className="w-4 h-4" />
+                              </Button>
+                            ) : (
+                              <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-t-lg">
+                                <Badge
+                                  variant="destructive"
+                                  className="bg-amber-600"
+                                >
+                                  Out of Stock
+                                </Badge>
+                              </div>
+                            )}
                           </div>
 
-                          {/* Price */}
-                          <div className="flex items-center gap-2 mb-4">
-                            <span className="text-lg font-bold">
-                              KSh {product.price.toLocaleString()}
-                            </span>
-                            {product.originalPrice &&
-                              product.originalPrice > product.price && (
-                                <span className="text-sm text-[var(--muted-foreground)] line-through">
-                                  KSh {product.originalPrice.toLocaleString()}
-                                </span>
-                              )}
-                          </div>
-
-                          {/* Add to Cart Button (Bottom) */}
-                          <Button
-                            className={`btn-hover ${
-                              viewMode === "list" ? "w-auto" : "w-full"
-                            } bg-[var(--primary)] text-white cursor-pointer hover:bg-blue-600 transition-colors duration-300`}
-                            disabled={!product.inStock}
-                            onClick={() =>
-                              product.inStock && handleAddToCart(product)
-                            }
+                          {/* Details Section */}
+                          <div
+                            className={`p-6 ${
+                              viewMode === "list" ? "flex-1" : ""
+                            }`}
                           >
-                            {product.inStock ? "Add to Cart" : "Out of Stock"}
-                          </Button>
+                            {/* Category */}
+                            <p className="text-xs text-[var(--muted-foreground)] mb-2 uppercase tracking-wide">
+                              {product.category}
+                            </p>
+
+                            {/* Name */}
+                            <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors">
+                              {product.name}
+                            </h3>
+
+                            {/* Rating */}
+                            <div className="flex items-center gap-2 mb-3">
+                              <div className="flex items-center">
+                                {[...Array(5)].map((_, i) => (
+                                  <Star
+                                    key={i}
+                                    className={`w-4 h-4 ${
+                                      i < Math.floor(4.5)
+                                        ? "text-yellow-400 fill-current"
+                                        : "text-gray-300"
+                                    }`}
+                                  />
+                                ))}
+                              </div>
+                              <span className="text-sm text-[var(--muted-foreground)]">
+                                {product.rating} ({product.reviews})
+                              </span>
+                            </div>
+
+                            {/* Price */}
+                            <div className="flex items-center gap-2 mb-4">
+                              <span className="text-lg font-bold">
+                                KSh {product.price.toLocaleString()}
+                              </span>
+                              {product.originalPrice &&
+                                product.originalPrice > product.price && (
+                                  <span className="text-sm text-[var(--muted-foreground)] line-through">
+                                    KSh {product.originalPrice.toLocaleString()}
+                                  </span>
+                                )}
+                            </div>
+
+                            {/* Add to Cart Button (Bottom) */}
+                            <Button
+                              className={`btn-hover ${
+                                viewMode === "list" ? "w-auto" : "w-full"
+                              } bg-[var(--primary)] text-white cursor-pointer hover:bg-blue-600 transition-colors duration-300`}
+                              disabled={!product.inStock}
+                              onClick={() =>
+                                product.inStock && handleAddToCart(product)
+                              }
+                            >
+                              {product.inStock ? "Add to Cart" : "Out of Stock"}
+                            </Button>
+                          </div>
                         </div>
-                      </div>
-                    </CardContent>
-                  </Card>
+                      </CardContent>
+                    </Card>
+                  </Link>
                 ))}
               </div>
 
