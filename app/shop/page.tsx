@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Slider } from "@/components/ui/slider";
+import * as Slider from "@radix-ui/react-slider";
 import { Star, Filter, Grid, List, ShoppingCart } from "lucide-react";
 import { useCart } from "@/app/ui/cartContext/CartContext";
 import { useProduct } from "@/app/ui/productContext/ProductContext";
@@ -61,18 +61,14 @@ const Shop = () => {
     setPriceRange([0, 50000]);
   };
 
-  // --- Filter products based on search ---
   const filteredProducts = products.filter((product) => {
-    // Filter by category if set
     const matchesCategory =
       selectedCategories.length === 0 ||
       selectedCategories.includes(product.category);
 
-    // Filter by price range
     const matchesPrice =
       product.price >= priceRange[0] && product.price <= priceRange[1];
 
-    // Filter by search term (in name or brand)
     const matchesSearch =
       !searchTerm ||
       product.name.toLowerCase().includes(searchTerm) ||
@@ -129,13 +125,18 @@ const Shop = () => {
                     <div className="mb-6">
                       <h4 className="font-medium mb-3">Price Range</h4>
                       <div className="px-2">
-                        <Slider
+                        <Slider.Root
+                          className="relative flex w-full touch-none select-none items-center"
                           value={priceRange}
                           onValueChange={setPriceRange}
                           max={50000}
                           step={1000}
-                          className="mb-2 bg-[var(--primary)] cursor-pointer"
-                        />
+                        >
+                          <Slider.Track className="relative h-2 w-full grow overflow-hidden rounded-full bg-gray-300">
+                            <Slider.Range className="absolute h-full bg-blue-500" />
+                          </Slider.Track>
+                          <Slider.Thumb className="block h-5 w-5 rounded-full bg-white border-2 border-blue-500 shadow-md hover:bg-blue-100 focus:outline-none cursor-pointer" />
+                        </Slider.Root>
                         <div className="flex justify-between text-sm text-[var(--muted-foreground)]">
                           <span>KSh {priceRange[0].toLocaleString()}</span>
                           <span>KSh {priceRange[1].toLocaleString()}</span>
