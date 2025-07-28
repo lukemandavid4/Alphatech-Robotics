@@ -67,7 +67,8 @@ const Footer = () => {
               <span>Instagram</span>
             </Link>
             <Link
-              href=""
+              href="https://www.tiktok.com/@alpha.tech22?_t=ZM-8yPKmsyqDhw&_r=1"
+              target="_blank"
               className="text-[var(--muted-foreground)] flex gap-2 w-fit hover:text-white transition-colors duration-200"
             >
               <FaTiktok className="text-2xl" />
