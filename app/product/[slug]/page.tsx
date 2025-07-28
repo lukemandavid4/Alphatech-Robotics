@@ -11,7 +11,6 @@ import { Star, ShoppingCart, ArrowLeft, Minus, Plus } from "lucide-react";
 const ProductDetails = () => {
   const { slug } = useParams();
   const router = useRouter();
-  const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
   const { products } = useProduct();
   const [activeImageIndex, setActiveImageIndex] = useState(0);

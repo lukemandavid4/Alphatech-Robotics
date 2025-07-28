@@ -28,6 +28,7 @@ function ProductCard({
     <Link
       href="/shop"
       className="flex flex-col w-full shadow-lg rounded-[0.5rem] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 sm:w-[calc(50%-0.5rem)] md:w-[calc(33.333%-0.5rem)] lg:w-[calc(33.333%-1rem)]"
+      key={0}
     >
       <div>
         <Image
@@ -83,7 +84,7 @@ function ProductCard({
           )}
         </div>
         <button className="flex justify-center text-white text-sm md:text-[0.9rem] py-2 mt-2 rounded-[0.5rem] font-semibold bg-[var(--primary)] hover:bg-blue-600 transition duration-300 w-full cursor-pointer">
-          Add to Cart
+          Go to Shop
         </button>
       </div>
     </Link>
@@ -128,7 +129,8 @@ function CategoryCard({
 export default function Home() {
   const trendingProducts = [
     {
-      imageUrl: "https://res.cloudinary.com/dp156lkww/image/upload/v1753122933/watch-5-lite-osw-804_qdbp7o.webp",
+      imageUrl:
+        "https://res.cloudinary.com/dp156lkww/image/upload/v1753122933/watch-5-lite-osw-804_qdbp7o.webp",
       category: "WEARABLES",
       brand: "Oraimo",
       name: "Oraimo Watch 5 Lite",
@@ -139,7 +141,8 @@ export default function Home() {
       reviews: 1243,
     },
     {
-      imageUrl: "https://res.cloudinary.com/dp156lkww/image/upload/v1753106574/OTW-340-680-1_ziwm1c.webp",
+      imageUrl:
+        "https://res.cloudinary.com/dp156lkww/image/upload/v1753106574/OTW-340-680-1_ziwm1c.webp",
       category: "AUDIO",
       brand: "Oraimo",
       name: "Oraimo AirBuds 4",
@@ -150,7 +153,8 @@ export default function Home() {
       reviews: 1243,
     },
     {
-      imageUrl: "https://res.cloudinary.com/dp156lkww/image/upload/v1753108665/opb-p5101-black_xgudae.webp",
+      imageUrl:
+        "https://res.cloudinary.com/dp156lkww/image/upload/v1753108665/opb-p5101-black_xgudae.webp",
       category: "ACCESSORIES",
       brand: "Oraimo",
       name: "Oraimo 10000mAh 12W Power Bank",
@@ -161,7 +165,8 @@ export default function Home() {
       reviews: 1243,
     },
     {
-      imageUrl: "https://res.cloudinary.com/dp156lkww/image/upload/v1753105734/Oraimo_Necklace_Lite_uteo8y.webp",
+      imageUrl:
+        "https://res.cloudinary.com/dp156lkww/image/upload/v1753105734/Oraimo_Necklace_Lite_uteo8y.webp",
       category: "AUDIO",
       brand: "Oraimo",
       name: "Oraimo Necklace Lite",
@@ -172,7 +177,8 @@ export default function Home() {
       reviews: 1243,
     },
     {
-      imageUrl: "https://res.cloudinary.com/dp156lkww/image/upload/v1753181841/Samsung-Galaxy-S25-removebg-preview_xnfoat.png",
+      imageUrl:
+        "https://res.cloudinary.com/dp156lkww/image/upload/v1753181841/Samsung-Galaxy-S25-removebg-preview_xnfoat.png",
       category: "SMARTPHONES",
       brand: "Samsung",
       name: "Samsung S25 12/512",
@@ -183,7 +189,8 @@ export default function Home() {
       reviews: 1243,
     },
     {
-      imageUrl: "https://res.cloudinary.com/dp156lkww/image/upload/v1753120523/ocd-c56_hiu9gi.webp",
+      imageUrl:
+        "https://res.cloudinary.com/dp156lkww/image/upload/v1753120523/ocd-c56_hiu9gi.webp",
       category: "ACCESSORIES",
       brand: "Oraimo",
       name: "Oraimo Type-C Cable",
