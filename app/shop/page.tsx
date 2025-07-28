@@ -9,6 +9,7 @@ import { Star, Filter, Grid, List, ShoppingCart } from "lucide-react";
 import { useCart } from "@/app/ui/cartContext/CartContext";
 import { useProduct } from "@/app/ui/productContext/ProductContext";
 import { CartItem } from "@/app/ui/cartContext/CartContext";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 const Shop = () => {
@@ -17,8 +18,8 @@ const Shop = () => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const { addToCart } = useCart();
   const { products } = useProduct();
-  const queryParams = new URLSearchParams(location.search);
-  const searchTerm = queryParams.get("search")?.toLowerCase() ?? "";
+  const searchParams = useSearchParams();
+  const searchTerm = searchParams.get("search")?.toLowerCase() ?? "";
 
   const categories = [
     "Smartphones",
@@ -64,7 +65,9 @@ const Shop = () => {
   const filteredProducts = products.filter((product) => {
     const matchesCategory =
       selectedCategories.length === 0 ||
-      selectedCategories.includes(product.category);
+      selectedCategories
+        .map((c) => c.toLowerCase())
+        .includes(product.category.toLowerCase());
 
     const matchesPrice =
       product.price >= priceRange[0] && product.price <= priceRange[1];
@@ -188,11 +191,14 @@ const Shop = () => {
                 }`}
               >
                 {filteredProducts.map((product) => (
-                  <Card className="product-card group cursor-pointer border-0 shadow-md hover:shadow-xl transition-all duration-300 py-0">
+                  <Card
+                    key={product.id}
+                    className="product-card group cursor-pointer border-0 shadow-md hover:shadow-xl transition-all duration-300 py-0"
+                  >
                     <CardContent className="p-0">
                       <div className={viewMode === "list" ? "flex" : ""}>
                         {/* Image Section */}
-                        <Link key={product.id} href={`/product/${product.id}`}>
+                        <Link href={`/product/${product.id}`}>
                           <div
                             className={`relative ${
                               viewMode === "list" ? "w-48" : ""
