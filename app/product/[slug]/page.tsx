@@ -1,4 +1,3 @@
-// app/product/[id]/page.tsx
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
@@ -12,9 +11,9 @@ import { Star, ShoppingCart, ArrowLeft, Minus, Plus } from "lucide-react";
 const ProductDetails = () => {
   const { slug } = useParams();
   const router = useRouter();
-  const { products } = useProduct();
-  const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
+  const { addToCart } = useCart();
+  const { products } = useProduct();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [product, setProduct] = useState<any | null>(null);
 
@@ -118,30 +117,6 @@ const ProductDetails = () => {
               {(product.originalPrice - product.price).toLocaleString()}
             </p>
           </div>
-
-          <div className="flex items-center gap-4">
-            <span className="font-medium">Quantity:</span>
-            <div className="flex items-center rounded-md">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
-                className="border border-[var(--border)] cursor-pointer"
-              >
-                <Minus className="w-4 h-4" />
-              </Button>
-              <span className="w-8 text-center">{quantity}</span>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setQuantity((prev) => prev + 1)}
-                className="border border-[var(--border)] cursor-pointer"
-              >
-                <Plus className="w-4 h-4" />
-              </Button>
-            </div>
-          </div>
-
           <div>
             <Button
               onClick={() => handleAddToCart(product)}

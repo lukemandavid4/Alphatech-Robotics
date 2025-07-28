@@ -49,14 +49,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         return prevItems;
       }
 
-      toast.success(`${product.name} added to cart`, {
-        description: "Go to your cart to check out",
-        action: {
-          label: "View Cart",
-          onClick: () => router.push("/cart"),
-        },
-      });
-
       return [...prevItems, { ...product, quantity: 1 }];
     });
   };
