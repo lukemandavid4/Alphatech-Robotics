@@ -4,25 +4,17 @@
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useCart } from "@/app/ui/cartContext/CartContext";
+import { CartItem } from "@/app/ui/cartContext/CartContext";
 import { useProduct } from "@/app/ui/productContext/ProductContext";
-import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import {
-  Star,
-  ShoppingCart,
-  ArrowLeft,
-  Heart,
-  Share2,
-  Minus,
-  Plus,
-} from "lucide-react";
+import { Star, ShoppingCart, ArrowLeft, Minus, Plus } from "lucide-react";
 
 const ProductDetails = () => {
   const { slug } = useParams();
   const router = useRouter();
   const { products } = useProduct();
   const { addToCart } = useCart();
+  const [quantity, setQuantity] = useState(1);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [product, setProduct] = useState<any | null>(null);
 
@@ -46,34 +38,17 @@ const ProductDetails = () => {
     );
   }
 
-  const getBadgeVariant = (badge: string) => {
-    switch (badge) {
-      case "Sale":
-        return "destructive";
-      case "New":
-        return "default";
-      case "Best Seller":
-        return "secondary";
-      default:
-        return "outline";
-    }
-  };
-
-  const handleAddToCart = () => {
-    addToCart({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      originalPrice: product.originalPrice,
-      image: product.images?.[0] ?? "",
-      brand: product.brand,
-    });
-    toast.success(`${product.name} added to cart`);
+  const handleAddToCart = (product: Omit<CartItem, "quantity">) => {
+    addToCart(product);
   };
 
   return (
     <div className="p-8 max-w-7xl mx-auto">
-      <Button variant="ghost" onClick={() => router.back()} className="mb-6">
+      <Button
+        variant="ghost"
+        onClick={() => router.back()}
+        className="mb-6 cursor-pointer"
+      >
         <ArrowLeft className="w-4 h-4 mr-2" />
         Back
       </Button>
@@ -110,9 +85,6 @@ const ProductDetails = () => {
         {/* Info */}
         <div className="space-y-6">
           <div>
-            <Badge variant={getBadgeVariant(product.badge)}>
-              {product.badge}
-            </Badge>
             <h1 className="text-3xl font-bold mt-2">{product.name}</h1>
             <p className="text-muted-foreground">{product.brand}</p>
           </div>
@@ -146,9 +118,33 @@ const ProductDetails = () => {
               {(product.originalPrice - product.price).toLocaleString()}
             </p>
           </div>
+
+          <div className="flex items-center gap-4">
+            <span className="font-medium">Quantity:</span>
+            <div className="flex items-center rounded-md">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
+                className="border border-[var(--border)] cursor-pointer"
+              >
+                <Minus className="w-4 h-4" />
+              </Button>
+              <span className="w-8 text-center">{quantity}</span>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setQuantity((prev) => prev + 1)}
+                className="border border-[var(--border)] cursor-pointer"
+              >
+                <Plus className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
+
           <div>
             <Button
-              onClick={handleAddToCart}
+              onClick={() => handleAddToCart(product)}
               className="cursor-pointer bg-[var(--primary)] text-white hover:bg-blue-600 transition duration-300"
             >
               <ShoppingCart className="w-5 h-5 mr-2" /> Add to Cart

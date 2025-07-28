@@ -153,11 +153,11 @@ const Shop = () => {
                 }`}
               >
                 {filteredProducts.map((product) => (
-                  <Link key={product.id} href={`/product/${product.id}`}>
-                    <Card className="product-card group cursor-pointer border-0 shadow-md hover:shadow-xl transition-all duration-300 py-0">
-                      <CardContent className="p-0">
-                        <div className={viewMode === "list" ? "flex" : ""}>
-                          {/* Image Section */}
+                  <Card className="product-card group cursor-pointer border-0 shadow-md hover:shadow-xl transition-all duration-300 py-0">
+                    <CardContent className="p-0">
+                      <div className={viewMode === "list" ? "flex" : ""}>
+                        {/* Image Section */}
+                        <Link key={product.id} href={`/product/${product.id}`}>
                           <div
                             className={`relative ${
                               viewMode === "list" ? "w-48" : ""
@@ -210,72 +210,68 @@ const Shop = () => {
                               </div>
                             )}
                           </div>
+                        </Link>
+                        {/* Details Section */}
+                        <div
+                          className={`p-6 ${
+                            viewMode === "list" ? "flex-1" : ""
+                          }`}
+                        >
+                          {/* Category */}
+                          <p className="text-xs text-[var(--muted-foreground)] mb-2 uppercase tracking-wide">
+                            {product.category}
+                          </p>
 
-                          {/* Details Section */}
-                          <div
-                            className={`p-6 ${
-                              viewMode === "list" ? "flex-1" : ""
-                            }`}
-                          >
-                            {/* Category */}
-                            <p className="text-xs text-[var(--muted-foreground)] mb-2 uppercase tracking-wide">
-                              {product.category}
-                            </p>
+                          {/* Name */}
+                          <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors">
+                            {product.name}
+                          </h3>
 
-                            {/* Name */}
-                            <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors">
-                              {product.name}
-                            </h3>
-
-                            {/* Rating */}
-                            <div className="flex items-center gap-2 mb-3">
-                              <div className="flex items-center">
-                                {[...Array(5)].map((_, i) => (
-                                  <Star
-                                    key={i}
-                                    className={`w-4 h-4 ${
-                                      i < Math.floor(4.5)
-                                        ? "text-yellow-400 fill-current"
-                                        : "text-gray-300"
-                                    }`}
-                                  />
-                                ))}
-                              </div>
-                              <span className="text-sm text-[var(--muted-foreground)]">
-                                {product.rating} ({product.reviews})
-                              </span>
+                          {/* Rating */}
+                          <div className="flex items-center gap-2 mb-3">
+                            <div className="flex items-center">
+                              {[...Array(5)].map((_, i) => (
+                                <Star
+                                  key={i}
+                                  className={`w-4 h-4 ${
+                                    i < Math.floor(4.5)
+                                      ? "text-yellow-400 fill-current"
+                                      : "text-gray-300"
+                                  }`}
+                                />
+                              ))}
                             </div>
-
-                            {/* Price */}
-                            <div className="flex items-center gap-2 mb-4">
-                              <span className="text-lg font-bold">
-                                KSh {product.price.toLocaleString()}
-                              </span>
-                              {product.originalPrice &&
-                                product.originalPrice > product.price && (
-                                  <span className="text-sm text-[var(--muted-foreground)] line-through">
-                                    KSh {product.originalPrice.toLocaleString()}
-                                  </span>
-                                )}
-                            </div>
-
-                            {/* Add to Cart Button (Bottom) */}
-                            <Button
-                              className={`btn-hover ${
-                                viewMode === "list" ? "w-auto" : "w-full"
-                              } bg-[var(--primary)] text-white cursor-pointer hover:bg-blue-600 transition-colors duration-300`}
-                              disabled={!product.inStock}
-                              onClick={() =>
-                                product.inStock && handleAddToCart(product)
-                              }
-                            >
-                              {product.inStock ? "Add to Cart" : "Out of Stock"}
-                            </Button>
                           </div>
+
+                          {/* Price */}
+                          <div className="flex items-center gap-2 mb-4">
+                            <span className="text-lg font-bold">
+                              KSh {product.price.toLocaleString()}
+                            </span>
+                            {product.originalPrice &&
+                              product.originalPrice > product.price && (
+                                <span className="text-sm text-[var(--muted-foreground)] line-through">
+                                  KSh {product.originalPrice.toLocaleString()}
+                                </span>
+                              )}
+                          </div>
+
+                          {/* Add to Cart Button (Bottom) */}
+                          <Button
+                            className={`btn-hover ${
+                              viewMode === "list" ? "w-auto" : "w-full"
+                            } bg-[var(--primary)] text-white cursor-pointer hover:bg-blue-600 transition-colors duration-300`}
+                            disabled={!product.inStock}
+                            onClick={() =>
+                              product.inStock && handleAddToCart(product)
+                            }
+                          >
+                            {product.inStock ? "Add to Cart" : "Out of Stock"}
+                          </Button>
                         </div>
-                      </CardContent>
-                    </Card>
-                  </Link>
+                      </div>
+                    </CardContent>
+                  </Card>
                 ))}
               </div>
 
