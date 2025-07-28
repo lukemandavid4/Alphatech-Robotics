@@ -23,18 +23,13 @@ const ProductDetails = () => {
   const router = useRouter();
   const { products } = useProduct();
   const { addToCart } = useCart();
-  const [quantity, setQuantity] = useState(1);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [product, setProduct] = useState<any | null>(null);
 
   useEffect(() => {
-    console.log("Product ID from route:", slug);
-    console.log("Products from context:", products);
-
-    if (products && slug) {
-      const found = products.find((p) => String(p.id) === String(slug));
-      setProduct(found);
-    }
+    const productId = Number(slug);
+    const product = products.find((p) => p.id === productId);
+    setProduct(product);
   }, [slug, products]);
 
   if (!product) {
@@ -70,16 +65,10 @@ const ProductDetails = () => {
       name: product.name,
       price: product.price,
       originalPrice: product.originalPrice,
-      image: product.images[0],
+      image: product.images?.[0] ?? "",
       brand: product.brand,
     });
-    toast.success(`${quantity} x ${product.name} added to cart`);
-  };
-
-  const updateQuantity = (newQty: number) => {
-    if (newQty >= 1 && newQty <= product.stockCount) {
-      setQuantity(newQty);
-    }
+    toast.success(`${product.name} added to cart`);
   };
 
   return (
@@ -157,39 +146,12 @@ const ProductDetails = () => {
               {(product.originalPrice - product.price).toLocaleString()}
             </p>
           </div>
-
-          <div className="flex items-center gap-4">
-            <span className="font-medium">Quantity:</span>
-            <div className="flex items-center border rounded-md border border-[var(--border)]">
-              <Button
-                variant="ghost"
-                onClick={() => updateQuantity(quantity - 1)}
-                disabled={quantity <= 1}
-                className="cursor-pointer"
-              >
-                <Minus className="w-4 h-4" />
-              </Button>
-              <span className="px-4">{quantity}</span>
-              <Button
-                variant="ghost"
-                onClick={() => updateQuantity(quantity + 1)}
-                disabled={quantity >= product.stockCount}
-                className="cursor-pointer"
-              >
-                <Plus className="w-4 h-4" />
-              </Button>
-            </div>
-          </div>
-
-          <div className="flex gap-4 mt-6">
-            <Button onClick={handleAddToCart}>
+          <div>
+            <Button
+              onClick={handleAddToCart}
+              className="cursor-pointer bg-[var(--primary)] text-white hover:bg-blue-600 transition duration-300"
+            >
               <ShoppingCart className="w-5 h-5 mr-2" /> Add to Cart
-            </Button>
-            <Button variant="outline">
-              <Heart className="w-5 h-5" />
-            </Button>
-            <Button variant="outline">
-              <Share2 className="w-5 h-5" />
             </Button>
           </div>
 
