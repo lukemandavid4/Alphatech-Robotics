@@ -181,7 +181,7 @@ export const AddProductForm = () => {
                 </SelectContent>
               </Select>
             </div>
-            <div className="space-y-2">
+            {/* <div className="space-y-2">
               <Label htmlFor="stock">Stock Quantity</Label>
               <Input
                 id="stock"
@@ -191,7 +191,7 @@ export const AddProductForm = () => {
                 placeholder="0"
                 className="border border-[var(--border)]"
               />
-            </div>
+            </div> */}
             <div className="space-y-2 md:col-span-2">
               <Label htmlFor="image">Image URL</Label>
               <Input
@@ -212,8 +212,7 @@ export const AddProductForm = () => {
                   handleInputChange("description", e.target.value)
                 }
                 placeholder="Enter product description"
-                rows={4}
-                className="border border-[var(--border)] w-full rounded-[0.5rem] p-2"
+                className="border border-[var(--border)] w-full rounded-[0.5rem] p-2 resize-none h-[8rem]"
               />
             </div>
           </div>
