@@ -37,7 +37,11 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const stored = localStorage.getItem("sellerProducts");
     if (stored) {
-      setProducts(JSON.parse(stored));
+      const parsed = JSON.parse(stored);
+      console.log("Loaded products from localStorage:", parsed); // ← Add this
+      setProducts(parsed);
+    } else {
+      console.log("No products found in localStorage");
     }
   }, []);
 
