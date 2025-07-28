@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Slider } from "@/components/ui/slider";
 import { Star, Filter, Grid, List, ShoppingCart } from "lucide-react";
 import { useCart } from "@/app/ui/cartContext/CartContext";
 import { useProduct } from "@/app/ui/productContext/ProductContext";
@@ -12,9 +13,12 @@ import Link from "next/link";
 
 const Shop = () => {
   const [viewMode, setViewMode] = useState("grid");
+  const [priceRange, setPriceRange] = useState([0, 50000]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const { addToCart } = useCart();
   const { products } = useProduct();
+  const queryParams = new URLSearchParams(location.search);
+  const searchTerm = queryParams.get("search")?.toLowerCase() ?? "";
 
   const categories = [
     "Smartphones",
@@ -54,14 +58,28 @@ const Shop = () => {
 
   const handleClearFilters = () => {
     setSelectedCategories([]);
+    setPriceRange([0, 50000]);
   };
 
-  const filteredProducts =
-    selectedCategories.length > 0
-      ? products.filter((product) =>
-          selectedCategories.includes(product.category)
-        )
-      : products;
+  // --- Filter products based on search ---
+  const filteredProducts = products.filter((product) => {
+    // Filter by category if set
+    const matchesCategory =
+      selectedCategories.length === 0 ||
+      selectedCategories.includes(product.category);
+
+    // Filter by price range
+    const matchesPrice =
+      product.price >= priceRange[0] && product.price <= priceRange[1];
+
+    // Filter by search term (in name or brand)
+    const matchesSearch =
+      !searchTerm ||
+      product.name.toLowerCase().includes(searchTerm) ||
+      product.brand.toLowerCase().includes(searchTerm);
+
+    return matchesCategory && matchesPrice && matchesSearch;
+  });
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -107,6 +125,22 @@ const Shop = () => {
                           </label>
                         </div>
                       ))}
+                    </div>
+                    <div className="mb-6">
+                      <h4 className="font-medium mb-3">Price Range</h4>
+                      <div className="px-2">
+                        <Slider
+                          value={priceRange}
+                          onValueChange={setPriceRange}
+                          max={50000}
+                          step={1000}
+                          className="mb-2 bg-[var(--primary)] cursor-pointer"
+                        />
+                        <div className="flex justify-between text-sm text-[var(--muted-foreground)]">
+                          <span>KSh {priceRange[0].toLocaleString()}</span>
+                          <span>KSh {priceRange[1].toLocaleString()}</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <Button
