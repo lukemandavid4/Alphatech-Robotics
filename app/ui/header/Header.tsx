@@ -5,14 +5,15 @@ import { Cpu, Search, ShoppingCart, Menu, X, User, Store } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCart } from "@/app/ui/cartContext/CartContext";
-import { useUser, UserButton } from "@clerk/nextjs";
+import { SignedIn, useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const { getTotalItems } = useCart();
-  const { isSignedIn } = useUser();
+  const { isSignedIn, user } = useUser();
+  const role = user?.publicMetadata?.role;
   const router = useRouter();
 
   const navigation = [
@@ -89,12 +90,16 @@ const Header = () => {
                 <span>Login</span>
               </Link>
             )}
-            <Button className="cursor-pointer">
-              <Link href="/seller-dashboard" className="flex gap-4">
-                <Store />
-                <span>Seller</span>
-              </Link>
-            </Button>
+            <SignedIn>
+              {role === "admin" && (
+                <Button className="cursor-pointer">
+                  <Link href="/seller-dashboard" className="flex gap-4">
+                    <Store />
+                    <span>Seller</span>
+                  </Link>
+                </Button>
+              )}
+            </SignedIn>
             <Button variant="ghost" size="sm" className="relative" asChild>
               <Link href="/cart">
                 <ShoppingCart className="w-4 h-4" />
