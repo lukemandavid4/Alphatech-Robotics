@@ -44,19 +44,6 @@ const Shop = () => {
     addToCart(product);
   };
 
-  const getBadgeVariant = (badge: string) => {
-    switch (badge) {
-      case "Sale":
-        return "destructive";
-      case "New":
-        return "default";
-      case "Best Seller":
-        return "secondary";
-      default:
-        return "outline";
-    }
-  };
-
   const handleClearFilters = () => {
     setSelectedCategories([]);
     setPriceRange([0, 50000]);
@@ -197,7 +184,6 @@ const Shop = () => {
                   >
                     <CardContent className="p-0">
                       <div className={viewMode === "list" ? "flex" : ""}>
-                        {/* Image Section */}
                         <Link href={`/product/${product.id}`}>
                           <div
                             className={`relative ${
@@ -217,58 +203,29 @@ const Shop = () => {
                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                               />
                             </div>
-
-                            {/* Badge */}
-                            {product.badge && (
-                              <Badge
-                                variant={getBadgeVariant(product.badge)}
-                                className="absolute top-3 left-3 bg-amber-600 text-white border-0"
-                              >
-                                {product.badge}
-                              </Badge>
-                            )}
-
-                            {/* Add to Cart Floating */}
-                            {product.inStock ? (
-                              <Button
-                                size="sm"
-                                className="absolute top-3 right-3 opacity-0 bg-[var(--primary)] text-white group-hover:opacity-100 transition-opacity duration-200 cursor-pointer"
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  handleAddToCart(product);
-                                }}
-                              >
-                                <ShoppingCart className="w-4 h-4" />
-                              </Button>
-                            ) : (
-                              <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-t-lg">
-                                <Badge
-                                  variant="destructive"
-                                  className="bg-amber-600"
-                                >
-                                  Out of Stock
-                                </Badge>
-                              </div>
-                            )}
+                            <Button
+                              size="sm"
+                              className="absolute top-3 right-3 opacity-0 bg-[var(--primary)] text-white group-hover:opacity-100 transition-opacity duration-200 cursor-pointer"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                handleAddToCart(product);
+                              }}
+                            >
+                              <ShoppingCart className="w-4 h-4" />
+                            </Button>
                           </div>
                         </Link>
-                        {/* Details Section */}
                         <div
                           className={`p-6 ${
                             viewMode === "list" ? "flex-1" : ""
                           }`}
                         >
-                          {/* Category */}
                           <p className="text-xs text-[var(--muted-foreground)] mb-2 uppercase tracking-wide">
                             {product.category}
                           </p>
-
-                          {/* Name */}
                           <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors">
                             {product.name}
                           </h3>
-
-                          {/* Rating */}
                           <div className="flex items-center gap-2 mb-3">
                             <div className="flex items-center">
                               {[...Array(5)].map((_, i) => (
@@ -283,8 +240,6 @@ const Shop = () => {
                               ))}
                             </div>
                           </div>
-
-                          {/* Price */}
                           <div className="flex items-center gap-2 mb-4">
                             <span className="text-lg font-bold">
                               KSh {product.price.toLocaleString()}
@@ -296,18 +251,13 @@ const Shop = () => {
                                 </span>
                               )}
                           </div>
-
-                          {/* Add to Cart Button (Bottom) */}
                           <Button
                             className={`btn-hover ${
                               viewMode === "list" ? "w-auto" : "w-full"
                             } bg-[var(--primary)] text-white cursor-pointer hover:bg-blue-600 transition-colors duration-300`}
-                            disabled={!product.inStock}
-                            onClick={() =>
-                              product.inStock && handleAddToCart(product)
-                            }
+                            onClick={() => handleAddToCart(product)}
                           >
-                            {product.inStock ? "Add to Cart" : "Out of Stock"}
+                            Add to Cart
                           </Button>
                         </div>
                       </div>
@@ -315,8 +265,6 @@ const Shop = () => {
                   </Card>
                 ))}
               </div>
-
-              {/* Pagination */}
               <div className="flex justify-center mt-12">
                 <div className="flex space-x-2">
                   <Button variant="outline" disabled>

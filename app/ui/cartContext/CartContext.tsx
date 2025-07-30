@@ -47,6 +47,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       if (existingItem) {
         toast.warning(`${product.name} is already in your cart`);
         return prevItems;
+      } else {
+        toast.success(`${product.name} added to your cart`);
       }
 
       return [...prevItems, { ...product, quantity: 1 }];
