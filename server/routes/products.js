@@ -1,28 +1,23 @@
 const express = require("express");
-const multer = require("multer");
-const { storage } = require("../utils/cloudinary");
+const router = express.Router();
 const Product = require("../models/product");
 
-const upload = multer({ storage });
-
-const router = express.Router();
-
-router.post("/upload", upload.single("image"), async (req, res) => {
+router.get("/", async (req, res) => {
   try {
-    const { name, price, description } = req.body;
+    const products = await Product.find(); // MongoDB
+    res.json(products);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch products" });
+  }
+});
 
-    const product = new Product({
-      name,
-      price,
-      description,
-      imageUrl: req.file.path, // Cloudinary URL
-    });
-
-    await product.save();
-    res.status(201).json({ success: true, data: product });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, error: "Upload failed" });
+router.post("/", async (req, res) => {
+  try {
+    const newProduct = new Product(req.body);
+    const saved = await newProduct.save();
+    res.status(201).json(saved);
+  } catch (err) {
+    res.status(400).json({ error: "Failed to save product" });
   }
 });
 

@@ -60,7 +60,6 @@ export const AddProductForm = () => {
         parseFloat(formData.originalPrice) || parseFloat(formData.price),
       createdAt: new Date().toISOString(),
       rating: 0,
-      badge: undefined,
     };
 
     addProduct(newProduct);

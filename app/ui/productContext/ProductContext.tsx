@@ -31,22 +31,31 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    const stored = localStorage.getItem("sellerProducts");
-    if (stored) {
-      const parsed = JSON.parse(stored);
-      console.log("Loaded products from localStorage:", parsed);
-      setProducts(parsed);
-    } else {
-      console.log("No products found in localStorage");
-    }
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/products");
+        const data = await res.json();
+        setProducts(data);
+      } catch (error) {
+        console.error("Failed to fetch products", error);
+      }
+    };
+
+    fetchProducts();
   }, []);
 
-  const addProduct = (product: Product) => {
-    setProducts((prev) => {
-      const updated = [...prev, product];
-      localStorage.setItem("sellerProducts", JSON.stringify(updated));
-      return updated;
-    });
+  const addProduct = async (product: Product) => {
+    try {
+      const res = await fetch("http://localhost:5000/api/products", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(product),
+      });
+      const savedProduct = await res.json();
+      setProducts((prev) => [...prev, savedProduct]);
+    } catch (error) {
+      console.error("Failed to add product", error);
+    }
   };
 
   return (
