@@ -20,7 +20,6 @@ interface Product {
   originalPrice: number;
   category: string;
   brand: string;
-  stock: number;
   image: string;
   description: string;
   createdAt: string;
@@ -108,20 +107,6 @@ export const ProductsList = () => {
                         </p>
                       )}
                     </div>
-                  </TableCell>
-                  <TableCell>
-                    <Badge
-                      variant={product.stock > 0 ? "default" : "destructive"}
-                    >
-                      {product.stock} units
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    <Badge
-                      variant={product.stock > 0 ? "default" : "secondary"}
-                    >
-                      {product.stock > 0 ? "In Stock" : "Out of Stock"}
-                    </Badge>
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">

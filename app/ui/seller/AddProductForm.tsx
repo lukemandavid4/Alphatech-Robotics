@@ -22,7 +22,6 @@ interface ProductFormData {
   category: string;
   brand: string;
   image: string;
-  stock: string;
 }
 
 export const AddProductForm = () => {
@@ -35,7 +34,6 @@ export const AddProductForm = () => {
     category: "",
     brand: "",
     image: "",
-    stock: "",
   });
 
   const handleInputChange = (field: keyof ProductFormData, value: string) => {
@@ -45,7 +43,6 @@ export const AddProductForm = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Basic validation
     if (!formData.name || !formData.price || !formData.category) {
       toast.error("Please fill in all required fields");
       return;
@@ -61,16 +58,12 @@ export const AddProductForm = () => {
       price: parseFloat(formData.price),
       originalPrice:
         parseFloat(formData.originalPrice) || parseFloat(formData.price),
-      stock: parseInt(formData.stock) || 0,
       createdAt: new Date().toISOString(),
       rating: 0,
-      reviews: 0,
       badge: undefined,
-      inStock: (parseInt(formData.stock) || 0) > 0,
     };
 
     addProduct(newProduct);
-    // Save to localStorage
     const updatedProducts = [...existingProducts, newProduct];
     localStorage.setItem("sellerProducts", JSON.stringify(updatedProducts));
 
@@ -84,7 +77,6 @@ export const AddProductForm = () => {
       category: "",
       brand: "",
       image: "",
-      stock: "",
     });
   };
 
@@ -181,17 +173,6 @@ export const AddProductForm = () => {
                 </SelectContent>
               </Select>
             </div>
-            {/* <div className="space-y-2">
-              <Label htmlFor="stock">Stock Quantity</Label>
-              <Input
-                id="stock"
-                type="number"
-                value={formData.stock}
-                onChange={(e) => handleInputChange("stock", e.target.value)}
-                placeholder="0"
-                className="border border-[var(--border)]"
-              />
-            </div> */}
             <div className="space-y-2 md:col-span-2">
               <Label htmlFor="image">Image URL</Label>
               <Input
