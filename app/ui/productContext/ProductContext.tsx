@@ -33,7 +33,9 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/products");
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/products`
+        );
         const data = await res.json();
         setProducts(data);
       } catch (error) {
@@ -46,11 +48,14 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
 
   const addProduct = async (product: Product) => {
     try {
-      const res = await fetch("http://localhost:5000/api/products", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(product),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/products`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(product),
+        }
+      );
       const savedProduct = await res.json();
       setProducts((prev) => [...prev, savedProduct]);
     } catch (error) {
