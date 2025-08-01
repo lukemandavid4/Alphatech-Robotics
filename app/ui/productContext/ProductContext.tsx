@@ -6,7 +6,7 @@ import React, {
   ReactNode,
   useEffect,
 } from "react";
-import { CartItem } from "../cartContext/CartContext"; // Reuse type
+import { CartItem } from "../cartContext/CartContext";
 
 type Product = Omit<CartItem, "quantity"> & {
   id: number;
@@ -17,11 +17,7 @@ type Product = Omit<CartItem, "quantity"> & {
   category: string;
   brand: string;
   image: string;
-  stock: number;
   rating: number;
-  reviews: number;
-  badge?: string;
-  inStock: boolean;
 };
 
 type ProductContextType = {
@@ -38,7 +34,7 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
     const stored = localStorage.getItem("sellerProducts");
     if (stored) {
       const parsed = JSON.parse(stored);
-      console.log("Loaded products from localStorage:", parsed); // ← Add this
+      console.log("Loaded products from localStorage:", parsed);
       setProducts(parsed);
     } else {
       console.log("No products found in localStorage");
