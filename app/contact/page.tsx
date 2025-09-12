@@ -31,7 +31,7 @@ const page = () => {
               <div className="flex flex-col">
                 <span className="font-semibold text-[0.9rem]">Phone</span>
                 <span className="text-[var(--muted-foreground)] text-[0.9rem]">
-                  +254 781 977 022
+                  +1 628 229-2605
                 </span>
               </div>
             </div>
@@ -69,7 +69,7 @@ const page = () => {
               <div className="flex flex-col">
                 <span className="font-semibold text-[0.9rem]">Location</span>
                 <span className="text-[var(--muted-foreground)] text-[0.9rem]">
-                  Thika, Kenya
+                  460 Collingwood St, San Francisco, California 94114
                 </span>
               </div>
             </div>
